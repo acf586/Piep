@@ -1,10 +1,24 @@
-MS Einleitung
+﻿MS Einleitung
 
 MS Projektziel
 
+Die Software soll im Hauptmenü starten wo der Benutzer zwischen den zwei Spielmodi auswählen kann oder auf eine Hilfe Seite kommen in der das Spiel erklärt wird. 
+Der erste Modus soll eine Art Sound Memorie wo ein Ton abgespielt werden soll und der Spieler Memorie artig sich die Töne unter den Karten merken muss und dann die richige Karte umdrehen.
+Hinzukommen soll der Spieler auch die möglichkeit bekommen eigene Soundeffekte für das Sound Memorie aufzunehmen und zu abzuspeichern.  
+Der zweite Modus ist eine Art Hühnchen Jagd sein. Man hört über die Kopfhörer ob das Hühnchen sich unter der vorderen, linken oder rechten Karte sich befindet und nach einer bestimmten Zeit
+läuft das Hühnchen zur nächsten Karte und macht dabei Geräuche mit neuen Positionsinformationen. 
+
 MS Anforderungsanalyse
 
+Ein Web Spiel mit Sound, wobei man anhand des Gedächtnisses den richtigen Ton finden muss, wobei man noch eigene Töne einspielen kann, oder anhand der Tonrichtung und -lautstärke die richtige Karte auswählen muss.
+Das Hauptziel des Spiel ist es Spaß zu machen. 
+
 MS technische Rahmenbedingungen
+
+Die Programmiersprache die wir gewählt haben ist Javascript. Diese wollen wir in einer HTML Seite, die durch CSS gestylt wird, implementieren.
+In Javascript wollen wir die Web Audio API und die Recorder.js Library benutzen. 
+Die Programmierarbeit wollen wir auf Windows Desktop und Laptop Computern machen. 
+
 Hünchen läuft im Raster in x und y Richtung
 
 CS technisches Konzept
