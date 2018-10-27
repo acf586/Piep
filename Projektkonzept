@@ -1,5 +1,11 @@
 ﻿MS Einleitung
 
+Der Name des Projekts ist Geräusch Memorie und soll eine Spiele Software werden.
+Diese Software wird für das Studienfach Audio-Video-Programmierung entwickelt und ist eine Prüfungsleistung zum bestehen des Studienfaches.
+Es wird mit der in der Vorlesung gezeigten Web Audio API gebaut. 
+
+
+
 MS Projektziel
 
 Die Software soll im Hauptmenü starten wo der Benutzer zwischen den zwei Spielmodi auswählen kann oder auf eine Hilfe Seite kommen in der das Spiel erklärt wird. 
