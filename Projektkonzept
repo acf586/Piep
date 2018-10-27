@@ -31,8 +31,8 @@ CS technisches Konzept
 
 CS Bedienkonzept
 
-Die Software soll über Touch bedienbar sein.
-Die Software ist einen aufklappbaren Menubreich, eine quadratische Spielfläche und eine Steuerungsfläche eingeteilt.
+Die Software soll über Touch bedienbar sein. ?Spielmodi 2 über Kopfhörer?
+Die Software ist einen aufklappbaren Menubereich, eine quadratische Spielfläche und eine Steuerungsfläche eingeteilt.
 Der Menubereich wir durch klicken auf Menu, in die Menuoberfläche eingeschoben.
 Im Menu wird zwischen den unterschiedlichen Spielmodi gewechselt und es besteht zusätzlich die Möglichkeit Einstellungen hervorzunnehmen.
 Die Einstellungen beziehen sich auf die Wiedergabe der Geräusche. Diese können einerseits
@@ -40,36 +40,32 @@ verzerrt ausgegeben werden und der User hat die Möglichkeit für alle Spielfeld
 Wird einer Spielmodi 1, Spielmodi 2 oder eigene Geräusche aufnhemen ausgewählt, wird das Hauptmenu ausgeblendet und das Standard Spielfeld angezeigt.
 
 Spielmodi 1:
-Der User startet den Spielmodi 1 über den Button mit der Bezeichung Play. Die Geräusche werden zufällig auf die Felder verteilt. Das Verteilen wird dem User optische und akustisch angezeigt. Dafür werden alle Geräusche um eine Faktor beschleunigt, zufällig, nacheinander abgespielt.
+Der User startet den Spielmodi 1 über den Button mit der Bezeichung Play. Die Geräusche werden zufällig auf die Felder verteilt. Das Verteilen wird dem User optische und akustisch angezeigt.
+Dafür werden alle Geräusche um eine Faktor beschleunigt, zufällig, nacheinander abgespielt.
 Das Abspielen wird durch ein Aufleuchten des entsprechenden Felds verdeutlicht. Der Play Button wechselt die Bezeichung in Next. Der Aufruf von Next löst eine zufällige Wiedergabe eines Geräusches aus.
 Der User hat einen Versuch, durch anwählen eines Feldes die Position des Geräsusches zu erraten. Bei negativen Versuch wird ein Fehlversuch Geräusch gespielt.
 Bei positiven Versuch ein Erfolgsgeräusch und anschließend wird das Feld farbig markiert. Das Spiel wird so lange fortgesetzt bis der Spieler die Position von allen Geräuschen erraten hat.
 
 Spielmodi 2:
 Der User startet den Spielmodi 2 über den Button mit der Bezeichnung Play. Dem User wird optisch und akustisch signalisiert unter welchem Feld sich der Spielfigur befindet. Das Startgeräusche der Spielfigur gespielt
-und das entsprechende Feld leuchtet auf. Danach wir das Zielfeld zufällig von der Software ausgewählt und die Spielfigur bewegt sich nicht sichtbar im X,Y Raster des Spielfeldes in Richtung Zielfeld. Die akustische Position des User ist in mittig unter dem Spielfeld.
+und das entsprechende Feld leuchtet auf. Danach wir das Zielfeld zufällig von der Software ausgewählt und die Spielfigur bewegt sich nicht sichtbar im X,Y Raster des Spielfeldes in Richtung Zielfeld.
+Die akustische Position des User ist in mittig unter dem Spielfeld.
 Die Bewgung der Spielfigur wird dem User durch ein Verändern des Bewegungsgeräusches der Spielfigur in Abhängigkeit seiner Position zum User angezeigt. Erreicht die Spielfigur das Zielfeld, ertönt das Endgeräusch der Spielfigur.
 Der Spieler hat die Möglichkeit durch anwählen eines Feldes, die Position der Spielfigur zu erraten. Bei Erfolg ertönt ein Erfolgsgeräusch und dsa Feld leuchtet kurz auf. Bei Misserfolg ertönt ein Fehlversuch Geräusch.
 In beiden Fällen startet der Vorgang des Spielmodi 2 erneut.
 
-eigene Geräusche aufnehmen
+Spiellmodi 3
+Eigene Geräusche aufnehmen:
 Im Modus eigene Geräusche aufnehmen wird zusätzlich der Button Aufnahme angezeigt. Wird dieser aktiviert, startet die Soundaufnahmen für das erste Feld.
 Für diese steht eine begrenzte Zeit ca. 1-2 sec zur Verfügung, die dem Spieler durch eine Tortengrafik innerhalb des Buttons angezeigt wird.
 Ist die Zeit abgelaufen, springt die Software automatisch zum nächsten Button und startet für diesen die Soundaufnahme.
 Dieser Vorgang wird fortgesetzt, bis alle Felder eine eigene Soundaufnahme erhalten haben.
 Danach ändert sich die Bezeichnung des Buttons von Aufnahme in Play und das Spielprinzip aus Spielmodi 1 wird gestartet.
 
-äußere Erscheinungsbild der Software dar und ist 
-deshalb gut vorstellbar.
-
-Sie sollten beschreiben, wie die Bedienung der Software geschieht. Was ist über ein 
-Userinterfa
-ce einstellbar? Welche Parameter kann ich in Echtzeit verändern? Gibt es 
-unterschiedliche 
-Zustände
-
-Oberfläche?
-Zeichnungen von Benutzeroberflächen
+Verzerrung:
+Über den Menüpunkt Verzerrung hat der User die Möglichkeit mit Hilfe mehrerer Buttons den Pitch der Geräusche zu verstellen oder ihn auf Normal zu stellen.
+Erfolgt eine Auswahl, so schließt sich das MEnü automatisch.
+Die Verzerrung kann jederzeit in innerhlab der Spielmodi erfolgen.
 
 CS Zeitplan
 
