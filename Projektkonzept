@@ -54,8 +54,8 @@ Die Bewgung der Spielfigur wird dem User durch ein Verändern des Bewegungsgerä
 Der Spieler hat die Möglichkeit durch anwählen eines Feldes, die Position der Spielfigur zu erraten. Bei Erfolg ertönt ein Erfolgsgeräusch und dsa Feld leuchtet kurz auf. Bei Misserfolg ertönt ein Fehlversuch Geräusch.
 In beiden Fällen startet der Vorgang des Spielmodi 2 erneut.
 
-Spiellmodi 3
-Eigene Geräusche aufnehmen:
+Spiellmodi 3:
+(Eigene Geräusche aufnehmen)
 Im Modus eigene Geräusche aufnehmen wird zusätzlich der Button Aufnahme angezeigt. Wird dieser aktiviert, startet die Soundaufnahmen für das erste Feld.
 Für diese steht eine begrenzte Zeit ca. 1-2 sec zur Verfügung, die dem Spieler durch eine Tortengrafik innerhalb des Buttons angezeigt wird.
 Ist die Zeit abgelaufen, springt die Software automatisch zum nächsten Button und startet für diesen die Soundaufnahme.
