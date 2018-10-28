@@ -1,10 +1,8 @@
-﻿MS Einleitung
+MS Einleitung
 
 Der Name des Projekts ist Geräusch Memorie und soll eine Spiele Software werden.
 Diese Software wird für das Studienfach Audio-Video-Programmierung entwickelt und ist eine Prüfungsleistung zum bestehen des Studienfaches.
 Es wird mit der in der Vorlesung gezeigten Web Audio API gebaut. 
-
-
 
 MS Projektziel
 
@@ -34,7 +32,12 @@ Die Programmierarbeit wird auf Windows Desktop und Laptop Computern gemacht.
 
 CS technisches Konzept
 
-
+Die Software besteht aus einer Hauptansicht gesteuert von der Klasse Main. Hier wird die Spielvariante durch das Strategie Muster festgelegt.
+Beim Start ist dieses mit dem Spielmodi 1 initialisiert.
+Main definiert die ActionListener der Steuerungselemente des Menus, die zu jedem Zeitpunkt des Spiels aufgerufen werden können.
+Über die ActionListener wird einerseits durch die Methode setGamestrategy zwischen den einzelnen Spielmodi gewechselt und
+andererseits kann über die Methode setNoise eine Verzerrung der Geräusche eingestellt werden.
+Die Methode gameLoop ist die Hauptschleife der Software, die mit einer der gewählten Spielvariante gestartet wird.
 
 CS Bedienkonzept
 
