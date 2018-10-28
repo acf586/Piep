@@ -16,18 +16,25 @@ läuft das Hühnchen zur nächsten Karte und macht dabei Geräuche mit neuen Pos
 
 MS Anforderungsanalyse
 
-Ein Web Spiel mit Sound, wobei man anhand des Gedächtnisses den richtigen Ton finden muss, wobei man noch eigene Töne einspielen kann, oder anhand der Tonrichtung und -lautstärke die richtige Karte auswählen muss.
-Das Hauptziel des Spiel ist es Spaß zu machen. 
+Ein Web Audio Spiel mit verschiedenen Spielmodis. 
+Der erste Spielmodi spielt bearbeitete Geräusche ab, die dann gefunden werden müssen, in einem 3 x 3 Kartenfeld. Ähnlich wie in Memorie, bloß das nur eine Karte anhand des Ausgegebenen Geräuschs gefunden werden muss.
+Dafür wird das Gedächtnis gefordert um sich einzuprägen wo sich welches Geräusch befindet. 
+Im zweiten Spielmodi Hört man über die Stereo Geräusche wo sich ein Hühnchen befindet, welches unter den neun Karten, im 3 x 3 Feld, gefunden werden will. 
+Die Position des Hühnchens wird über den Gain und das Panning des Geräuschs angezeigt.
+Im dritten Modus kann man eigene Sounds aufnehmen und bearbeiten, welche dann in den ersten Spielmodus eingesetzt werden.
 
 MS technische Rahmenbedingungen
 
-Die Programmiersprache die wir gewählt haben ist Javascript. Diese wollen wir in einer HTML Seite, die durch CSS gestylt wird, implementieren.
-In Javascript wollen wir die Web Audio API und die Recorder.js Library benutzen. 
-Die Programmierarbeit wollen wir auf Windows Desktop und Laptop Computern machen. 
-
-Hünchen läuft im Raster in x und y Richtung
+Die Programmiersprache die gewählt wurde ist Javascript. 
+Diese wird in einer HTML Seite, die durch CSS gestylt wird, implementieren.
+In Javascript wollen werden die Web Audio API und die Recorder.js Library benutzen. 
+Dabei wird die Web Audio API benutzt um die Geräusche auszugeben, zu verzerren und zu pitchen, die Recorder.js Library um eigene Geräusche aufzunehmen, die wiederum dann wieder durch die Web Audio API verändert werden. 
+Für die richtige Darstellung der Geräusche und deren Position braucht man entweder Stereo Lautsprecher oder Stereofähige Lautsprecher. 
+Die Programmierarbeit wird auf Windows Desktop und Laptop Computern gemacht. 
 
 CS technisches Konzept
+
+
 
 CS Bedienkonzept
 
