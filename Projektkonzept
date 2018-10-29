@@ -16,6 +16,27 @@ Der dritte Modus gestaltet sich wie der erste Modus, bloß hier kann man seine e
 
 MS Anforderungsanalyse
 
+Die Spielmodis müssen die Möglichkeit bieten es aus einem Blick verstehen zu können.
+Dafür wird die Symbolik auf den europäischen Markt ausgelegt, die Steuerung intuitiv gestaltet 
+und die Anordnung der Elemente in den verschieden Spielmodis nach einem festen Muster geschehen.
+Das Spiel wird auf mobilen Endgeräten lauffähig sein.  
+
+
+
+
+Das System soll dem Benutzer die Möglichkeit bieten es ohne Erklärungen zu bedienen und zu verstehen.
+Damit das System dieses Ziel erreicht, wird die Symbolik der Software für den europäischen Markt ausgelegt.
+Dieses System muss Lauffähig auf mobilen Endgeräten, wie Smartphones oder Tablets, sein.
+
+
+
+Das System soll ein einfach verständliches Menü und Interface aufweisen, damit ein neuer Benutzer das komplette Menü in wenigen Sekunden verstanden und überblickt hat. 
+Dabei muss das System auch in den verschiedenen Spielmodis intuitiv bedienbar sein und am besten ohne große Erklärungen auskommen.
+Hierbei kommt dazu, dass das System auch auf mobilen Endgeräten, wie zum Beispiel Tablets oder Smartphones, stabil laufen soll.
+Im dritten Spielmodus muss durch einfache Symbole erkenntlich sein was der Aufnahme Knopf macht und dies auch beibehält wenn die Aufnahme gestartet wird. 
+
+
+
 Ein Web Audio Spiel mit verschiedenen Spielmodis. 
 Der erste Spielmodi spielt bearbeitete Geräusche ab, die dann gefunden werden müssen, in einem 3 x 3 Kartenfeld. Ähnlich wie in Memorie, bloß das nur eine Karte anhand des Ausgegebenen Geräuschs gefunden werden muss.
 Dafür wird das Gedächtnis gefordert um sich einzuprägen wo sich welches Geräusch befindet. 
@@ -26,12 +47,18 @@ Im dritten Modus kann man eigene Sounds aufnehmen und bearbeiten, welche dann in
 MS technische Rahmenbedingungen
 
 Die Programmiersprache die gewählt wurde ist Javascript. 
-Diese wird in einer HTML Seite, die durch CSS gestylt wird, implementieren.
-In Javascript wollen werden die Web Audio API und die Recorder.js Library benutzen. 
-Dabei wird die Web Audio API benutzt um die Geräusche auszugeben, zu verzerren und zu pitchen, die Recorder.js Library um eigene Geräusche aufzunehmen, die wiederum dann wieder durch die Web Audio API verändert werden. 
-Für die richtige Darstellung der Geräusche und deren Position braucht man entweder Stereo Lautsprecher oder Stereofähige Kopfhörer.
-Die Programmierarbeit wird auf Windows Desktop und Laptop Computern gemacht. 
+Diese wird in einer HTML Seite, die durch CSS gestylt wird, implementiert.
+Für das Programmieren in Javascript werden die Web Audio API und die Recorder.js Bibliothek verwendet. 
+Dabei wird die Web Audio API genutzt um die Geräusche auszugeben und zu verzerren.
+Für alle Spielmodis wird die Oscillator Node verwendet um die Geräusche zu verzerren.
+Für den zweiten Spielmodus werden die Gain und Panner Node benutzt um die Position der Geräusch im zweidimensionalen Raum dazustellen.
+Die Recorder.js Library wird genutzt um eigene Geräusche aufzunehmen, zu diesem Zeitpunkt können wir den Aufwand nicht richtig einschätzen, da uns die Praxis mit dieser Bibliothek fehlt.
+Um die Geräusche korrekt wiederzugeben und ihre Position korrekt dazustellen, werden Stereo Kopfhörer verwendet.
+Für die Programmierarbeit werden Windows Computer verwendet.
 
+
+
+/* Technische Rahmenbedingung 3D Sound (Gain Panner), Recorder.js noch unerfahren vlt Probleme, Richtige Node für Verwendung zur verzerrung */
 CS technisches Konzept
 
 Die Software besteht aus einer Hauptansicht gesteuert von der Klasse Main. Hier wird die Spielvariante durch das Strategie Muster festgelegt.
