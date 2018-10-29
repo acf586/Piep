@@ -1,4 +1,4 @@
-MS Einleitung
+﻿MS Einleitung
 
 Der Name des Projekts ist Geräusch Memorie und soll eine Spiele Software werden.
 Diese Software wird für das Studienfach Audio-Video-Programmierung entwickelt und ist eine Prüfungsleistung zum bestehen des Studienfaches.
@@ -27,7 +27,7 @@ Die Programmiersprache die gewählt wurde ist Javascript.
 Diese wird in einer HTML Seite, die durch CSS gestylt wird, implementieren.
 In Javascript wollen werden die Web Audio API und die Recorder.js Library benutzen. 
 Dabei wird die Web Audio API benutzt um die Geräusche auszugeben, zu verzerren und zu pitchen, die Recorder.js Library um eigene Geräusche aufzunehmen, die wiederum dann wieder durch die Web Audio API verändert werden. 
-Für die richtige Darstellung der Geräusche und deren Position braucht man entweder Stereo Lautsprecher oder Stereofähige Lautsprecher. 
+Für die richtige Darstellung der Geräusche und deren Position braucht man entweder Stereo Lautsprecher oder Stereofähige Kopfhörer.
 Die Programmierarbeit wird auf Windows Desktop und Laptop Computern gemacht. 
 
 CS technisches Konzept
