@@ -1,16 +1,18 @@
 ﻿MS Einleitung
 
-Der Name des Projekts ist Geräusch Memorie und soll eine Spiele Software werden.
-Diese Software wird für das Studienfach Audio-Video-Programmierung entwickelt und ist eine Prüfungsleistung zum bestehen des Studienfaches.
-Es wird mit der in der Vorlesung gezeigten Web Audio API gebaut. 
+Der Name des Projekts ist Geräusche Memorie und wird eine Spiele Software sein.
+Sie wird für eine Ausstellung im Rahmen der Vorlesung Audio-Video-Programmierung entwickelt und am Ende mit einem Plakat und einer Live Demo präsentiert.
+Hinzu kommt noch eine schriftliche technische Dokumentation des Projekts.
+Im Rahmen dieser Vorlesung wurde die Web Audio API vorgestellt, welche in diesem Projekt verwendet wird.
 
 MS Projektziel
 
-Die Software soll im Hauptmenü starten wo der Benutzer zwischen den zwei Spielmodi auswählen kann oder auf eine Hilfe Seite kommen in der das Spiel erklärt wird. 
+Die Software soll im Hauptmenü starten wo der Benutzer zwischen den drei Spielmodi auswählen kann oder auf eine Hilfe Seite kommen, in der das Spiel erklärt wird. 
 Der erste Modus soll eine Art Sound Memorie wo ein Ton abgespielt werden soll und der Spieler Memorie artig sich die Töne unter den Karten merken muss und dann die richige Karte umdrehen.
 Hinzukommen soll der Spieler auch die möglichkeit bekommen eigene Soundeffekte für das Sound Memorie aufzunehmen und zu abzuspeichern.  
 Der zweite Modus ist eine Art Hühnchen Jagd sein. Man hört über die Kopfhörer ob das Hühnchen sich unter der vorderen, linken oder rechten Karte sich befindet und nach einer bestimmten Zeit
 läuft das Hühnchen zur nächsten Karte und macht dabei Geräuche mit neuen Positionsinformationen. 
+Der dritte Modus gestaltet sich wie der erste Modus, bloß hier kann man seine eigenen Geräusche aufnehmen und bearbeiten.
 
 MS Anforderungsanalyse
 
