@@ -69,14 +69,14 @@
 }
 
 #game #game-container div{
-    box-sizing: border-box;
+    //box-sizing: border-box;
     
     border: 2px solid black;
     height: 0;
     width: 8vw;
     padding-bottom: 8vw;
     border-radius: 50%;
-    
+
     background-position: center;
     background-size: auto;
     background-repeat: no-repeat;
