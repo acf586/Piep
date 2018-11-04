@@ -1,0 +1,118 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+    
+    font-family: sans-serif;
+    
+    overflow-y: hidden;
+}
+
+#gameContainer{
+    height: 100%;
+    width: 100%;
+}
+
+
+#menu{
+    height: 100vh;
+    
+    width: 300px;
+    max-width: 20%;
+    min-width: 20%;
+    
+    background-color: white;
+    
+    float: left;
+    
+    box-sizing: border-box;
+    border: 3px solid black;
+    border-radius: 50px;
+}
+
+#gameCon{
+    height: 600px;
+    min-height: 100vh;
+    max-height: 100vg;
+    
+    width: 720px;
+    max-width: 60%;
+    min-width: 60%;
+    
+    background-color: white;
+    
+    float: left;
+    
+    box-sizing: border-box;
+    border: 3px solid black;
+    border-radius: 50px;
+}
+
+#game #game-container{
+    
+    margin: 5% 3%;
+    
+    width: 94%;
+    
+    height: 94%;
+    
+    display: grid;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: space-evenly;
+    
+    grid-gap: 1.3%;
+    grid-template-columns: auto auto auto auto auto;
+    /*background-color: aqua;*/
+    
+    overflow-x: hidden;
+
+}
+
+#game #game-container div{
+    box-sizing: border-box;
+    
+    border: 2px solid black;
+    height: 0;
+    width: 8vw;
+    padding-bottom: 8vw;
+    border-radius: 50%;
+}
+
+
+#playDiv{
+    height: 100vh;
+    
+    width: 300px;
+    max-width: 20%;
+    min-width: 20%;
+    
+    background-color: white;
+    
+    float: left;
+    
+    box-sizing: border-box;
+    border: 3px solid black;
+    border-radius: 50px;
+}
+
+
+
+#playDiv #startButton{
+    
+    height: 12vh;
+    width: 80%;
+    
+    
+    margin: 44vh auto;
+    
+    box-sizing: border-box;
+    border-radius: 50px;
+    border: 3px solid black;
+    
+    text-align: center;
+    line-height: 12vh;
+    font-size: 2em;
+}
+
+
+
