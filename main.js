@@ -1,5 +1,8 @@
+var buttonArray = document.getElementsByClassName("fieldButton");
+
 window.onload = function(){
-    var buttonArray = document.getElementsByClassName("fieldButton");
+    
+    
     for(var i = 0; i < buttonArray.length; i++){
         buttonArray[i].id;
         buttonArray[i].addEventListener('click', function(e){
@@ -13,16 +16,34 @@ window.onload = function(){
     
     var startButton = document.getElementById("startButton");
     var startPressed = false;
+
     startButton.addEventListener('click', function(){
-        for(var i = 0; i < buttonArray.length; i++){
-            buttonArray[i].style.backgroundColor = "transparent";
-        }
+        resetGameField();
+
         if(!startPressed){
             startButton.innerHTML = "Reset";
             startPressed = true;
         }
     });
     document.body.style.backgroundImage = "url('Assets/Background.png')";
-    //document.getElementById("game").style.backgroundImage = "url('Assets/Background.png')";
-    document.getElementById("33").style.backgroundImage = "url('Assets/Player.png')";
+   
+}
+
+function resetGameField(){
+    for(var i = 0; i < buttonArray.length; i++){
+        buttonArray[i].style.backgroundColor = "transparent";
+        buttonArray[i].style.backgroundImage="none";
+        buttonArray[i].style.borderWidth = "2px";
+        buttonArray[i].style.borderColor = "black";
+        buttonArray[i].style.border = "solid";
+        
+
+    }
+    let xIndex = (Math.random()*4).toFixed(0);
+    let yIndex = (Math.random()*4).toFixed(0);
+    
+    console.log(xIndex+yIndex);
+
+    document.getElementById(xIndex + yIndex).style.backgroundImage = "url('Assets/Player.png')";
+    document.getElementById(xIndex + yIndex).style.border = "none";
 }
