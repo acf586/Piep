@@ -1,11 +1,11 @@
 window.onload = function(){
-    var buttonArray = document.getElementsByClassName("buttonField");
+    var buttonArray = document.getElementsByClassName("fieldButton");
     for(var i = 0; i < buttonArray.length; i++){
         buttonArray[i].id;
         buttonArray[i].addEventListener('click', function(e){
             if(startPressed){
                 console.log(e.target.id);
-                document.getElementById(e.target.id).style.backgroundColor = "black";    
+                document.getElementById(e.target.id).style.backgroundColor = "black";   
             }
         });
 
@@ -15,13 +15,14 @@ window.onload = function(){
     var startPressed = false;
     startButton.addEventListener('click', function(){
         for(var i = 0; i < buttonArray.length; i++){
-            buttonArray[i].style.backgroundColor = "white";
+            buttonArray[i].style.backgroundColor = "transparent";
         }
         if(!startPressed){
             startButton.innerHTML = "Reset";
             startPressed = true;
         }
     });
-    document.getElementById("game").style.backgroundImage = "url('Assets/Background.png')";
+    document.body.style.backgroundImage = "url('Assets/Background.png')";
+    //document.getElementById("game").style.backgroundImage = "url('Assets/Background.png')";
     document.getElementById("22").style.backgroundImage = "url('Assets/Player.png')";
 }
