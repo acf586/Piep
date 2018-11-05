@@ -24,5 +24,5 @@ window.onload = function(){
     });
     document.body.style.backgroundImage = "url('Assets/Background.png')";
     //document.getElementById("game").style.backgroundImage = "url('Assets/Background.png')";
-    document.getElementById("22").style.backgroundImage = "url('Assets/Player.png')";
+    document.getElementById("33").style.backgroundImage = "url('Assets/Player.png')";
 }
