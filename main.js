@@ -11,6 +11,7 @@ var chickenPositionEndField;
 var ListenerPositionField = "42";
 
 var chickenSpeed;
+
 var gameFieldWidth;
 var gameFieldHeight;
 
