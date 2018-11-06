@@ -1,3 +1,5 @@
+var numberOfXFields = 5;
+
 var buttonArray = null;
 var startPressed = false;
 var startButton;
@@ -27,6 +29,12 @@ window.onload = function () {
 
     startButton = document.getElementById("startButton");
 
+    document.getElementById("setRandomChickenPosition").addEventListener('click', function (e) {
+        setRandomChickenPosition();
+        resetGameField();
+        displayChicken();
+    });
+
     document.body.style.backgroundImage = "url('Assets/Background.png')";
 
     createGameField();
@@ -51,27 +59,21 @@ function resetGameField() {
         buttonArray[i].style.border = "solid";
 
     }
-    let xIndex = (Math.random() * 4).toFixed(0);
-    let yIndex = (Math.random() * 4).toFixed(0);
-
-    console.log(xIndex + yIndex);
-
-    document.getElementById(xIndex + yIndex).style.backgroundImage = "url('Assets/Player.png')";
-    document.getElementById(xIndex + yIndex).style.border = "none";
 }
 
 function createGameField() {
 
-    for (var i = 0; i < 25; i++) {
+    for (var i = 0; i < numberOfXFields * numberOfXFields; i++) {
         fieldButton = document.createElement("div");
         fieldButton.className = "fieldButton";
-        var fieldId = parseInt(i / 5) + "" + i % 5;
+        var fieldId = parseInt(i / numberOfXFields) + "" + i % numberOfXFields;
         fieldButton.setAttribute("id", fieldId);
-
         document.getElementById("game-grid").appendChild(fieldButton);
 
     }
     buttonArray = document.getElementsByClassName("fieldButton");
+    
+    resetGameField();
 }
 
 function addEventListener() {
@@ -143,7 +145,11 @@ function initializePositionArray() {
 }
 
 function setRandomChickenPosition() {
+    let xIndex = (Math.random() * (numberOfXFields-1)).toFixed(0);
+    let yIndex = (Math.random() * (numberOfXFields-1)).toFixed(0);
 
+    chickenCurrentPosition=xIndex + yIndex;
+    console.log(chickenCurrentPosition)
 }
 
 function setPositionListener() {
@@ -151,8 +157,11 @@ function setPositionListener() {
 }
 
 function displayChicken() {
-
+    
+    document.getElementById(chickenCurrentPosition).style.backgroundImage = "url('Assets/Player.png')";
+    document.getElementById(chickenCurrentPosition).style.border = "none";
 }
+
 function displayListener() {
 
 }
