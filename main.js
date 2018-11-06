@@ -17,6 +17,12 @@ var yDelta;
 
 var positionArray;
 
+var game,
+    menu,
+    control;
+
+
+
 window.onload = function () {
 
     startButton = document.getElementById("startButton");
@@ -29,6 +35,11 @@ window.onload = function () {
 
     initializeStartButton();
 
+    updateSize();
+}
+
+window.onresize = function(){
+    updateSize();
 }
 
 function resetGameField() {
@@ -76,6 +87,45 @@ function addEventListener() {
 
     }
 }
+
+
+function updateSize(){
+    game = document.getElementById("game");
+    menu = document.getElementById("menu");
+    control = document.getElementById("controlContainer");
+
+    var winHeight = window.innerHeight;
+    var winWidth = window.innerWidth;
+    
+    if(winHeight > winWidth/2 || winHeight == winWidth/2){
+        game.style.height = winWidth/2;
+        game.style.width = winWidth/2;
+        
+        menu.style.height = winWidth/2;
+        control.style.height = winWidth/2;
+        
+        startButton.style.marginTop = (winWidth/2) * 0.44;
+        startButton.style.lineHeight = startButton.clientHeight * 0.03;
+    }
+    
+    if(winHeight < winWidth/2){
+        game.style.height = winHeight;
+        game.style.width = winHeight;
+        
+        menu.style.height = winHeight;
+        control.style.height = winHeight;
+        
+        startButton.style.marginTop = winHeight * 0.44;
+        startButton.style.lineHeight = startButton.clientHeight * 0.03;
+    }
+    
+    
+    
+    var height = game.clientHeight;
+    var width = game.clientWidth;
+    console.log(winHeight, winWidth/2);
+}
+
 
 function initializeStartButton() {
     startButton.addEventListener('click', function () {
