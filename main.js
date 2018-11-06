@@ -88,7 +88,7 @@ function initializeStartButton() {
     });
 }
 
-function initializepositionArray() {
+function initializePositionArray() {
 
 }
 
