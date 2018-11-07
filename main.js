@@ -115,8 +115,8 @@ function updateSize(){
         menu.style.height = winWidth/2;
         control.style.height = winWidth/2;
         
-        startButton.style.marginTop = (winWidth/2) * 0.44;
-        startButton.style.lineHeight = startButton.clientHeight * 0.03;
+        // startButton.style.marginTop = (winWidth/2) * 0.44;
+        // startButton.style.lineHeight = startButton.clientHeight * 0.03;
     }
     
     if(winHeight < winWidth/2){
@@ -126,8 +126,8 @@ function updateSize(){
         menu.style.height = winHeight;
         control.style.height = winHeight;
         
-        startButton.style.marginTop = winHeight * 0.44;
-        startButton.style.lineHeight = startButton.clientHeight * 0.03;
+        // startButton.style.marginTop = winHeight * 0.44;
+        // startButton.style.lineHeight = startButton.clientHeight * 0.03;
     }
     
     
