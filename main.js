@@ -2,13 +2,14 @@ var numberOfXFields = 5;
 
 var buttonArray = null;
 var startPressed = false;
+
 var startButton;
 
 var chickenPositionStartField = "43";
 var chickenCurrentPosition;
 var chickenPositionEndField;
 
-var ListenerPositionField = "42";
+var listenerPositionField = "42";
 
 var chickenSpeed;
 
@@ -34,6 +35,10 @@ window.onload = function () {
         setRandomChickenPosition();
         resetGameField();
         displayChicken();
+    });
+    
+    document.getElementById("switchChickenPosition").addEventListener('click', function (e) {
+        switchChickenPositionNumberOfTimes(10);
     });
 
     document.body.style.backgroundImage = "url('Assets/Background.png')";
@@ -153,8 +158,8 @@ function setRandomChickenPosition() {
     console.log(chickenCurrentPosition)
 }
 
-function setPositionListener() {
-
+function setPositionListener(newPosition) {
+    listenerPositionField = newPosition;
 }
 
 function displayChicken() {
@@ -164,7 +169,8 @@ function displayChicken() {
 }
 
 function displayListener() {
-
+    document.getElementById(listenerPositionField).style.backgroundImage = "url('Assets/Listener.png')";
+    document.getElementById(listenerPositionField).style.border = "none";
 }
 
 function runArroundField() {
@@ -172,6 +178,14 @@ function runArroundField() {
 }
 
 function switchChickenPositionNumberOfTimes(number) {
+    for (let i = 0; i < number; i++) {
+        setTimeout(function () {
+            resetGameField();
+            setRandomChickenPosition();
+            displayChicken();
+        }, 100 * i)
+
+    }
 
 }
 
