@@ -51,6 +51,7 @@ window.onload = function () {
 
 window.onresize = function(){
     updateSize();
+    initializePositionArray();
 }
 
 function resetGameField() {
