@@ -197,7 +197,7 @@ function switchChickenPositionNumberOfTimes(number) {
             resetGameField();
             setRandomChickenPosition();
             displayChicken();
-        }, 100 * i)
+        }, 200 * i)
 
     }
 
