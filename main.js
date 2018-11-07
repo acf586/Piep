@@ -45,6 +45,8 @@ window.onload = function () {
     initializeStartButton();
 
     updateSize();
+    
+    initializePositionArray();
 }
 
 window.onresize = function(){
@@ -142,8 +144,19 @@ function initializeStartButton() {
 }
 
 function initializePositionArray() {
-
+    positionArray = new Array(5);
+    for(var i = 0; i < 5; i++){
+        positionArray[i] = new Array(5);
+    }
+    var actualField;
+    for(var y = 0; y < 5; y++){
+        for(var x = 0; x < 5; x++){
+            actualField = document.getElementById(y + "" + x);
+            positionArray[y][x] = [actualField.offsetLeft + actualField.clientWidth/2, actualField.offsetTop + actualField.clientHeight/2];
+        }
+    } 
 }
+
 
 function setRandomChickenPosition() {
     let xIndex = (Math.random() * (numberOfXFields-1)).toFixed(0);
