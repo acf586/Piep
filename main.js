@@ -23,7 +23,8 @@ var positionArray;
 
 var game,
     menu,
-    control;
+    control,
+    wrapper;
 
 
 
@@ -40,6 +41,10 @@ window.onload = function () {
     document.getElementById("switchChickenPosition").addEventListener('click', function (e) {
         switchChickenPositionNumberOfTimes(10);
     });
+    
+    document.getElementById("runAround").addEventListener('click', function(e){
+        runArroundField();
+    })
 
     document.body.style.backgroundImage = "url('Assets/Background.png')";
 
@@ -104,10 +109,11 @@ function updateSize(){
     game = document.getElementById("game");
     menu = document.getElementById("menu");
     control = document.getElementById("controlContainer");
-
+    wrapper = document.getElementById("wrapper");
+    
     var winHeight = window.innerHeight;
     var winWidth = window.innerWidth;
-    
+    var margin = 0;
     if(winHeight > winWidth/2 || winHeight == winWidth/2){
         game.style.height = winWidth/2;
         game.style.width = winWidth/2;
@@ -115,6 +121,8 @@ function updateSize(){
         menu.style.height = winWidth/2;
         control.style.height = winWidth/2;
         
+        margin = (winHeight - winWidth/2) / 2;
+        wrapper.style.marginTop = margin;
         // startButton.style.marginTop = (winWidth/2) * 0.44;
         // startButton.style.lineHeight = startButton.clientHeight * 0.03;
     }
@@ -126,6 +134,8 @@ function updateSize(){
         menu.style.height = winHeight;
         control.style.height = winHeight;
         
+        margin = 0;
+        wrapper.style.marginTop = margin;
         // startButton.style.marginTop = winHeight * 0.44;
         // startButton.style.lineHeight = startButton.clientHeight * 0.03;
     }
@@ -188,10 +198,34 @@ function displayListener() {
 }
 
 function runArroundField() {
-
+    var x = 3;
+    var xFinal = 1;
+    var y = 4;
+    for(let i = 0; i < 15; i++){
+        setTimeout(function () {
+            if(i == 1 || i == 14){
+                x++;
+            }
+            if(i > 1 && i < 6){
+                y--;
+            }
+            if(i > 5 && i < 10){
+                x--;
+            }
+            if(i > 9 && i < 14){
+                y++;
+            }
+            chickenCurrentPosition = y + "" + x;
+            resetGameField();
+            displayChicken();
+            console.log(i + " x: " + x + " y: " + y);
+        }, 200 * i+2)        
+        
+    }
 }
 
 function switchChickenPositionNumberOfTimes(number) {
+    chickenCurrentPosition = ""
     for (let i = 0; i < number; i++) {
         setTimeout(function () {
             resetGameField();

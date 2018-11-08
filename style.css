@@ -8,7 +8,8 @@ html,body{
     background-position: center;
     background-size:100% 100%;
     background-repeat: no-repeat;
-
+    
+    overflow-y: hidden;
 }
 
 
@@ -79,7 +80,6 @@ html,body{
     background: white;
 
 }
-
 
 
 
