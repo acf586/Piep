@@ -123,8 +123,6 @@ function updateSize(){
         
         margin = (winHeight - winWidth/2) / 2;
         wrapper.style.marginTop = margin;
-        // startButton.style.marginTop = (winWidth/2) * 0.44;
-        // startButton.style.lineHeight = startButton.clientHeight * 0.03;
     }
     
     if(winHeight < winWidth/2){
@@ -136,8 +134,7 @@ function updateSize(){
         
         margin = 0;
         wrapper.style.marginTop = margin;
-        // startButton.style.marginTop = winHeight * 0.44;
-        // startButton.style.lineHeight = startButton.clientHeight * 0.03;
+       
     }
     
     
