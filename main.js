@@ -6,7 +6,7 @@ var startPressed = false;
 var startButton;
 
 var chickenPositionStartField = "43";
-var chickenCurrentPosition;
+var chickenCurrentPosition = chickenPositionStartField;
 var chickenPositionEndField;
 
 var listenerPositionField = "42";
@@ -37,12 +37,12 @@ window.onload = function () {
         resetGameField();
         displayChicken();
     });
-    
+
     document.getElementById("switchChickenPosition").addEventListener('click', function (e) {
         switchChickenPositionNumberOfTimes(10);
     });
-    
-    document.getElementById("runAround").addEventListener('click', function(e){
+
+    document.getElementById("runAround").addEventListener('click', function (e) {
         runArroundField();
     })
 
@@ -52,14 +52,14 @@ window.onload = function () {
 
     addEventListener();
 
-    initializeStartButton();
-
     updateSize();
-    
+
     initializePositionArray();
+
+    initializeStartButton();
 }
 
-window.onresize = function(){
+window.onresize = function () {
     updateSize();
     initializePositionArray();
 }
@@ -68,11 +68,13 @@ function resetGameField() {
     for (var i = 0; i < buttonArray.length; i++) {
         buttonArray[i].style.backgroundColor = "transparent";
         buttonArray[i].style.backgroundImage = "none";
-        buttonArray[i].style.borderWidth = "2px";
         buttonArray[i].style.borderColor = "black";
-        buttonArray[i].style.border = "solid";
+        buttonArray[i].style.border = "2px solid";
 
     }
+
+    displayChicken();
+    displayListener();
 }
 
 function createGameField() {
@@ -86,8 +88,8 @@ function createGameField() {
 
     }
     buttonArray = document.getElementsByClassName("fieldButton");
-    
-    resetGameField();
+
+    //resetGameField();
 }
 
 function addEventListener() {
@@ -95,8 +97,10 @@ function addEventListener() {
         buttonArray[i].id;
         buttonArray[i].addEventListener('click', function (e) {
             if (startPressed) {
-                document.getElementById(e.target.id).style.backgroundColor = "black";
-                console.log(e.target.id);
+                listenerPositionField = e.target.id;
+                resetGameField();
+                //document.getElementById(e.target.id).style.backgroundColor = "58d4ed";
+                
             }
 
         });
@@ -105,43 +109,42 @@ function addEventListener() {
 }
 
 
-function updateSize(){
+function updateSize() {
     game = document.getElementById("game");
     menu = document.getElementById("menu");
     control = document.getElementById("controlContainer");
     wrapper = document.getElementById("wrapper");
-    
+
     var winHeight = window.innerHeight;
     var winWidth = window.innerWidth;
     var margin = 0;
-    if(winHeight > winWidth/2 || winHeight == winWidth/2){
-        game.style.height = winWidth/2;
-        game.style.width = winWidth/2;
-        
-        menu.style.height = winWidth/2;
-        control.style.height = winWidth/2;
-        
-        margin = (winHeight - winWidth/2) / 2;
+    if (winHeight > winWidth / 2 || winHeight == winWidth / 2) {
+        game.style.height = winWidth / 2;
+        game.style.width = winWidth / 2;
+
+        menu.style.height = winWidth / 2;
+        control.style.height = winWidth / 2;
+
+        margin = (winHeight - winWidth / 2) / 2;
         wrapper.style.marginTop = margin;
     }
-    
-    if(winHeight < winWidth/2){
+
+    if (winHeight < winWidth / 2) {
         game.style.height = winHeight;
         game.style.width = winHeight;
-        
+
         menu.style.height = winHeight;
         control.style.height = winHeight;
-        
+
         margin = 0;
         wrapper.style.marginTop = margin;
-       
+
     }
-    
-    
-    
+
+
+
     var height = game.clientHeight;
     var width = game.clientWidth;
-    console.log(winHeight, winWidth/2);
 }
 
 
@@ -158,25 +161,24 @@ function initializeStartButton() {
 
 function initializePositionArray() {
     positionArray = new Array(5);
-    for(var i = 0; i < 5; i++){
+    for (var i = 0; i < 5; i++) {
         positionArray[i] = new Array(5);
     }
     var actualField;
-    for(var y = 0; y < 5; y++){
-        for(var x = 0; x < 5; x++){
+    for (var y = 0; y < 5; y++) {
+        for (var x = 0; x < 5; x++) {
             actualField = document.getElementById(y + "" + x);
-            positionArray[y][x] = [actualField.offsetLeft + actualField.clientWidth/2, actualField.offsetTop + actualField.clientHeight/2];
+            positionArray[y][x] = [actualField.offsetLeft + actualField.clientWidth / 2, actualField.offsetTop + actualField.clientHeight / 2];
         }
-    } 
+    }
 }
 
 
 function setRandomChickenPosition() {
-    let xIndex = (Math.random() * (numberOfXFields-1)).toFixed(0);
-    let yIndex = (Math.random() * (numberOfXFields-1)).toFixed(0);
+    let xIndex = (Math.random() * (numberOfXFields - 1)).toFixed(0);
+    let yIndex = (Math.random() * (numberOfXFields - 1)).toFixed(0);
 
-    chickenCurrentPosition=xIndex + yIndex;
-    console.log(chickenCurrentPosition)
+    chickenCurrentPosition = xIndex + yIndex;
 }
 
 function setPositionListener(newPosition) {
@@ -184,7 +186,7 @@ function setPositionListener(newPosition) {
 }
 
 function displayChicken() {
-    
+    console.log("chickenCurrentPosition "+chickenCurrentPosition)
     document.getElementById(chickenCurrentPosition).style.backgroundImage = "url('Assets/Player.png')";
     document.getElementById(chickenCurrentPosition).style.border = "none";
 }
@@ -198,26 +200,26 @@ function runArroundField() {
     var x = 3;
     var xFinal = 1;
     var y = 4;
-    for(let i = 0; i < 15; i++){
+    for (let i = 0; i < 15; i++) {
         setTimeout(function () {
-            if(i == 1 || i == 14){
+            if (i == 1 || i == 14) {
                 x++;
             }
-            if(i > 1 && i < 6){
+            if (i > 1 && i < 6) {
                 y--;
             }
-            if(i > 5 && i < 10){
+            if (i > 5 && i < 10) {
                 x--;
             }
-            if(i > 9 && i < 14){
+            if (i > 9 && i < 14) {
                 y++;
             }
             chickenCurrentPosition = y + "" + x;
             resetGameField();
             displayChicken();
             console.log(i + " x: " + x + " y: " + y);
-        }, 200 * i+2)        
-        
+        }, 200 * i + 2)
+
     }
 }
 
@@ -225,9 +227,10 @@ function switchChickenPositionNumberOfTimes(number) {
     chickenCurrentPosition = ""
     for (let i = 0; i < number; i++) {
         setTimeout(function () {
-            resetGameField();
+            
             setRandomChickenPosition();
-            displayChicken();
+            resetGameField();
+
         }, 200 * i)
 
     }
