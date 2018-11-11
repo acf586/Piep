@@ -89,7 +89,6 @@ function createGameField() {
     }
     buttonArray = document.getElementsByClassName("fieldButton");
 
-    //resetGameField();
 }
 
 function addEventListener() {
@@ -186,7 +185,7 @@ function setPositionListener(newPosition) {
 }
 
 function displayChicken() {
-    console.log("chickenCurrentPosition "+chickenCurrentPosition)
+    
     document.getElementById(chickenCurrentPosition).style.backgroundImage = "url('Assets/Player.png')";
     document.getElementById(chickenCurrentPosition).style.border = "none";
 }
@@ -217,7 +216,7 @@ function runArroundField() {
             chickenCurrentPosition = y + "" + x;
             resetGameField();
             displayChicken();
-            console.log(i + " x: " + x + " y: " + y);
+            //console.log(i + " x: " + x + " y: " + y);
         }, 200 * i + 2)
 
     }
