@@ -117,6 +117,7 @@ function updateSize() {
     var winHeight = window.innerHeight;
     var winWidth = window.innerWidth;
     var margin = 0;
+    
     if (winHeight > winWidth / 2 || winHeight == winWidth / 2) {
         game.style.height = winWidth / 2;
         game.style.width = winWidth / 2;
