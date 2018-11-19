@@ -1,9 +1,8 @@
 var numberOfXFields = 5;
 
 var buttonArray = null;
-var startPressed = false;
 
-var startButton;
+//var startButton;
 
 var chickenPositionStartField = "43";
 var chickenCurrentPosition = chickenPositionStartField;
@@ -29,11 +28,35 @@ var game,
 
 
 window.onload = function () {
+    initializeWebsite();
 
     newGame = new Game(5);
 
-    startButton = document.getElementById("startButton");
+    initializeStartButton();
 
+    addEventListener();
+
+    createTestButtons();
+
+
+
+}
+
+function initializeWebsite(){
+
+    document.body.style.backgroundImage = "url('Assets/Background.png')";
+
+    createGameField();
+
+    updateSize();
+
+    initializePositionArray();
+
+    resetGameField();
+}
+
+function createTestButtons(){
+          
     document.getElementById("setRandomChickenPosition").addEventListener('click', function (e) {
         setRandomChickenPosition();
         resetGameField();
@@ -48,21 +71,9 @@ window.onload = function () {
         runArroundField();
     });
 
-    document.getElementById("startPressed").addEventListener('click', function (e) {
+    /* document.getElementById("startPressed").addEventListener('click', function (e) {
         newGame.startPressed();
-    });
-
-    document.body.style.backgroundImage = "url('Assets/Background.png')";
-
-    createGameField();
-
-    addEventListener();
-
-    updateSize();
-
-    initializePositionArray();
-
-    initializeStartButton();
+    }); */
 }
 
 window.onresize = function () {
@@ -101,13 +112,8 @@ function addEventListener() {
     for (var i = 0; i < buttonArray.length; i++) {
         buttonArray[i].id;
         buttonArray[i].addEventListener('click', function (e) {
-            if (startPressed) {
                 listenerPositionField = e.target.id;
-                resetGameField();
-                //document.getElementById(e.target.id).style.backgroundColor = "58d4ed";
-                
-            }
-
+                newGame.fieldPressed();
         });
 
     }
@@ -146,22 +152,15 @@ function updateSize() {
         wrapper.style.marginTop = margin;
 
     }
-
-
-
+    
     var height = game.clientHeight;
     var width = game.clientWidth;
 }
 
 
 function initializeStartButton() {
-    startButton.addEventListener('click', function () {
-        resetGameField();
-
-        if (!startPressed) {
-            startButton.innerHTML = "Reset";
-            startPressed = true;
-        }
+    document.getElementById("startButton").addEventListener('click', function () {
+        newGame.startPressed();
     });
 }
 

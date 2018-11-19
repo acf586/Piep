@@ -28,7 +28,6 @@ class Game {
 class StartState {
     
     constructor(game) {
-        console.log("ich bin der Start");
         this.game = game;
     }
     startPressed() {
@@ -38,16 +37,12 @@ class StartState {
     fieldPressed() {
         console.log("ich bin der Start");
     }
-    getName(){
-        console.log("ich bin der Start");
-    }
 
 }
 
 class ChickenMoveState {
     
     constructor(game) {
-        console.log("ich bin der ChickenMove");
         this.game = game;
     }
     startPressed() {
@@ -60,9 +55,7 @@ class ChickenMoveState {
 }
 
 class PlayerMoveState {
-    //game;
     constructor(game) {
-        console.log("ich bin der PlayerMove");
         this.game = game;
     }
     startPressed() {
@@ -77,7 +70,6 @@ class PlayerMoveState {
 class FailureState {
     
     constructor(game) {
-        console.log("ich bin der Failure");
         this.game = game;
     }
     startPressed() {
@@ -92,7 +84,6 @@ class FailureState {
 class SuccessState {
     
     constructor(game) {
-        console.log("ich bin der Success");
         this.game = game;
     }
     startPressed() {
@@ -107,7 +98,6 @@ class SuccessState {
 class GameOverState {
     
     constructor(game) {
-        console.log("ich bin der GameOver");
         this.game = game;
     }
     startPressed() {
