@@ -3,6 +3,10 @@ class Game {
     constructor(rounds) {
         this.rounds = rounds;
 
+        this.chickenCurrentPosition=43;
+        this.chickenPositionEndField;
+        this.listenerPositionField=42;
+
         this.startState = new StartState(this);
         this.chickenMoveState = new ChickenMoveState(this);
         this.playerMoveState = new PlayerMoveState(this);
@@ -23,6 +27,27 @@ class Game {
     setActualSate(state) {
         this.actualState = state;
     }
+
+    setListenerPosition(newPosition) {
+        this.listenerPositionField = newPosition;
+    }
+    
+    
+    setChickenPosition(newPosition) {
+        this.chickenCurrentPosition = newPosition;
+    }
+
+    setRandomChickenPosition(){
+        var finsihed = false;
+        while(!finsihed){
+            xIndex = (int)(Math.random()*numberOfXFields);
+            yIndex = (int)(Math.random()*numberOfXFields);
+            this.chickenCurrentPosition = xIndex + yIndex;
+            if( chickenCurrentPosition === listenerPositionField ){
+                finsihed=true;
+            }
+        }
+    }
 }
 
 class StartState {
@@ -30,8 +55,17 @@ class StartState {
     constructor(game) {
         this.game = game;
     }
+
     startPressed() {
         console.log("ich bin der Start");
+        this.game.setListenerPosition(42);
+        this.game.setChickenPosition(43);
+        resetGameField();
+        
+        //while(chickenCurrentPosition!=chickenPositionEndField){
+            
+        //}
+
         this.game.setActualSate(this.game.chickenMoveState);
     }
     fieldPressed() {
