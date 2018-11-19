@@ -30,6 +30,8 @@ var game,
 
 window.onload = function () {
 
+    newGame = new Game(5);
+
     startButton = document.getElementById("startButton");
 
     document.getElementById("setRandomChickenPosition").addEventListener('click', function (e) {
@@ -44,7 +46,11 @@ window.onload = function () {
 
     document.getElementById("runAround").addEventListener('click', function (e) {
         runArroundField();
-    })
+    });
+
+    document.getElementById("startPressed").addEventListener('click', function (e) {
+        newGame.startPressed();
+    });
 
     document.body.style.backgroundImage = "url('Assets/Background.png')";
 
