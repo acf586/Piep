@@ -6,7 +6,7 @@ class Game {
         this.moves = 0;
 
         this.chickenCurrentPosition;
-        this.chickenPositionEndField;
+        this.chickenEndPosition;
         this.listenerPositionField;
 
         this.startState = new StartState(this);
@@ -71,6 +71,7 @@ class StartState {
         this.game.setChickenPosition(43);
         displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
 
+        
         //while(chickenCurrentPosition!=chickenPositionEndField){
             
         //}
@@ -86,7 +87,6 @@ class StartState {
         this.game.setActualState(this.game.chickenMoveState);
         this.game.actualState.run();
     }
-
 
 }
 

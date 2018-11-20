@@ -209,7 +209,7 @@ function switchChickenPositionNumberOfTimes(number) {
             
             newGame.setRandomChickenPosition();
 
-        }, 200 * i)
+        }, 400 * i)
 
     }
 
