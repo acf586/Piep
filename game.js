@@ -100,7 +100,7 @@ class ChickenMoveState {
         
         //moveChicken();
         console.log("Chicken is moving and playing 3D sound");
-        //play3dSound();
+        //play3dSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
         
         this.nextState();
     }
@@ -144,6 +144,8 @@ class PlayerMoveState {
         displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
         
         console.log("Chicken: "+this.game.chickenCurrentPosition+" Listener: "+this.game.listenerPositionField);
+
+        play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
 
         if(this.game.chickenCurrentPosition==this.game.listenerPositionField){
             this.nextState();
