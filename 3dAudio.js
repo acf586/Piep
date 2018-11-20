@@ -1,5 +1,5 @@
 var audioContext = new AudioContext();
-var sound = new Audio("/Sounds/chick_chirp_short.wav");
+var sound = new Audio("Sounds/chick_chirp_short.wav");
 var mediaElementAudioSource = audioContext.createMediaElementSource(sound);
 var isPlaying = false;
 var playStopButton = document.getElementById("playStopButton");
