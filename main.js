@@ -15,8 +15,8 @@ var gameContainer,
     control,
     wrapper;
 
-
-
+var gameOverScreen = false;
+var startet = false;
 window.onload = function () {
     initializeWebsite();
 
@@ -39,6 +39,50 @@ function initializeWebsite(){
     updateSize();
 
     initializePositionArray();
+}
+
+function createGameOverScreen(){
+    
+    var wrapper = document.getElementById("wrapper").style;
+    var marginOld = wrapper.marginTop;
+    console.log(marginOld);
+    
+    gameOverScreen = true;
+    
+    var overlay = document.createElement("div");
+    var button = document.createElement("div");
+    
+    overlay.setAttribute("id", "overlay")
+    button.setAttribute("id", "overlay_button");
+    
+    overlay.appendChild(button);
+    document.body.appendChild(overlay);
+    
+    overlay = document.getElementById("overlay");
+    gOButton = document.getElementById("overlay_button");
+    
+    overlay.style.marginTop = -marginOld;
+    
+    if(startet){
+        gOButton.innerHTML = "Restart";
+    }
+    else{
+        gOButton.innerHTML = "Start";
+    }
+    gOButton.addEventListener('click', function (e){
+        wrapper.display = "block";
+        gOButton.style.animationName = "buttonPuls, fadeOut";
+        overlay.style.animationName = "fadeOut";
+        
+        setTimeout(function () {
+            wrapper.marginTop = marginOld;
+            overlay.remove();
+            }, 2000)
+    });
+    
+    
+    updateSize();
+    
 }
 
 function createGameField() {
@@ -74,6 +118,17 @@ function updateSize() {
 
         margin = (winHeight - winWidth / 2) / 2;
         wrapper.style.marginTop = margin;
+        if(gameOverScreen){
+            var gOButton = document.getElementById("overlay_button");
+            
+            gOButton.style.height = winWidth * 0.2; 
+            gOButton.style.width = winWidth * 0.2;
+            gOButton.style.marginTop = (winHeight-winWidth * 0.2) / 2;
+            
+            gOButton.style.lineHeight = (winWidth * 0.2) + "px";
+            
+            document.getElementById("overlay").style.marginTop = margin * -1;
+        }
     }
 
     if (winHeight < winWidth / 2) {
@@ -85,8 +140,27 @@ function updateSize() {
 
         margin = 0;
         wrapper.style.marginTop = margin;
-
+        
+        if(gameOverScreen){
+            var gOButton = document.getElementById("overlay_button");
+            
+            gOButton.style.height = winHeight * 0.4; 
+            gOButton.style.width = winHeight * 0.4;
+            gOButton.style.marginTop = (winHeight - winHeight * 0.4) / 2;
+            
+            gOButton.style.lineHeight = (winHeight * 0.4) + "px";
+            
+            document.getElementById("overlay").style.marginTop = margin * -1;
+        }
     }
+    
+    /*if(gameOverScreen){
+        var gOButton = document.getElementById(overlay_button);
+        gOButton.style.height = 
+        gOButton.style.width = 
+        gOButton.style.marginTop =     
+    }*/
+    
     
     var height = gameContainer.clientHeight;
     var width = gameContainer.clientWidth;
