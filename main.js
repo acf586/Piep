@@ -1,17 +1,6 @@
 var numberOfXFields = 5;
 
 var buttonArray = null;
-var startPressed = false;
-
-var startButton;
-
-var chickenPositionStartField = "43";
-var chickenCurrentPosition = chickenPositionStartField;
-var chickenPositionEndField;
-
-var listenerPositionField = "42";
-
-var chickenSpeed;
 
 var gameFieldWidth;
 var gameFieldHeight;
@@ -21,7 +10,7 @@ var yDelta;
 
 var positionArray;
 
-var game,
+var gameContainer,
     menu,
     control,
     wrapper;
@@ -29,52 +18,27 @@ var game,
 
 
 window.onload = function () {
+    initializeWebsite();
 
-    startButton = document.getElementById("startButton");
+    newGame = new Game(5);
 
-    document.getElementById("setRandomChickenPosition").addEventListener('click', function (e) {
-        setRandomChickenPosition();
-        resetGameField();
-        displayChicken();
-    });
+    initializeStartButton();
 
-    document.getElementById("switchChickenPosition").addEventListener('click', function (e) {
-        switchChickenPositionNumberOfTimes(10);
-    });
+    fieldButtonsAddEventListener();
 
-    document.getElementById("runAround").addEventListener('click', function (e) {
-        runArroundField();
-    })
+    createTestButtons();
+
+}
+
+function initializeWebsite(){
 
     document.body.style.backgroundImage = "url('Assets/Background.png')";
 
     createGameField();
 
-    addEventListener();
-
     updateSize();
 
     initializePositionArray();
-
-    initializeStartButton();
-}
-
-window.onresize = function () {
-    updateSize();
-    initializePositionArray();
-}
-
-function resetGameField() {
-    for (var i = 0; i < buttonArray.length; i++) {
-        buttonArray[i].style.backgroundColor = "transparent";
-        buttonArray[i].style.backgroundImage = "none";
-        buttonArray[i].style.borderColor = "black";
-        buttonArray[i].style.border = "2px solid";
-
-    }
-
-    displayChicken();
-    displayListener();
 }
 
 function createGameField() {
@@ -91,25 +55,8 @@ function createGameField() {
 
 }
 
-function addEventListener() {
-    for (var i = 0; i < buttonArray.length; i++) {
-        buttonArray[i].id;
-        buttonArray[i].addEventListener('click', function (e) {
-            if (startPressed) {
-                listenerPositionField = e.target.id;
-                resetGameField();
-                //document.getElementById(e.target.id).style.backgroundColor = "58d4ed";
-                
-            }
-
-        });
-
-    }
-}
-
-
 function updateSize() {
-    game = document.getElementById("game");
+    gameContainer = document.getElementById("gameContainer");
     menu = document.getElementById("menu");
     control = document.getElementById("controlContainer");
     wrapper = document.getElementById("wrapper");
@@ -119,8 +66,8 @@ function updateSize() {
     var margin = 0;
     
     if (winHeight > winWidth / 2 || winHeight == winWidth / 2) {
-        game.style.height = winWidth / 2;
-        game.style.width = winWidth / 2;
+        gameContainer.style.height = winWidth / 2;
+        gameContainer.style.width = winWidth / 2;
 
         menu.style.height = winWidth / 2;
         control.style.height = winWidth / 2;
@@ -130,8 +77,8 @@ function updateSize() {
     }
 
     if (winHeight < winWidth / 2) {
-        game.style.height = winHeight;
-        game.style.width = winHeight;
+        gameContainer.style.height = winHeight;
+        gameContainer.style.width = winHeight;
 
         menu.style.height = winHeight;
         control.style.height = winHeight;
@@ -140,23 +87,9 @@ function updateSize() {
         wrapper.style.marginTop = margin;
 
     }
-
-
-
-    var height = game.clientHeight;
-    var width = game.clientWidth;
-}
-
-
-function initializeStartButton() {
-    startButton.addEventListener('click', function () {
-        resetGameField();
-
-        if (!startPressed) {
-            startButton.innerHTML = "Reset";
-            startPressed = true;
-        }
-    });
+    
+    var height = gameContainer.clientHeight;
+    var width = gameContainer.clientWidth;
 }
 
 function initializePositionArray() {
@@ -173,30 +106,76 @@ function initializePositionArray() {
     }
 }
 
-
-function setRandomChickenPosition() {
-    let xIndex = (Math.random() * (numberOfXFields - 1)).toFixed(0);
-    let yIndex = (Math.random() * (numberOfXFields - 1)).toFixed(0);
-
-    chickenCurrentPosition = xIndex + yIndex;
+function resetGameField() {
+    for (var i = 0; i < buttonArray.length; i++) {
+        buttonArray[i].style.backgroundColor = "transparent";
+        buttonArray[i].style.backgroundImage = "none";
+        buttonArray[i].style.borderColor = "black";
+        buttonArray[i].style.border = "2px solid";
+    }
 }
 
-function setPositionListener(newPosition) {
-    listenerPositionField = newPosition;
+function initializeStartButton() {
+    document.getElementById("startButton").addEventListener('click', function () {
+        newGame.startPressed();
+    });
 }
 
-function displayChicken() {
-    
-    document.getElementById(chickenCurrentPosition).style.backgroundImage = "url('Assets/Player.png')";
-    document.getElementById(chickenCurrentPosition).style.border = "none";
+function fieldButtonsAddEventListener() {
+    for (var i = 0; i < buttonArray.length; i++) {
+        buttonArray[i].id;
+        buttonArray[i].addEventListener('click', function (e) {
+                var listenerPositionField = e.target.id;
+                console.log(listenerPositionField);
+                newGame.fieldPressed(listenerPositionField);
+        });
+
+    }
 }
 
-function displayListener() {
-    document.getElementById(listenerPositionField).style.backgroundImage = "url('Assets/Listener.png')";
-    document.getElementById(listenerPositionField).style.border = "none";
+function createTestButtons(){
+
+    document.getElementById("switchChickenPosition").addEventListener('click', function (e) {
+        switchChickenPositionNumberOfTimes(10);
+    });
+
+    document.getElementById("runAround").addEventListener('click', function (e) {
+        runArroundField();
+    });
+
+    document.getElementById("nextState").addEventListener('click', function (e) {
+        newGame.nextState();
+    });
+
 }
+
+window.onresize = function () {
+    updateSize();
+    initializePositionArray();
+}
+function displayGame(chickenField, listenerField){
+    resetGameField();
+    displayChicken(chickenField);
+    displayListener(listenerField);
+}
+
+function displayChicken(chickenField) {
+    console.log(chickenField);
+    document.getElementById(chickenField).style.backgroundImage = "url('Assets/Player.png')";
+    document.getElementById(chickenField).style.border = "none";
+}
+
+function displayListener(listenerField) {
+    document.getElementById(listenerField).style.backgroundImage = "url('Assets/Listener.png')";
+    document.getElementById(listenerField).style.border = "none";
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 function runArroundField() {
+    chickenPositionEndField = "41";
     var x = 3;
     var xFinal = 1;
     var y = 4;
@@ -228,10 +207,9 @@ function switchChickenPositionNumberOfTimes(number) {
     for (let i = 0; i < number; i++) {
         setTimeout(function () {
             
-            setRandomChickenPosition();
-            resetGameField();
+            newGame.setRandomChickenPosition();
 
-        }, 200 * i)
+        }, 400 * i)
 
     }
 

@@ -19,7 +19,7 @@ html,body{
     width: 24%;
 }
 
-#game{
+#gameContainer{
     float: left;
     height: 100%;
     width: 50%;
