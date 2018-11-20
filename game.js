@@ -100,7 +100,7 @@ class ChickenMoveState {
         
         //moveChicken();
         console.log("Chicken is moving and playing 3D sound");
-        //play3dSound();
+        //play3dSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
         
         this.nextState();
     }
