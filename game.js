@@ -145,6 +145,8 @@ class PlayerMoveState {
         
         console.log("Chicken: "+this.game.chickenCurrentPosition+" Listener: "+this.game.listenerPositionField);
 
+        play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+
         if(this.game.chickenCurrentPosition==this.game.listenerPositionField){
             this.nextState();
         }

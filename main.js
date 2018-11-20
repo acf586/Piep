@@ -46,7 +46,7 @@ function createGameField() {
     for (var i = 0; i < numberOfXFields * numberOfXFields; i++) {
         fieldButton = document.createElement("div");
         fieldButton.className = "fieldButton";
-        var fieldId = parseInt(i / numberOfXFields) + "" + i % numberOfXFields;
+        var fieldId = i % numberOfXFields +""+ parseInt(i / numberOfXFields);
         fieldButton.setAttribute("id", fieldId);
         document.getElementById("game-grid").appendChild(fieldButton);
 
@@ -91,7 +91,7 @@ function updateSize() {
     var height = gameContainer.clientHeight;
     var width = gameContainer.clientWidth;
 }
-
+//benutzen wir noch gar nicht
 function initializePositionArray() {
     positionArray = new Array(5);
     for (var i = 0; i < 5; i++) {
@@ -100,8 +100,9 @@ function initializePositionArray() {
     var actualField;
     for (var y = 0; y < 5; y++) {
         for (var x = 0; x < 5; x++) {
-            actualField = document.getElementById(y + "" + x);
-            positionArray[y][x] = [actualField.offsetLeft + actualField.clientWidth / 2, actualField.offsetTop + actualField.clientHeight / 2];
+            actualField = document.getElementById(x + "" + y);
+            //wird aktuell noch nicht benutzt
+            positionArray[x][y] = [actualField.offsetTop + actualField.clientHeight / 2, actualField.offsetLeft + actualField.clientWidth / 2];
         }
     }
 }
