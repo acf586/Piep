@@ -127,14 +127,26 @@ html,body{
     margin: 5% auto;
     
     text-align: center;
-    font-size: 5vh;
+    font-size: 4vh;
     
-    background-color: blue;
     border: solid black 2px;
     
     border-radius: 50px;
     
     
+}
+
+#ruler{
+    visibility: hidden;
+    white-space: nowrap;
+    font-size: 4vh;
+    
+}
+
+#overlay_wrapper #overlay_button{
+    
+    font-size: 4vh;
+
 }
 
 @keyframes buttonPuls{

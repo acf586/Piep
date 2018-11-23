@@ -79,7 +79,7 @@ function createStartScreen(){
     
 }
 
-function createGameOverScreen(){
+function createGameOverScreen(highscore){
     
     var marginOld = parseFloat(document.getElementById("wrapper").style.marginTop);
     marginOld *= (-1);
@@ -99,10 +99,10 @@ function createGameOverScreen(){
     overlayWrap.appendChild(pointTextField);
     overlayWrap.appendChild(button);
     overlay.appendChild(overlayWrap);
-    document.body.appendChild(overlay);
+    document.getElementById("wrapper").appendChild(overlay);
     
     overlay = document.getElementById("overlay");
-    overlayWrap = document.getElementById("overlayWrap");
+    overlayWrap = document.getElementById("overlay_wrapper");
     gameOverButton = document.getElementById("overlay_button");
     pointTextField = document.getElementById("overlay_textfield");
     
@@ -110,7 +110,9 @@ function createGameOverScreen(){
     overlay.style.marginTop = marginOld;
     
     gameOverButton.innerHTML = "Restart";
-    pointTextField.innerHTML = "Punkte: ";
+    
+    var pointString = "Punkte: " + highscore;
+    pointTextField.innerHTML = pointString;
     
     
     
@@ -120,11 +122,18 @@ function createGameOverScreen(){
         newGame.startPressed();
         setTimeout(function () {
             overlay.remove();
+            gameOverScreen = false;
             }, 2000)
     });
     
     updateSize();
     
+}
+
+function getLengthOfText(text){
+    var ruler = document.getElementById("ruler");
+    ruler.innerHTML = text;
+    return ruler.offsetWidth;
 }
 
 function createGameField() {
@@ -161,9 +170,8 @@ function updateSize() {
         wrapper.style.marginTop = margin;
         if(startScreen || gameOverScreen){
             var button = document.getElementById("overlay_button");
-            
             if(startScreen){
-                
+                    
                 button.style.height = winWidth * 0.2; 
                 button.style.width = winWidth * 0.2;
                 button.style.marginTop = (winHeight-winWidth * 0.2) / 2;
@@ -175,7 +183,6 @@ function updateSize() {
                 
                 var overlayWrap = document.getElementById("overlay_wrapper");
                 var textField = document.getElementById("overlay_textfield");
-                console.log(overlayWrap.clientHeight);
                 
                 button.style.height = winWidth * 0.15; 
                 button.style.width = winWidth * 0.15;
@@ -183,14 +190,20 @@ function updateSize() {
             
                 textField.style.width = winWidth * 0.2;
                 textField.style.height = winWidth * 0.1;
+                
+                var length = getLengthOfText(textField.innerHTML);
+                length += 41;
+                
+                if(parseFloat(textField.style.width) < length){
+                    textField.style.width = length;
+                };
+                
                 textField.style.lineHeight = winWidth * 0.1 + "px";
                 
                 overlayWrap.style.marginTop = (winHeight-overlayWrap.clientHeight) / 2;
-                
             }
-            
             document.getElementById("overlay").style.marginTop = margin * -1;
-        }
+         }
     }
 
     if (winHeight < winWidth / 2) {
@@ -207,7 +220,7 @@ function updateSize() {
             var button = document.getElementById("overlay_button");
             
             if(startScreen){
-                
+    
                 button.style.height = winHeight * 0.4; 
                 button.style.width = winHeight * 0.4;
                 button.style.marginTop = (winHeight - winHeight * 0.4) / 2;
@@ -216,7 +229,7 @@ function updateSize() {
             }
             
             else{
-                
+            
                 var textField = document.getElementById("overlay_textfield");
                 var overlayWrap = document.getElementById("overlay_wrapper");
                 
@@ -226,30 +239,26 @@ function updateSize() {
             
                 textField.style.width = winHeight * 0.5;
                 textField.style.height = winHeight * 0.2;
+                
+                var length = getLengthOfText(textField.innerHTML);
+                length += 41;
+                
+                if(parseFloat(textField.style.width) < length){
+                    textField.style.width = length;
+                };
+                
                 textField.style.lineHeight = winHeight * 0.2 + "px";
                 
                 overlayWrap.style.marginTop = (winHeight - overlayWrap.clientHeight) / 2;
                 
-                console.log(overlayWrap.clientHeight);
-                
             }
             
-            
             document.getElementById("overlay").style.marginTop = margin * -1;
+        
         }
-    }
-    
-    /*if(gameOverScreen){
-        var startButton = document.getElementById(overlay_button);
-        startButton.style.height = 
-        startButton.style.width = 
-        startButton.style.marginTop =     
-    }*/
-    
-    
-    var height = gameContainer.clientHeight;
-    var width = gameContainer.clientWidth;
+    }    
 }
+
 //benutzen wir noch gar nicht
 function initializePositionArray() {
     positionArray = new Array(5);
@@ -356,7 +365,6 @@ function runArroundField() {
             chickenCurrentPosition = y + "" + x;
             resetGameField();
             displayChicken();
-            //console.log(i + " x: " + x + " y: " + y);
         }, 200 * i + 2)
 
     }

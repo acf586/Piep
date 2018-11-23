@@ -246,8 +246,7 @@ class GameOverState {
     }
 
     run(){
-        //displayGameOverScreen
-        console.log("display Game OverScreen");
+        createGameOverScreen(this.game.points);
         this.nextState();
     }
 
