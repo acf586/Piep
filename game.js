@@ -291,7 +291,7 @@ class GameOverState {
 
     run(){
         console.log("ich bin der GameOver");
-        createGameOverScreen(this.game.points);
+        showScreen();
         this.nextState();
     }
 
