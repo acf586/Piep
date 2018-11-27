@@ -65,22 +65,42 @@ class StartState {
     startPressed() {
         this.game.rounds=5;
         this.game.points = 0;
+        this.game.moves = 4;
 
-        console.log("ich bin der Start");
-        this.game.setListenerPosition(42);
-        this.game.setChickenPosition(43);
+        this.howManySoundsHaveBeenPlayed = 0;
+
+        console.log("Du hast Start gedrückt");
+        this.game.setListenerPosition("24");
+        this.game.setChickenPosition("34");
+
+
         displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        //waitSomeSeconds();
+        this.game.setRandomChickenPosition();
+        displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        console.log("Spiele den Sound ab");
 
-        
-        //while(chickenCurrentPosition!=chickenPositionEndField){
-            
-        //}
-
-        this.nextState();
+        //play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        //this.nextState();
     }
     
     fieldPressed() {
         console.log("ich bin der Start");
+    }
+
+    soundPlayingStopped(){
+        console.log("howManySoundsHaveBeenPlayed "+this.howManySoundsHaveBeenPlayed);
+        if(this.howManySoundsHaveBeenPlayed < 5){
+            console.log("howManySoundsHaveBeenPlayed "+this.howManySoundsHaveBeenPlayed);
+            this.howManySoundsHaveBeenPlayed++;
+            this.game.setRandomChickenPosition();
+            displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+            play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        }
+        else{
+            this.nextState();
+        }
     }
 
     nextState(){
@@ -97,10 +117,10 @@ class ChickenMoveState {
     }
     run(){
         this.game.setRandomChickenPosition();
-        
         //moveChicken();
         console.log("Chicken is moving and playing 3D sound");
-        //play3dSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        
         
         this.nextState();
     }
@@ -128,7 +148,7 @@ class PlayerMoveState {
     }
 
     run(){
-        this.game.moves = 4;
+        
     }
 
     startPressed() {
@@ -145,7 +165,7 @@ class PlayerMoveState {
         
         console.log("Chicken: "+this.game.chickenCurrentPosition+" Listener: "+this.game.listenerPositionField);
 
-        play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        //play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
 
         if(this.game.chickenCurrentPosition==this.game.listenerPositionField){
             this.nextState();
@@ -155,6 +175,9 @@ class PlayerMoveState {
             this.game.actualState.run();
         }
         
+    }
+    soundPlayingStopped(){
+        console.log("Sound zu Ende");
     }
 
     nextState(){
@@ -167,17 +190,16 @@ class FailureState {
     
     constructor(game) {
         this.game = game;
+        this.secondSoundPlayed = false;
     }
     run(){
         console.log("ich bin der Failure");
-        //playSound(Failure);
-        console.log("spiele FehlerSound");
-        //playSound(helpSound);
-        console.log("spiele Help Sound");
-        
-        console.log("wechsel in den Player Move");
+        this.secondSoundPlayed = false;
 
-        this.nextState();
+        console.log("spiele FehlerSound");
+        //ToDo play Failure Sound
+        play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        
     }
 
     startPressed() {
@@ -185,6 +207,20 @@ class FailureState {
     }
     fieldPressed() {
         console.log("ich bin der Failure");
+    }
+
+    soundPlayingStopped(){
+        console.log("Sound zu Ende. secondSoundPlayed: "+this.secondSoundPlayed);
+
+        if(!this.secondSoundPlayed){
+            //playSecondSound
+            play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+            this.secondSoundPlayed = true;
+        }
+        else{
+            this.nextState();
+        }
+        
     }
 
     nextState(){
@@ -200,29 +236,25 @@ class SuccessState {
 
     run(){
         console.log("ich bin der Success");
+        
         //playSound(Success)
         console.log("Success Sound");
+
+        
         if(this.game.moves > 1){
             this.game.points += this.game.moves;
         }
         else{
             this.game.points += 1;
         }
+        
+        this.game.moves = 4;
 
         console.log("Punkte: "+ this.game.points);
 
         this.game.rounds--;
         console.log("restliche Runden "+this.game.rounds);
-
-        if( this.game.rounds<=0 ){
-            this.game.setActualState(this.game.gameOverState);
-            this.game.actualState.run();
-        }
-        
-        else{
-            this.game.setActualState(this.game.chickenMoveState);
-            this.game.actualState.run();
-        }
+        play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
 
     }
 
@@ -232,6 +264,18 @@ class SuccessState {
     }
     fieldPressed() {
         console.log("ich bin der Success");
+    }
+
+    soundPlayingStopped(){
+        if( this.game.rounds<=0 ){
+            this.game.setActualState(this.game.gameOverState);
+            this.game.actualState.run();
+        }
+        
+        else{
+            this.game.setActualState(this.game.chickenMoveState);
+            this.game.actualState.run();
+        }
     }
 
     nextState(){
@@ -246,6 +290,7 @@ class GameOverState {
     }
 
     run(){
+        console.log("ich bin der GameOver");
         createGameOverScreen(this.game.points);
         this.nextState();
     }
@@ -259,6 +304,7 @@ class GameOverState {
     }
 
     nextState(){
+        console.log("gehe zu start")
         this.game.setActualState(this.game.startState);
     }
 }

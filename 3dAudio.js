@@ -1,8 +1,8 @@
 var audioContext = new AudioContext();
-var sound = new Audio("Sounds/chick_chirp_short.wav");
+var sound = new Audio("Sounds/chirp.wav");
+
+//var sound = new Audio();
 var mediaElementAudioSource = audioContext.createMediaElementSource(sound);
-var isPlaying = false;
-var playStopButton = document.getElementById("playStopButton");
 sound.loop = false;
 
 var dimension = 16;
@@ -36,6 +36,7 @@ var resonanceAudioScene = new ResonanceAudio(audioContext, {
 var source = resonanceAudioScene.createSource();
 
 mediaElementAudioSource.connect(source.input);
+
 resonanceAudioScene.output.connect(audioContext.destination);
 
 source.setPosition(0, 0, 0);
@@ -47,7 +48,7 @@ resonanceAudioScene.setListenerPosition(0 , 0, 0);
 // resonanceAudioScene.setListenerOrientation(x, y, z, x, y, z);
 
 function play3DSound(sourcePosition, listenerPosition){
-
+    
     sourceCoordinates = sourcePosition.split("");
     listenerCoordinates = listenerPosition.split("");
 
@@ -67,21 +68,10 @@ function play3DSound(sourcePosition, listenerPosition){
 
     sound.play();
 
-
 }
 
-playStopButton.addEventListener("click", function (e) {
-  if (isPlaying) {
-      sound.pause();
-      playStopButton.innerHTML = "Play";
-  } else {
-      sound.play();
-      playStopButton.innerHTML = "Stop";
-  }
-  isPlaying = !isPlaying;
-});
 
 sound.addEventListener("ended", function (e) {
-  isPlaying = false;
-  playStopButton.innerHTML = "Play";
+ 
+ newGame.actualState.soundPlayingStopped();
 });

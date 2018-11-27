@@ -25,10 +25,10 @@ html,body{
     width: 50%;
     padding: 2%;
 
-    box-sizing: border-box;
+    /* box-sizing: border-box;
     border: 2px solid black;
     border-radius: 50px;
-
+ */
     
 }
 #controlContainer{
@@ -52,7 +52,7 @@ html,body{
 
 .fieldButton{
     box-sizing: border-box;
-    border: 2px solid black;
+    border: 1px solid black;
    
     border-radius: 50%;
 
@@ -90,6 +90,8 @@ html,body{
     width: 100%;
     
     position: absolute;
+
+    
     
     background-color: aliceblue;
     
@@ -117,6 +119,11 @@ html,body{
     animation-duration: 2s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+
+    background-position: center;
+    background-size: 100% 100%;
+
+    background-repeat: no-repeat;
 }
 
 #overlay_textfield{

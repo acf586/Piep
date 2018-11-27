@@ -19,15 +19,15 @@ var startScreen = false;
 var gameOverScreen = false;
 
 window.onload = function () {
-    initializeWebsite();
-
     newGame = new Game(5);
 
-    initializeStartButton();
+    initializeWebsite();
+
+    //initializeStartButton();
 
     fieldButtonsAddEventListener();
 
-    createTestButtons();
+    //createTestButtons();
     
 }
 
@@ -65,16 +65,18 @@ function createStartScreen(){
     
     overlay.style.marginTop = marginOld;
     
-    startButton.innerHTML = "Start";
+    //startButton.innerHTML = "Start";
     
     startButton.addEventListener('click', function (e){
         startButton.style.animationName = "buttonPuls, fadeOut";
         overlay.style.animationName = "fadeOut";
         startScreen = false;
+
         newGame.startPressed();
+        
         setTimeout(function () {
             overlay.remove();
-            }, 2000)
+            }, 1000)
     });
     
 }
@@ -123,7 +125,7 @@ function createGameOverScreen(highscore){
         setTimeout(function () {
             overlay.remove();
             gameOverScreen = false;
-            }, 2000)
+            }, 1000)
     });
     
     updateSize();
@@ -171,11 +173,14 @@ function updateSize() {
         if(startScreen || gameOverScreen){
             var button = document.getElementById("overlay_button");
             if(startScreen){
-                    
+                
+
                 button.style.height = winWidth * 0.2; 
                 button.style.width = winWidth * 0.2;
                 button.style.marginTop = (winHeight-winWidth * 0.2) / 2;
                 button.style.lineHeight = (winWidth * 0.2) + "px";
+                button.style.backgroundImage = "url('Assets/Player.png')";
+                button.style.border = "none";
             
             }
             
@@ -277,10 +282,12 @@ function initializePositionArray() {
 
 function resetGameField() {
     for (var i = 0; i < buttonArray.length; i++) {
-        buttonArray[i].style.backgroundColor = "transparent";
+        buttonArray[i].style.backgroundImage = "url('Assets/Button.png')";
+        buttonArray[i].style.border = "none";
+        /* buttonArray[i].style.backgroundColor = "transparent";
         buttonArray[i].style.backgroundImage = "none";
         buttonArray[i].style.borderColor = "black";
-        buttonArray[i].style.border = "2px solid";
+        buttonArray[i].style.border = "2px solid"; */
     }
 }
 
