@@ -21,7 +21,6 @@ for (let i = 0; i < soundFileNames.length; i++) {
     sounds[i].loop = false;
     mediaElementAudioSource[i].connect(source.input);
     sounds[i].addEventListener("ended", function (e) {
-        console.log("sound zu Ende");
         newGame.actualState.soundPlayingStopped();
     });
 }
