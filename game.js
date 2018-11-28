@@ -70,8 +70,8 @@ class StartState {
         this.howManySoundsHaveBeenPlayed = 0;
 
         console.log("Du hast Start gedrückt");
-        this.game.setListenerPosition("24");
-        this.game.setChickenPosition("34");
+        this.game.setListenerPosition("20");
+        this.game.setChickenPosition("21");
 
 
         displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
