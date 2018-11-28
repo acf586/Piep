@@ -1,5 +1,7 @@
-var numberOfXFields = 5;
-var audioDistanceBetweenFields = 2;
+var numberOfFieldsInXdirection = 5;
+var numberOfFieldsInYdirection = 5;
+
+var audioDistanceBetweenFields = 1;
 
 var buttonArray = null;
 
@@ -37,6 +39,28 @@ function initializeWebsite(){
     createStartScreen();
 
     updateSize();
+
+}
+
+function createGameField() {
+
+    for(let y = numberOfFieldsInYdirection - 1 ; y >= 0 ; y--){
+        for(let x = 0; x < numberOfFieldsInXdirection; x++){
+        
+            fieldButton = document.createElement("div");
+        
+            fieldButton.className = "fieldButton";
+        
+            var fieldId = x +""+ y;
+        
+            fieldButton.setAttribute("id", fieldId);
+        
+            document.getElementById("game-grid").appendChild(fieldButton);
+            
+        }
+    }
+
+    buttonArray = document.getElementsByClassName("fieldButton");
 
 }
 
@@ -134,25 +158,7 @@ function getLengthOfText(text){
     return ruler.offsetWidth;
 }
 
-function createGameField() {
 
-    for (var i = 0; i < numberOfXFields * numberOfXFields; i++) {
-        
-        fieldButton = document.createElement("div");
-        
-        fieldButton.className = "fieldButton";
-        
-        var fieldId = i % numberOfXFields +""+ parseInt(i / numberOfXFields);
-        
-        fieldButton.setAttribute("id", fieldId);
-        
-        document.getElementById("game-grid").appendChild(fieldButton);
-
-    }
-
-    buttonArray = document.getElementsByClassName("fieldButton");
-
-}
 
 function updateSize() {
     gameContainer = document.getElementById("gameContainer");

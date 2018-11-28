@@ -45,8 +45,8 @@ class Game {
         var oldPosition = this.chickenCurrentPosition;
         var finsihed = false;
         while(!finsihed){
-            let xIndex = (Math.random() * (numberOfXFields - 1)).toFixed(0);
-            let yIndex = (Math.random() * (numberOfXFields - 1)).toFixed(0);
+            let xIndex = (Math.random() * (numberOfFieldsInXdirection - 1)).toFixed(0);
+            let yIndex = (Math.random() * (numberOfFieldsInXdirection - 1)).toFixed(0);
             this.chickenCurrentPosition = xIndex + yIndex;
             if( this.chickenCurrentPosition != this.listenerPositionField && oldPosition != this.chickenCurrentPosition){
                 finsihed=true;
