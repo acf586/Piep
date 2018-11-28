@@ -84,6 +84,9 @@ function createStartScreen(){
     startButton = document.getElementById("overlay_button");
     
     overlay.style.marginTop = marginOld;
+
+    startButton.style.backgroundImage = "url('Assets/Player.png')";
+    startButton.style.border = "none";
     
     //startButton.innerHTML = "Start";
     
@@ -187,8 +190,7 @@ function updateSize() {
                 button.style.width = winWidth * 0.2;
                 button.style.marginTop = (winHeight-winWidth * 0.2) / 2;
                 button.style.lineHeight = (winWidth * 0.2) + "px";
-                button.style.backgroundImage = "url('Assets/Player.png')";
-                button.style.border = "none";
+             
             
             }
             
