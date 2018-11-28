@@ -1,20 +1,17 @@
 var numberOfXFields = 5;
+var audioDistanceBetweenFields = 2;
 
 var buttonArray = null;
 
 var gameFieldWidth;
 var gameFieldHeight;
 
-var xDelta;
-var yDelta;
-
-var positionArray;
-
 var gameContainer,
     menu,
     control,
     wrapper;
 
+//reicht hier vielleicht ein bool Variable, da beide voneinander abhängig
 var startScreen = false;
 var gameOverScreen = false;
 
@@ -41,7 +38,6 @@ function initializeWebsite(){
 
     updateSize();
 
-    initializePositionArray();
 }
 
 function createStartScreen(){
@@ -54,7 +50,7 @@ function createStartScreen(){
     var overlay = document.createElement("div");
     var button = document.createElement("div");
     
-    overlay.setAttribute("id", "overlay")
+    overlay.setAttribute("id", "overlay");
     button.setAttribute("id", "overlay_button");
     
     overlay.appendChild(button);
@@ -141,13 +137,19 @@ function getLengthOfText(text){
 function createGameField() {
 
     for (var i = 0; i < numberOfXFields * numberOfXFields; i++) {
+        
         fieldButton = document.createElement("div");
+        
         fieldButton.className = "fieldButton";
+        
         var fieldId = i % numberOfXFields +""+ parseInt(i / numberOfXFields);
+        
         fieldButton.setAttribute("id", fieldId);
+        
         document.getElementById("game-grid").appendChild(fieldButton);
 
     }
+
     buttonArray = document.getElementsByClassName("fieldButton");
 
 }
@@ -264,30 +266,11 @@ function updateSize() {
     }    
 }
 
-//benutzen wir noch gar nicht
-function initializePositionArray() {
-    positionArray = new Array(5);
-    for (var i = 0; i < 5; i++) {
-        positionArray[i] = new Array(5);
-    }
-    var actualField;
-    for (var y = 0; y < 5; y++) {
-        for (var x = 0; x < 5; x++) {
-            actualField = document.getElementById(x + "" + y);
-            //wird aktuell noch nicht benutzt
-            positionArray[x][y] = [actualField.offsetTop + actualField.clientHeight / 2, actualField.offsetLeft + actualField.clientWidth / 2];
-        }
-    }
-}
-
 function resetGameField() {
     for (var i = 0; i < buttonArray.length; i++) {
         buttonArray[i].style.backgroundImage = "url('Assets/Button.png')";
         buttonArray[i].style.border = "none";
-        /* buttonArray[i].style.backgroundColor = "transparent";
-        buttonArray[i].style.backgroundImage = "none";
-        buttonArray[i].style.borderColor = "black";
-        buttonArray[i].style.border = "2px solid"; */
+
     }
 }
 
@@ -327,8 +310,8 @@ function createTestButtons(){
 
 window.onresize = function () {
     updateSize();
-    initializePositionArray();
 }
+
 function displayGame(chickenField, listenerField){
     resetGameField();
     displayChicken(chickenField);
@@ -344,56 +327,4 @@ function displayChicken(chickenField) {
 function displayListener(listenerField) {
     document.getElementById(listenerField).style.backgroundImage = "url('Assets/Listener.png')";
     document.getElementById(listenerField).style.border = "none";
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-function runArroundField() {
-    chickenPositionEndField = "41";
-    var x = 3;
-    var xFinal = 1;
-    var y = 4;
-    for (let i = 0; i < 15; i++) {
-        setTimeout(function () {
-            if (i == 1 || i == 14) {
-                x++;
-            }
-            if (i > 1 && i < 6) {
-                y--;
-            }
-            if (i > 5 && i < 10) {
-                x--;
-            }
-            if (i > 9 && i < 14) {
-                y++;
-            }
-            chickenCurrentPosition = y + "" + x;
-            resetGameField();
-            displayChicken();
-        }, 200 * i + 2)
-
-    }
-}
-
-function switchChickenPositionNumberOfTimes(number) {
-    chickenCurrentPosition = ""
-    for (let i = 0; i < number; i++) {
-        setTimeout(function () {
-            
-            newGame.setRandomChickenPosition();
-
-        }, 400 * i)
-
-    }
-
-}
-
-function moveChicken(startPosition, EndPosition) {
-    playSound(chickenCurrentPosition);
-}
-
-function playSound(position) {
-
 }
