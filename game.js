@@ -124,7 +124,7 @@ class ChickenMoveState {
     run(){
         this.game.setRandomChickenPosition();
         console.log("run im ChickenMove");
-        play3DSound(3,this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        play3DSound(0,this.game.chickenCurrentPosition, this.game.listenerPositionField);
     }
 
     startPressed() {
