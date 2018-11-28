@@ -78,27 +78,31 @@ class StartState {
         //waitSomeSeconds();
         this.game.setRandomChickenPosition();
         displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
-        play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+
+        play3DSound(0,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
+        
         console.log("Spiele den Sound ab");
 
-        //play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
-        //this.nextState();
     }
     
     fieldPressed() {
         console.log("ich bin der Start");
     }
 
-    soundPlayingStopped(){
-        console.log("howManySoundsHaveBeenPlayed "+this.howManySoundsHaveBeenPlayed);
-        if(this.howManySoundsHaveBeenPlayed < 5){
-            console.log("howManySoundsHaveBeenPlayed "+this.howManySoundsHaveBeenPlayed);
+    soundPlayingStopped() {
+        console.log("howManySoundsHaveBeenPlayed " + this.howManySoundsHaveBeenPlayed);
+        if (this.howManySoundsHaveBeenPlayed < 5) {
+            console.log("howManySoundsHaveBeenPlayed " + this.howManySoundsHaveBeenPlayed);
+
             this.howManySoundsHaveBeenPlayed++;
+
             this.game.setRandomChickenPosition();
+
             displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
-            play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+
+            play3DSound(0, this.game.chickenCurrentPosition, this.game.listenerPositionField);
         }
-        else{
+        else {
             this.nextState();
         }
     }
@@ -117,10 +121,8 @@ class ChickenMoveState {
     }
     run(){
         this.game.setRandomChickenPosition();
-        //moveChicken();
-        console.log("Chicken is moving and playing 3D sound");
-        play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
-        
+        console.log("Chicken is hiding");
+        play3DSound(3,this.game.chickenCurrentPosition, this.game.listenerPositionField);
         
         this.nextState();
     }
@@ -162,10 +164,6 @@ class PlayerMoveState {
 
         this.game.setListenerPosition(listenerPositionField);
         displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
-        
-        console.log("Chicken: "+this.game.chickenCurrentPosition+" Listener: "+this.game.listenerPositionField);
-
-        //play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
 
         if(this.game.chickenCurrentPosition==this.game.listenerPositionField){
             this.nextState();
@@ -196,9 +194,7 @@ class FailureState {
         console.log("ich bin der Failure");
         this.secondSoundPlayed = false;
 
-        console.log("spiele FehlerSound");
-        //ToDo play Failure Sound
-        play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        play3DSound(1,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
         
     }
 
@@ -210,11 +206,10 @@ class FailureState {
     }
 
     soundPlayingStopped(){
-        console.log("Sound zu Ende. secondSoundPlayed: "+this.secondSoundPlayed);
 
         if(!this.secondSoundPlayed){
-            //playSecondSound
-            play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+            
+            play3DSound(0,this.game.chickenCurrentPosition, this.game.listenerPositionField);
             this.secondSoundPlayed = true;
         }
         else{
@@ -237,10 +232,6 @@ class SuccessState {
     run(){
         console.log("ich bin der Success");
         
-        //playSound(Success)
-        console.log("Success Sound");
-
-        
         if(this.game.moves > 1){
             this.game.points += this.game.moves;
         }
@@ -253,8 +244,10 @@ class SuccessState {
         console.log("Punkte: "+ this.game.points);
 
         this.game.rounds--;
+
         console.log("restliche Runden "+this.game.rounds);
-        play3DSound(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+
+        play3DSound(2,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
 
     }
 

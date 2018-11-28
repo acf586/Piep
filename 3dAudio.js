@@ -1,12 +1,15 @@
 var audioContext = new AudioContext();
-var sound = new Audio("Sounds/chirp.wav");
+var sound1, sound2, sound3 , sound4;
 
-//var sound = new Audio();
-var mediaElementAudioSource = audioContext.createMediaElementSource(sound);
-sound.loop = false;
+var sourceBuffers = [sound1, sound2, sound3, sound4];
 
+var sounds = ["chirp","failure","success","test"];
 
-// Da unsere Umgebungsgeräscueh quasi Outdoor dargestellt werden, hat sich herausgestellt, das wir kein Raummodell benötigen. Dieses beeinflusst den Sound in unserem Fall negativ;
+for(let i=0; i<4 ;i++){
+    getData(i);
+}
+
+// Da unsere Umgebungsgeräusche Outdoor dargestellt werden, hat sich herausgestellt, dass wir kein Raummodell benötigen. Dieses beeinflusst den Sound in unserem Fall negativ.
 
 var resonanceAudioScene = new ResonanceAudio(audioContext,{
     ambisonicOrder: 3
@@ -14,25 +17,21 @@ var resonanceAudioScene = new ResonanceAudio(audioContext,{
 
 var source = resonanceAudioScene.createSource();
 
-mediaElementAudioSource.connect(source.input);
-
 resonanceAudioScene.output.connect(audioContext.destination);
 
 source.setPosition(0, 0, 0);
 resonanceAudioScene.setListenerPosition(0 , 0, 0);
-
 
 //source.setOrientation(0, 0, 1, 0, 1, 0);
 source.setOrientation(0, 1, 0, 0, 0, 1);
 
 resonanceAudioScene.setListenerOrientation(0, 1, 0, 0, 0, 1);
 
-function play3DSound(sourcePosition, listenerPosition){
+function play3DSound(sound, sourcePosition, listenerPosition){
     
     sourceCoordinates = sourcePosition.split("");
     listenerCoordinates = listenerPosition.split("");
 
-    
     console.log("play3DSound");
     console.log("   original: Source: "+sourceCoordinates+" Listener: "+listenerCoordinates);
 
@@ -49,8 +48,38 @@ function play3DSound(sourcePosition, listenerPosition){
 
     resonanceAudioScene.setListenerPosition(listenerCoordinates[0], 0.0, listenerCoordinates[1]);
 
-    sound.play();
+    console.log("sound: "+sound+" sourceBuffers: "+sourceBuffers[sound]);
 
+    sourceBuffers[sound].start(0);
+
+    getData(sound);
+
+}
+
+function getData(i) {
+    console.log("getData: "+i);
+    var request = new XMLHttpRequest();
+    request.open('GET',  "/Sounds/" + sounds[i] + ".wav", true);
+    request.responseType = 'arraybuffer';
+    request.onload = function () {
+
+        console.log("onLoad: "+i);
+
+        var undecodedAudio = request.response;
+
+        audioContext.decodeAudioData(undecodedAudio, function (buffer) {
+            sourceBuffers[i] = audioContext.createBufferSource();
+            sourceBuffers[i].buffer = buffer;
+            sourceBuffers[i].connect(audioContext.destination);
+
+            sourceBuffers[i].addEventListener("ended", function (e) {
+                console.log("sound zu Ende");
+                newGame.actualState.soundPlayingStopped();
+            });
+        });
+        
+    };
+    request.send();
 }
 
 function transformCoordinatesToAudioField(coordinate){
@@ -58,8 +87,11 @@ function transformCoordinatesToAudioField(coordinate){
     return audioFieldCoordinate;
 }
 
-
-sound.addEventListener("ended", function (e) {
- 
- newGame.actualState.soundPlayingStopped();
-});
+function addBufferEventListener(){
+    for (let i = 0; i < 4; i++) {
+        sourceBuffers[i].addEventListener("ended", function (e) {
+            console.log("sound zu Ende");
+            newGame.actualState.soundPlayingStopped();
+        });
+    }
+}
