@@ -5,9 +5,6 @@ var audioDistanceBetweenFields = 1;
 
 var buttonArray = null;
 
-// var gameFieldWidth;
-// var gameFieldHeight;
-
 var gameContainer,
     menu,
     control,
