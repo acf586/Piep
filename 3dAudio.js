@@ -11,7 +11,9 @@ var resonanceAudioScene = new ResonanceAudio(audioContext, {
 var source = resonanceAudioScene.createSource();
 resonanceAudioScene.output.connect(audioContext.destination);
 
-source.setOrientation(0, 1, 0, 0, 0, 1);
+//source.setOrientation(0, 1, 0, 0, 0, 1);
+
+source.setOrientation(0, 0, 1, 0, 1, 0);
 
 resonanceAudioScene.setListenerOrientation(0, 1, 0, 0, 0, 1);
 
