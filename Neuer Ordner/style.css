@@ -1,0 +1,41 @@
+
+
+#circle{
+    margin: 0;
+    height: 200px;
+    width: 200px;
+    position: relative;}
+
+.fill{
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    border: solid red 4px;
+    border-radius: 50%;
+    transform: rotate(90deg);
+    clip: rect(0px, 108px, 208px, 0px);
+    
+    
+}
+
+.bar{
+    z-index: 5;
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    border: solid blue 4px;
+    border-radius: 50%;
+    transform: rotate(180deg);
+    clip: rect(0px, 108px, 208px, 0px);
+    
+}
+.perc{
+    position: absolute;
+    margin: 0;
+    padding: -30px;
+    height: 100%;
+    width: 100%;
+    border: solid black 4px;
+    border-radius: 50%;
+    
+}

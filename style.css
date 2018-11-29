@@ -10,6 +10,7 @@ html,body{
     background-repeat: no-repeat;
     
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 
@@ -24,10 +25,13 @@ html,body{
     height: 100%;
     width: 50%;
     margin: 0 auto;
+    opacity: 0.0;
     /* box-sizing: border-box;
     border: 2px solid black;
     border-radius: 50px;
  */
+    animation-duration: 2s;
+    animation-iteration-count: 1;
     
 }
 #controlContainer{
@@ -44,9 +48,10 @@ html,body{
     height: 100%;
     width: 100%;
 
-     display: grid;
-     grid-gap: 4% 4%;
-     grid-template-columns: auto auto auto auto auto;
+    display: grid;
+    grid-gap: 4% 4%;
+    grid-template-columns: auto auto auto auto auto;
+    
  } 
 
 .fieldButton{
@@ -72,11 +77,10 @@ html,body{
     box-sizing: border-box;   
     border-radius: 50px;
     border: 2px solid black;
-    font-size: 2.5vh;
-    background: none;
 }
 
 .Button:active{
+    
     background: white;
 
 }
@@ -92,7 +96,7 @@ html,body{
 
     
     
-    background-color: aliceblue;
+    background-color: none;
     
     animation-duration: 2s;
 }
@@ -106,13 +110,9 @@ html,body{
     margin: 0 auto;
     position: relative;
     
+    background-image: url('Assets/Player.png');
+    
     display: block;
-    
-    border-radius: 50%;
-    border: solid black 2px;
-    
-    text-align: center;
-    font-size: 5vh;
     
     animation-name: buttonPuls;
     animation-duration: 2s;
@@ -125,29 +125,32 @@ html,body{
     background-repeat: no-repeat;
 }
 
-#overlay_textfield{
-    width: 30vh;
+#overlay_points{
+    width: 15vh;
     height: 15vh;
     
+    display: flex;
     
-    margin: 5% auto;
+    margin:  -55vh 70%;
     
     text-align: center;
     font-size: 4vh;
+    line-height: 15vh;
     
+}
+
+#percentage, #left, #right{
+    background-color: none;
+    position: absolute;
+    height: 50%;
+    width: 25%;
     border: solid black 2px;
     
-    border-radius: 50px;
+    border-radius: 50%;
     
     
 }
 
-#ruler{
-    visibility: hidden;
-    white-space: nowrap;
-    font-size: 4vh;
-    
-}
 
 #overlay_wrapper #overlay_button{
     
@@ -166,6 +169,11 @@ html,body{
 @keyframes fadeOut{
     0% {opacity: 1.0;}
     100% {opacity: 0.0;}
+}
+
+@keyframes fadeIn{
+    0% {opacity: 0.0;}
+    100% {opacity: 1.0;}
 }
 
 

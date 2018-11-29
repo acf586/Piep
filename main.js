@@ -45,20 +45,16 @@ function initializeWebsite(){
 
 function showScreen(){
     
-    console.log("hfdkjsfhas");
-    var marginOld = parseFloat(document.getElementById("gameContainer").style.marginTop);
-    marginOld *= (-1);
-
+    var gameContainer = document.getElementById("gameContainer");
     var overlay = document.getElementById("overlay");
+    overlay.style.display = "block";
+    gameContainer.style = "none";
     var button = document.getElementById("overlay_button");
 
     if(startScreen){
-        overlay.display = "block";
-        document.getElementById("gameContainer").display = "none";
+        gameContainer.style.display = "none";
     }
 
-    overlay.style.marginTop = marginOld;
-    
     button.style.backgroundImage = "url('Assets/Player.png')";
     button.style.border = "none";
     
@@ -66,26 +62,30 @@ function showScreen(){
     button.style.marginTop = (window.innerHeight - button.clientHeight) / 2;
     if(!startScreen){
         button.addEventListener('click', function (e){
-        button.style.animationName = "buttonPuls, fadeOut";
-        overlay.style.animationName = "fadeOut";
-        startScreen = true;
-        
-        newGame.startPressed();
-        document.getElementById("gameContainer").style.display = "block";
-            
-        setTimeout(function () {
-            overlay.style.display = "none";
-            overlay.style.animationName = "";
-            button.style.animationName = "buttonPuls";
-            }, 1000)
+            button.style.animationName = "buttonPuls, fadeOut";
+            overlay.style.animationName = "fadeOut";
+            document.getElementById("gameContainer").style.animationName = "fadeIn";
+            startScreen = true;
+
+            newGame.startPressed();
+            document.getElementById("gameContainer").style.display = "block";
+            updateSize();
+
+            setTimeout(function () {
+                overlay.style.display = "none";
+                overlay.style.animationName = "";
+                button.style.animationName = "buttonPuls";
+                document.getElementById("gameContainer").style.animationName = "fadeIn";
+                document.getElementById("gameContainer").style.opacity = 1.0;
+                }, 1000);
         });
     }
     
-    else{
+    //else{
         var pointField = document.getElementById("overlay_points");
         pointField.style.display = "block";
         pointField.innerHTML = getPercentage()  + "%";
-    }
+    //}
       
 }
 
@@ -142,6 +142,7 @@ function showScreen(){
 
 function getPercentage(){
     //TODO
+    return "100";
 }
 
 
@@ -165,50 +166,42 @@ function createGameField() {
 
 }
 
-function updateSize() {
-    gameContainer = document.getElementById("gameContainer");
-    menu = document.getElementById("menu");
-    control = document.getElementById("controlContainer");
-    gameContainer = document.getElementById("gameContainer");
+function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin){
+    var gameContainer = document.getElementById("gameContainer");
+    var button = document.getElementById("overlay_button");
+    var pointField = document.getElementById("overlay_points");
+    
+    gameContainer.style.height = gCSize;
+    gameContainer.style.width = gCSize;
 
+    gameContainer.style.marginTop = gCMarginTop;
+    gameContainer.style.marginLeft = gCMarginLeft;
+    
+    button.style.height = buttonSize; 
+    button.style.width = buttonSize;
+    button.style.marginTop = buttonMargin;
+    console.log(buttonSize / 2);
+    
+    pointField.marginTop = pointMargin;
+    pointField.style.height = parseFloat(buttonSize / 3);
+    pointField.style.width = parseFloat(buttonSize / 3);
+    pointField.style.lineHeight = parseFloat(buttonSize / 3) + "px";
+    
+    document.getElementById("overlay").style.marginTop = 0;
+}
+
+
+function updateSize() {
     var winHeight = window.innerHeight;
     var winWidth = window.innerWidth;
-    var margin = 0;
     
     if (winHeight > winWidth / 2 || winHeight == winWidth / 2) {
-        gameContainer.style.height = winWidth / 2;
-        gameContainer.style.width = winWidth / 2;
-
-        margin = (winHeight - winWidth / 2) / 2;
-        gameContainer.style.marginTop = margin;
-        gameContainer.style.marginLeft = (winWidth - winWidth / 2) / 2;
-        
-        
-        var button = document.getElementById("overlay_button");
-        
-        button.style.height = winWidth * 0.2; 
-        button.style.width = winWidth * 0.2;
-        button.style.marginTop = (winHeight-winWidth * 0.2) / 2;
-        
-        document.getElementById("overlay").style.marginTop = 0;
+        makeSize(winWidth / 2, (winHeight - winWidth / 2) / 2, (winWidth - winWidth / 2) / 2, winWidth * 0.2, (winHeight-winWidth * 0.2) / 2, winHeight * 0.25);
+        console.log("1")
     }
 
     if (winHeight < winWidth / 2) {
-        gameContainer.style.height = winHeight - winHeight * 0.05;
-        gameContainer.style.width = winHeight - winHeight * 0.05;;
-
-        margin = 0 + winHeight * 0.025;
-        gameContainer.style.marginTop = margin;
-        gameContainer.style.marginLeft = (winWidth - winHeight) / 2;
-        
-        var button = document.getElementById("overlay_button");
-
-        button.style.height = winHeight * 0.4; 
-        button.style.width = winHeight * 0.4;
-        button.style.marginTop = (winHeight - winHeight * 0.4) / 2;
-        button.style.lineHeight = (winHeight * 0.4) + "px";
-
-        document.getElementById("overlay").style.marginTop = 0;
+        makeSize(winHeight - winHeight * 0.05, winHeight * 0.025, (winWidth - winHeight) / 2, winHeight * 0.4, (winHeight - winHeight * 0.4) / 2, winHeight * 0.25);
     }    
 }
 
@@ -232,10 +225,6 @@ function resetGameField() {
     for (var i = 0; i < buttonArray.length; i++) {
         buttonArray[i].style.backgroundImage = "url('Assets/Button.png')";
         buttonArray[i].style.border = "none";
-        /* buttonArray[i].style.backgroundColor = "transparent";
-        buttonArray[i].style.backgroundImage = "none";
-        buttonArray[i].style.borderColor = "black";
-        buttonArray[i].style.border = "2px solid"; */
     }
 }
 
@@ -295,8 +284,6 @@ function displayListener(listenerField) {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 function runArroundField() {
     chickenPositionEndField = "41";
