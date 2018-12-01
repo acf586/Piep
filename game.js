@@ -52,7 +52,6 @@ class Game {
                 finsihed=true;
             }
         }
-        displayGame(this.chickenCurrentPosition, this.listenerPositionField);
     }
 }
 
@@ -77,7 +76,7 @@ class StartState {
         displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
         //waitSomeSeconds();
         this.game.setRandomChickenPosition();
-        displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        displayGame(this.game.chickenCurrentPosition,this.game.listenerPositionField);
 
         play3DSound(0,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
         
@@ -99,12 +98,15 @@ class StartState {
 
             this.game.setRandomChickenPosition();
 
-            displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+            displayGame(this.game.chickenCurrentPosition,this.game.listenerPositionField);
 
             play3DSound(0, this.game.chickenCurrentPosition, this.game.listenerPositionField);
         }
         else {
-            this.nextState();
+            setTimeout(() => {
+                
+                this.nextState();
+            }, 800);
         }
     }
 
@@ -122,8 +124,10 @@ class ChickenMoveState {
         this.game = game;
     }
     run(){
+        displayListener(this.game.listenerPositionField);
         this.game.setRandomChickenPosition();
         console.log("run im ChickenMove");
+        //timeout für verstecken
         play3DSound(0,this.game.chickenCurrentPosition, this.game.listenerPositionField);
     }
 
@@ -163,12 +167,13 @@ class PlayerMoveState {
     }
 
     fieldPressed(listenerPositionField) {
-        
-        this.game.moves--;
         console.log("fieldPressed im Player Move mit "+this.game.moves+" moves");
 
+        this.game.moves--;
+        
         this.game.setListenerPosition(listenerPositionField);
-        displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        
+        displayListener(this.game.listenerPositionField);
 
         if(this.game.chickenCurrentPosition==this.game.listenerPositionField){
             this.nextState();
@@ -179,6 +184,7 @@ class PlayerMoveState {
         }
         
     }
+
     soundPlayingStopped(){
         console.log("soundPlayingStopped im PlayerMove");
     }
@@ -214,9 +220,11 @@ class FailureState {
     soundPlayingStopped(){
         console.log("soundPlayingStopped Failure");
         if(!this.secondSoundPlayed){
+            setTimeout(() => {
+                play3DSound(0,this.game.chickenCurrentPosition, this.game.listenerPositionField);
+                this.secondSoundPlayed = true;
+            }, 400);
             
-            play3DSound(0,this.game.chickenCurrentPosition, this.game.listenerPositionField);
-            this.secondSoundPlayed = true;
         }
         else{
             this.nextState();
@@ -238,11 +246,13 @@ class SuccessState {
 
     run(){
         console.log("ich bin der Success");
-        
+
         if(this.game.moves > 1){
+            displayPoints(this.game.chickenCurrentPosition, this.game.moves);
             this.game.points += this.game.moves;
         }
         else{
+            displayPoints(this.game.chickenCurrentPosition, 1);
             this.game.points += 1;
         }
         
@@ -256,6 +266,7 @@ class SuccessState {
 
         play3DSound(2,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
 
+        
     }
 
     startPressed() {
@@ -267,14 +278,18 @@ class SuccessState {
     }
 
     soundPlayingStopped(){
+        displayChicken(this.game.chickenCurrentPosition);
         console.log("soundPlayingStopped im Success");
         if( this.game.rounds<=0 ){
             this.nextState();
         }
         
         else{
-            this.game.setActualState(this.game.chickenMoveState);
-            this.game.actualState.run();
+            setTimeout(() => {
+                this.game.setActualState(this.game.chickenMoveState);
+                this.game.actualState.run();
+            }, 1600);
+           
         }
     }
 

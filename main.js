@@ -1,7 +1,7 @@
 var numberOfFieldsInXdirection = 5;
 var numberOfFieldsInYdirection = 5;
 
-var audioDistanceBetweenFields = 2;
+var audioDistanceBetweenFields = 0.5;
 
 var buttonArray = null;
 
@@ -271,13 +271,7 @@ function updateSize() {
     }    
 }
 
-function resetGameField() {
-    for (var i = 0; i < buttonArray.length; i++) {
-        buttonArray[i].style.backgroundImage = "url('Assets/Button.png')";
-        buttonArray[i].style.border = "none";
 
-    }
-}
 
 function initializeStartButton() {
     document.getElementById("startButton").addEventListener('click', function () {
@@ -317,19 +311,57 @@ window.onresize = function () {
     updateSize();
 }
 
+function resetGameField() {
+    for (var i = 0; i < buttonArray.length; i++) {
+        buttonArray[i].style.backgroundImage = "url('Assets/Button.png')";
+        buttonArray[i].style.border = "none";
+        buttonArray[i].innerHTML = "";
+    }
+}
+
 function displayGame(chickenField, listenerField){
     resetGameField();
-    displayChicken(chickenField);
-    displayListener(listenerField);
+
+    document.getElementById(chickenField).style.backgroundImage = "url('Assets/Player.png')";
+    document.getElementById(chickenField).style.border = "none";
+    
+    document.getElementById(listenerField).style.backgroundImage = "url('Assets/Listener.png')";
+    document.getElementById(listenerField).style.border = "none";
 }
 
 function displayChicken(chickenField) {
-    console.log(chickenField);
+    resetGameField();
     document.getElementById(chickenField).style.backgroundImage = "url('Assets/Player.png')";
     document.getElementById(chickenField).style.border = "none";
 }
 
 function displayListener(listenerField) {
+    resetGameField();
     document.getElementById(listenerField).style.backgroundImage = "url('Assets/Listener.png')";
     document.getElementById(listenerField).style.border = "none";
 }
+
+function displayPoints(chickenField, points) {
+    resetGameField();
+    switch (points) {
+        case 1:
+            document.getElementById(chickenField).style.backgroundImage = "url('Assets/1.png')";
+            document.getElementById(chickenField).style.border = "none";
+            break;
+
+        case 2:
+            document.getElementById(chickenField).style.backgroundImage = "url('Assets/2.png')";
+            document.getElementById(chickenField).style.border = "none";
+            break;
+
+        case 3:
+            document.getElementById(chickenField).style.backgroundImage = "url('Assets/3.png')";
+            document.getElementById(chickenField).style.border = "none";
+            break;
+
+        default:
+            break;
+    }
+
+}
+

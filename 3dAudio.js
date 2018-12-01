@@ -1,3 +1,5 @@
+//ToDo testen wie es wäre wenn das Küken sich in 
+
 var audioContext = new AudioContext();
 var soundFileNames = ["chirp","failure","success","test"];
 var sounds = [];
@@ -11,9 +13,9 @@ var resonanceAudioScene = new ResonanceAudio(audioContext, {
 var source = resonanceAudioScene.createSource();
 resonanceAudioScene.output.connect(audioContext.destination);
 
-//source.setOrientation(0, 1, 0, 0, 0, 1);
+source.setOrientation(0, 1, 0, 0, 0, 1);
 
-source.setOrientation(0, 0, 1, 0, 1, 0);
+//source.setOrientation(0, 0, 1, 0, 1, 0);
 
 resonanceAudioScene.setListenerOrientation(0, 1, 0, 0, 0, 1);
 
@@ -45,9 +47,16 @@ function play3DSound(theSoundtoBePlayed, sourcePosition, listenerPosition){
         
     console.log("transformed: Source: "+sourceCoordinates+" Listner: "+listenerCoordinates);
 
-    source.setPosition(sourceCoordinates[0] , 0.0, sourceCoordinates[1]);
+    //soundfield in der X,Z Ebene
+    // source.setPosition(sourceCoordinates[0] , 0.0, sourceCoordinates[1]);
 
-    resonanceAudioScene.setListenerPosition(listenerCoordinates[0], 0.0, listenerCoordinates[1]);
+    // resonanceAudioScene.setListenerPosition(listenerCoordinates[0], 0.0, listenerCoordinates[1]);
+
+    //soundField in der X,Y Ebene
+    
+    source.setPosition(sourceCoordinates[0] , sourceCoordinates[1] , 0.0);
+
+    resonanceAudioScene.setListenerPosition(listenerCoordinates[0], listenerCoordinates[1], 0.0);
 
     sounds[theSoundtoBePlayed].play();
 }
