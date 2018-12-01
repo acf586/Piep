@@ -20,7 +20,7 @@ source.setOrientation(0, 1, 0, 0, 0, 1);
 resonanceAudioScene.setListenerOrientation(0, 1, 0, 0, 0, 1);
 
 for (let i = 0; i < soundFileNames.length; i++) {
-    sounds[i] = new Audio("/Sounds/" + soundFileNames[i] + ".wav");
+    sounds[i] = new Audio("../Sounds/" + soundFileNames[i] + ".wav");
     mediaElementAudioSource[i] = audioContext.createMediaElementSource(sounds[i]);
     sounds[i].loop = false;
     mediaElementAudioSource[i].connect(source.input);
@@ -53,7 +53,7 @@ function play3DSound(theSoundtoBePlayed, sourcePosition, listenerPosition){
     // resonanceAudioScene.setListenerPosition(listenerCoordinates[0], 0.0, listenerCoordinates[1]);
 
     //soundField in der X,Y Ebene
-    
+
     source.setPosition(sourceCoordinates[0] , sourceCoordinates[1] , 0.0);
 
     resonanceAudioScene.setListenerPosition(listenerCoordinates[0], listenerCoordinates[1], 0.0);
