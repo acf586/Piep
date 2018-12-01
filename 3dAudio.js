@@ -20,7 +20,7 @@ source.setOrientation(0, 1, 0, 0, 0, 1);
 resonanceAudioScene.setListenerOrientation(0, 1, 0, 0, 0, 1);
 
 for (let i = 0; i < soundFileNames.length; i++) {
-    sounds[i] = new Audio("../Sounds/" + soundFileNames[i] + ".wav");
+    sounds[i] = new Audio("Sounds/" + soundFileNames[i] + ".wav");
     mediaElementAudioSource[i] = audioContext.createMediaElementSource(sounds[i]);
     sounds[i].loop = false;
     mediaElementAudioSource[i].connect(source.input);
