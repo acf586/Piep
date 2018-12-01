@@ -84,72 +84,13 @@ function showScreen(){
     //else{
         var pointField = document.getElementById("overlay_points");
         pointField.style.display = "block";
-        pointField.innerHTML = getPercentage()  + "%";
     //}
       
 }
 
-/*function createGameOverScreen(highscore){
-    
-    var marginOld = parseFloat(document.getElementById("gameContainer").style.marginTop);
-    marginOld *= (-1);
-    
-    gameOverScreen = true;
-    
-    var overlay = document.createElement("div");
-    var button = document.createElement("div");
-    var pointTextField = document.createElement("div");
-    var overlayWrap = document.createElement("div");
-    
-    overlay.setAttribute("id", "overlay")
-    button.setAttribute("id", "overlay_button");
-    pointTextField.setAttribute("id", "overlay_textfield");
-    overlayWrap.setAttribute("id", "overlay_wrapper");
-    
-    overlayWrap.appendChild(pointTextField);
-    overlayWrap.appendChild(button);
-    overlay.appendChild(overlayWrap);
-    document.getElementById("wrapper").appendChild(overlay);
-    
-    overlay = document.getElementById("overlay");
-    overlayWrap = document.getElementById("overlay_wrapper");
-    gameOverButton = document.getElementById("overlay_button");
-    pointTextField = document.getElementById("overlay_textfield");
-    
-    
-    overlay.style.marginTop = marginOld;
-    
-    gameOverButton.innerHTML = "Restart";
-    
-    var pointString = "Punkte: " + highscore;
-    pointTextField.innerHTML = pointString;
-    
-    
-    
-    gameOverButton.addEventListener('click', function (e){
-        gameOverButton.style.animationName = "buttonPuls, fadeOut";
-        overlay.style.animationName = "fadeOut";
-        newGame.startPressed();
-        setTimeout(function () {
-            overlay.remove();
-            gameOverScreen = false;
-            }, 1000)
-    });
-    
-    updateSize();
-    
-}*/
-
 function getPercentage(){
     //TODO
-    return "100";
-}
-
-
-function getLengthOfText(text){
-    var ruler = document.getElementById("ruler");
-    ruler.innerHTML = text;
-    return ruler.offsetWidth;
+    return "90";
 }
 
 function createGameField() {
@@ -187,7 +128,66 @@ function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, p
     pointField.style.width = parseFloat(buttonSize / 3);
     pointField.style.lineHeight = parseFloat(buttonSize / 3) + "px";
     
+    showPercentage(buttonSize * 0.6);
+    
     document.getElementById("overlay").style.marginTop = 0;
+}
+
+function showPercentage(size){
+    
+    
+    var percentage = parseInt(getPercentage());  //TODO
+    var left = document.getElementById("left");
+    var right = document.getElementById("right");
+    var circle = document.getElementById("percentage");
+    
+    var pointField = document.getElementById("overlay_points");
+    console.log(window.innerHeight);
+    
+    if(pointField.offsetTop > window.innerHeight * 0.2){
+        
+        pointField.style.marginTop = -(window.innerHeight - pointField.offsetTop) * 0.8;
+        
+    }
+    
+    var offSetLeft = right.offsetLeft;
+    var offSetTop = right.offsetTop;
+    
+    circle.style.height = size;
+    circle.style.width = size;
+    circle.style.lineHeight = size + "px";
+    circle.innerHTML = getPercentage()  + "%";
+    
+    left.style.height = size;
+    left.style.width = size;
+    
+    right.style.height = size;
+    right.style.width = size;
+    
+    if(percentage <= 50){
+        
+        right.style.borderColor = "black";
+        
+        right.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
+        
+        left.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
+        
+        right.style.transform = "rotate(" + (180 + percentage * 3.6) + "deg)";
+        
+    }
+    
+    if(percentage > 50){
+        
+        right.style.borderColor = "lime";
+        left.style.borderColor = "black";
+        
+        right.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
+        
+        left.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
+        
+        right.style.transform = "rotate(" + (180 + (percentage - 50) * 3.6) + "deg)";
+        
+    }
 }
 
 
@@ -197,7 +197,6 @@ function updateSize() {
     
     if (winHeight > winWidth / 2 || winHeight == winWidth / 2) {
         makeSize(winWidth / 2, (winHeight - winWidth / 2) / 2, (winWidth - winWidth / 2) / 2, winWidth * 0.2, (winHeight-winWidth * 0.2) / 2, winHeight * 0.25);
-        console.log("1")
     }
 
     if (winHeight < winWidth / 2) {
@@ -211,7 +210,6 @@ function initializePositionArray() {
     for (var i = 0; i < 5; i++) {
         positionArray[i] = new Array(5);
     }
-    var actualField;
     for (var y = 0; y < 5; y++) {
         for (var x = 0; x < 5; x++) {
             actualField = document.getElementById(x + "" + y);
