@@ -24,6 +24,7 @@ class Game {
     }
 
     fieldPressed(listenerPositionField) {
+        console.log("Game listener listenerPositionField: "+listenerPositionField);
         this.actualState.fieldPressed(listenerPositionField);
     }
     setActualState(state) {
@@ -167,11 +168,16 @@ class PlayerMoveState {
     }
 
     fieldPressed(listenerPositionField) {
+        
+        this.game.moves--;
+
         console.log("fieldPressed im Player Move mit "+this.game.moves+" moves");
 
-        this.game.moves--;
+        console.log("PlayerMove listener listenerPositionField: "+listenerPositionField);
         
         this.game.setListenerPosition(listenerPositionField);
+
+        console.log("this.game.setListenerPosition: "+this.game.listenerPositionField);
         
         displayListener(this.game.listenerPositionField);
 
@@ -219,11 +225,12 @@ class FailureState {
 
     soundPlayingStopped(){
         console.log("soundPlayingStopped Failure");
+        
         if(!this.secondSoundPlayed){
             setTimeout(() => {
                 play3DSound(0,this.game.chickenCurrentPosition, this.game.listenerPositionField);
                 this.secondSoundPlayed = true;
-            }, 400);
+            }, 200);
             
         }
         else{

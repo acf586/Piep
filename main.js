@@ -1,7 +1,7 @@
-var numberOfFieldsInXdirection = 5;
-var numberOfFieldsInYdirection = 5;
-
-var audioDistanceBetweenFields = 0.5;
+var numberOfFieldsInXdirection = 3;
+var numberOfFieldsInZdirection = 3;
+//2
+var audioDistanceBetweenFields = 2;
 
 var buttonArray = null;
 
@@ -41,14 +41,14 @@ function initializeWebsite(){
 
 function createGameField() {
 
-    for(let y = numberOfFieldsInYdirection - 1 ; y >= 0 ; y--){
+    for(let z = 0 ; z < numberOfFieldsInZdirection ; z++){
         for(let x = 0; x < numberOfFieldsInXdirection; x++){
         
             fieldButton = document.createElement("div");
         
             fieldButton.className = "fieldButton";
         
-            var fieldId = x +""+ y;
+            var fieldId = x +""+ z;
         
             fieldButton.setAttribute("id", fieldId);
         
@@ -284,7 +284,7 @@ function fieldButtonsAddEventListener() {
         buttonArray[i].id;
         buttonArray[i].addEventListener('click', function (e) {
                 var listenerPositionField = e.target.id;
-                console.log(listenerPositionField);
+                console.log("ActionListener listener listenerPositionField: "+listenerPositionField);
                 newGame.fieldPressed(listenerPositionField);
         });
 

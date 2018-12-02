@@ -7,17 +7,16 @@ var sounds = [];
 var mediaElementAudioSource = [];
 
 var resonanceAudioScene = new ResonanceAudio(audioContext, {
-    ambisonicOrder: 3,
+   // ambisonicOrder: 3,
   });
 
 var source = resonanceAudioScene.createSource();
 resonanceAudioScene.output.connect(audioContext.destination);
 
-source.setOrientation(0, 1, 0, 0, 0, 1);
+//                      source.setOrientation(0, 0, 1, 0, 1, 0);
+// resonanceAudioScene.setListenerOrientation(0, 0, -1, 0, 1, 0);
 
-//source.setOrientation(0, 0, 1, 0, 1, 0);
 
-resonanceAudioScene.setListenerOrientation(0, 1, 0, 0, 0, 1);
 
 for (let i = 0; i < soundFileNames.length; i++) {
     sounds[i] = new Audio("Sounds/" + soundFileNames[i] + ".wav");
@@ -48,15 +47,15 @@ function play3DSound(theSoundtoBePlayed, sourcePosition, listenerPosition){
     console.log("transformed: Source: "+sourceCoordinates+" Listner: "+listenerCoordinates);
 
     //soundfield in der X,Z Ebene
-    // source.setPosition(sourceCoordinates[0] , 0.0, sourceCoordinates[1]);
+    source.setPosition(sourceCoordinates[0] , 0.0, sourceCoordinates[1]);
 
-    // resonanceAudioScene.setListenerPosition(listenerCoordinates[0], 0.0, listenerCoordinates[1]);
+    resonanceAudioScene.setListenerPosition(listenerCoordinates[0], 0.0, listenerCoordinates[1]);
 
-    //soundField in der X,Y Ebene
+    // //soundField in der X,Y Ebene
 
-    source.setPosition(sourceCoordinates[0] , sourceCoordinates[1] , 0.0);
+    // source.setPosition(sourceCoordinates[0] , sourceCoordinates[1] , 0.0);
 
-    resonanceAudioScene.setListenerPosition(listenerCoordinates[0], listenerCoordinates[1], 0.0);
+    // resonanceAudioScene.setListenerPosition(listenerCoordinates[0], listenerCoordinates[1], 0.0);
 
     sounds[theSoundtoBePlayed].play();
 }
