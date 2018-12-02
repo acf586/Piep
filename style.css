@@ -142,20 +142,12 @@ html,body{
     position: absolute;
     height: 100;
     width: 100;
-    border: solid black 5px;
+    border: solid black 6px;
     
     border-radius: 50%;
     
     
 }
-
-#left, #right{
-    border-color: black;
-    border-radius: 50%;
-    
-}
-
-
 
 #percentage{
     

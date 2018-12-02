@@ -17,6 +17,8 @@ var gameContainer,
 var startScreen = false;
 var gameOverScreen = false;
 
+var uebergabe = 40;
+
 window.onload = function () {
     newGame = new Game(5);
 
@@ -60,6 +62,7 @@ function showScreen(){
     
     overlay.style.marginTop = 0;
     button.style.marginTop = (window.innerHeight - button.clientHeight) / 2;
+        
     if(!startScreen){
         button.addEventListener('click', function (e){
             button.style.animationName = "buttonPuls, fadeOut";
@@ -69,7 +72,6 @@ function showScreen(){
 
             newGame.startPressed();
             document.getElementById("gameContainer").style.display = "block";
-            updateSize();
 
             setTimeout(function () {
                 overlay.style.display = "none";
@@ -81,16 +83,19 @@ function showScreen(){
         });
     }
     
-    //else{
+    else{
         var pointField = document.getElementById("overlay_points");
         pointField.style.display = "block";
-    //}
-      
+
+    }
+
+    updateSize();
+  
 }
 
 function getPercentage(){
     //TODO
-    return "90";
+    return uebergabe;
 }
 
 function createGameField() {
@@ -129,7 +134,7 @@ function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, p
     pointField.style.lineHeight = parseFloat(buttonSize / 3) + "px";
     
     showPercentage(buttonSize * 0.6);
-    
+    console.log(buttonSize);
     document.getElementById("overlay").style.marginTop = 0;
 }
 
@@ -142,7 +147,6 @@ function showPercentage(size){
     var circle = document.getElementById("percentage");
     
     var pointField = document.getElementById("overlay_points");
-    console.log(window.innerHeight);
     
     if(pointField.offsetTop > window.innerHeight * 0.2){
         
@@ -164,30 +168,29 @@ function showPercentage(size){
     right.style.height = size;
     right.style.width = size;
     
-    if(percentage <= 50){
+    if(percentage < 50){
         
         right.style.borderColor = "black";
-        
-        right.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
-        
-        left.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
-        
-        right.style.transform = "rotate(" + (180 + percentage * 3.6) + "deg)";
-        
+        left.style.borderColor = "black";
     }
     
-    if(percentage > 50){
+    else{
         
         right.style.borderColor = "lime";
         left.style.borderColor = "black";
-        
-        right.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
-        
-        left.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
-        
-        right.style.transform = "rotate(" + (180 + (percentage - 50) * 3.6) + "deg)";
-        
+
+        if(percentage == 100){
+            left.style.borderColor = "lime";
+
+        }
+                
     }
+    right.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
+        
+    left.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
+        
+    right.style.transform = "rotate(" + (180 + (percentage % 50) * 3.6) + "deg)";
+    
 }
 
 
