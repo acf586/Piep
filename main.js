@@ -11,12 +11,12 @@ var gameContainer,
 
 //reicht hier vielleicht ein bool Variable, da beide voneinander abhängig
 var startScreen = false;
-var gameOverScreen = false;
 
-var uebergabe = 40;
-
+var uebergabe = 0;
+var rounds = 0;
 window.onload = function () {
     newGame = new Game(5);
+    rounds = 5;
 
     initializeWebsite();
 
@@ -104,7 +104,7 @@ function showScreen(){
     else{
         var pointField = document.getElementById("overlay_points");
         pointField.style.display = "block";
-
+        updateSize();
     }
 
     updateSize();
@@ -112,10 +112,10 @@ function showScreen(){
 }
 
 function getPercentage(){
-    //TODO
     return uebergabe;
 }
 
+/*
 function createGameField() {
 
     for (var i = 0; i < numberOfXFields * numberOfXFields; i++) {
@@ -129,11 +129,14 @@ function createGameField() {
     buttonArray = document.getElementsByClassName("fieldButton");
 
 }
+*/
 
 function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin){
     var gameContainer = document.getElementById("gameContainer");
     var button = document.getElementById("overlay_button");
     var pointField = document.getElementById("overlay_points");
+    
+    console.log(buttonMargin);
     
     gameContainer.style.height = gCSize;
     gameContainer.style.width = gCSize;
@@ -374,3 +377,20 @@ function displayPoints(chickenField, points) {
 
 }
 
+function getUebergabe(){
+    console.log(uebergabe);
+    return uebergabe;
+}
+
+function getRounds(){
+    return rounds;
+}
+
+function setRounds(number){
+    rounds = number;
+}
+
+function setUebergabe(percent){
+    console.log(percent);
+    uebergabe = percent;
+}

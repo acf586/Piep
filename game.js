@@ -64,7 +64,8 @@ class StartState {
 
     startPressed() {
         console.log("startPressed im Start");
-        this.game.rounds=5;
+        this.game.rounds = 5;
+        setRounds(5);
         this.game.points = 0;
         this.game.moves = 4;
 
@@ -314,7 +315,8 @@ class GameOverState {
     }
 
     run(){
-        gameOver-und-startScreen-überarbeiten
+        
+        setUebergabe(parseInt((this.game.points / (getRounds() * 3))*100));
         showScreen();
 
         console.log("run im GameOver");
