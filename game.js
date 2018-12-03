@@ -314,8 +314,11 @@ class GameOverState {
     }
 
     run(){
+        gameOver-und-startScreen-überarbeiten
+        showScreen();
+
         console.log("run im GameOver");
-        createGameOverScreen(this.game.points);
+
         this.nextState();
     }
 

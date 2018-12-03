@@ -7,12 +7,13 @@ var buttonArray = null;
 
 var gameContainer,
     menu,
-    control,
-    wrapper;
+    control;
 
 //reicht hier vielleicht ein bool Variable, da beide voneinander abhängig
 var startScreen = false;
 var gameOverScreen = false;
+
+var uebergabe = 40;
 
 window.onload = function () {
     newGame = new Game(5);
@@ -33,7 +34,7 @@ function initializeWebsite(){
 
     createGameField();
 
-    createStartScreen();
+    showScreen();
 
     updateSize();
 
@@ -61,217 +62,189 @@ function createGameField() {
 
 }
 
-function createStartScreen(){
+function showScreen(){
     
-    var marginOld = parseFloat(document.getElementById("wrapper").style.marginTop);
-    marginOld *= (-1);
-    
-    startScreen = true;
-    
-    var overlay = document.createElement("div");
-    var button = document.createElement("div");
-    
-    overlay.setAttribute("id", "overlay");
-    button.setAttribute("id", "overlay_button");
-    
-    overlay.appendChild(button);
-    document.body.appendChild(overlay);
-    
-    overlay = document.getElementById("overlay");
-    startButton = document.getElementById("overlay_button");
-    
-    overlay.style.marginTop = marginOld;
+    var gameContainer = document.getElementById("gameContainer");
+    var overlay = document.getElementById("overlay");
+    overlay.style.display = "block";
+    gameContainer.style = "none";
+    var button = document.getElementById("overlay_button");
 
-    startButton.style.backgroundImage = "url('Assets/Player.png')";
-    startButton.style.border = "none";
-    
-    //startButton.innerHTML = "Start";
-    
-    startButton.addEventListener('click', function (e){
-        startButton.style.animationName = "buttonPuls, fadeOut";
-        overlay.style.animationName = "fadeOut";
-        startScreen = false;
+    if(startScreen){
+        gameContainer.style.display = "none";
+    }
 
-        newGame.startPressed();
+
+    button.style.backgroundImage = "url('Assets/Player.png')";
+    button.style.border = "none";
+    
+    overlay.style.marginTop = 0;
+    button.style.marginTop = (window.innerHeight - button.clientHeight) / 2;
         
-        setTimeout(function () {
-            overlay.remove();
-            }, 1000)
-    });
-    
-}
+    if(!startScreen){
+        button.addEventListener('click', function (e){
+            button.style.animationName = "buttonPuls, fadeOut";
+            overlay.style.animationName = "fadeOut";
+            document.getElementById("gameContainer").style.animationName = "fadeIn";
+            startScreen = true;
 
-function createGameOverScreen(highscore){
+            newGame.startPressed();
+            document.getElementById("gameContainer").style.display = "block";
+
+            setTimeout(function () {
+                overlay.style.display = "none";
+                overlay.style.animationName = "";
+                button.style.animationName = "buttonPuls";
+                document.getElementById("gameContainer").style.animationName = "fadeIn";
+                document.getElementById("gameContainer").style.opacity = 1.0;
+                }, 1000);
+        });
+    }
     
-    var marginOld = parseFloat(document.getElementById("wrapper").style.marginTop);
-    marginOld *= (-1);
-    
-    gameOverScreen = true;
-    
-    var overlay = document.createElement("div");
-    var button = document.createElement("div");
-    var pointTextField = document.createElement("div");
-    var overlayWrap = document.createElement("div");
-    
-    overlay.setAttribute("id", "overlay")
-    button.setAttribute("id", "overlay_button");
-    pointTextField.setAttribute("id", "overlay_textfield");
-    overlayWrap.setAttribute("id", "overlay_wrapper");
-    
-    overlayWrap.appendChild(pointTextField);
-    overlayWrap.appendChild(button);
-    overlay.appendChild(overlayWrap);
-    document.getElementById("wrapper").appendChild(overlay);
-    
-    overlay = document.getElementById("overlay");
-    overlayWrap = document.getElementById("overlay_wrapper");
-    gameOverButton = document.getElementById("overlay_button");
-    pointTextField = document.getElementById("overlay_textfield");
-    
-    
-    overlay.style.marginTop = marginOld;
-    
-    gameOverButton.innerHTML = "Restart";
-    
-    var pointString = "Punkte: " + highscore;
-    pointTextField.innerHTML = pointString;
-    
-    
-    
-    gameOverButton.addEventListener('click', function (e){
-        gameOverButton.style.animationName = "buttonPuls, fadeOut";
-        overlay.style.animationName = "fadeOut";
-        newGame.startPressed();
-        setTimeout(function () {
-            overlay.remove();
-            gameOverScreen = false;
-            }, 1000)
-    });
-    
+    else{
+        var pointField = document.getElementById("overlay_points");
+        pointField.style.display = "block";
+
+    }
+
     updateSize();
+  
+}
+
+function getPercentage(){
+    //TODO
+    return uebergabe;
+}
+
+function createGameField() {
+
+    for (var i = 0; i < numberOfXFields * numberOfXFields; i++) {
+        fieldButton = document.createElement("div");
+        fieldButton.className = "fieldButton";
+        var fieldId = i % numberOfXFields +""+ parseInt(i / numberOfXFields);
+        fieldButton.setAttribute("id", fieldId);
+        document.getElementById("game-grid").appendChild(fieldButton);
+
+    }
+    buttonArray = document.getElementsByClassName("fieldButton");
+
+}
+
+function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin){
+    var gameContainer = document.getElementById("gameContainer");
+    var button = document.getElementById("overlay_button");
+    var pointField = document.getElementById("overlay_points");
+    
+    gameContainer.style.height = gCSize;
+    gameContainer.style.width = gCSize;
+
+    gameContainer.style.marginTop = gCMarginTop;
+    gameContainer.style.marginLeft = gCMarginLeft;
+    
+    button.style.height = buttonSize; 
+    button.style.width = buttonSize;
+    button.style.marginTop = buttonMargin;
+    console.log(buttonSize / 2);
+    
+    pointField.marginTop = pointMargin;
+    pointField.style.height = parseFloat(buttonSize / 3);
+    pointField.style.width = parseFloat(buttonSize / 3);
+    pointField.style.lineHeight = parseFloat(buttonSize / 3) + "px";
+    
+    showPercentage(buttonSize * 0.6);
+    console.log(buttonSize);
+    document.getElementById("overlay").style.marginTop = 0;
+}
+
+function showPercentage(size){
+    
+    
+    var percentage = parseInt(getPercentage());  //TODO
+    var left = document.getElementById("left");
+    var right = document.getElementById("right");
+    var circle = document.getElementById("percentage");
+    
+    var pointField = document.getElementById("overlay_points");
+    
+    if(pointField.offsetTop > window.innerHeight * 0.2){
+        
+        pointField.style.marginTop = -(window.innerHeight - pointField.offsetTop) * 0.8;
+        
+    }
+    
+    var offSetLeft = right.offsetLeft;
+    var offSetTop = right.offsetTop;
+    
+    circle.style.height = size;
+    circle.style.width = size;
+    circle.style.lineHeight = size + "px";
+    circle.innerHTML = getPercentage()  + "%";
+    
+    left.style.height = size;
+    left.style.width = size;
+    
+    right.style.height = size;
+    right.style.width = size;
+    
+    if(percentage < 50){
+        
+        right.style.borderColor = "black";
+        left.style.borderColor = "black";
+    }
+    
+    else{
+        
+        right.style.borderColor = "lime";
+        left.style.borderColor = "black";
+
+        if(percentage == 100){
+            left.style.borderColor = "lime";
+
+        }
+                
+    }
+    right.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
+        
+    left.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
+        
+    right.style.transform = "rotate(" + (180 + (percentage % 50) * 3.6) + "deg)";
     
 }
-
-function getLengthOfText(text){
-    var ruler = document.getElementById("ruler");
-    ruler.innerHTML = text;
-    return ruler.offsetWidth;
-}
-
 
 
 function updateSize() {
-    gameContainer = document.getElementById("gameContainer");
-    menu = document.getElementById("menu");
-    control = document.getElementById("controlContainer");
-    wrapper = document.getElementById("wrapper");
-
     var winHeight = window.innerHeight;
     var winWidth = window.innerWidth;
-    var margin = 0;
     
     if (winHeight > winWidth / 2 || winHeight == winWidth / 2) {
-        gameContainer.style.height = winWidth / 2;
-        gameContainer.style.width = winWidth / 2;
-
-        menu.style.height = winWidth / 2;
-        control.style.height = winWidth / 2;
-        margin = (winHeight - winWidth / 2) / 2;
-        wrapper.style.marginTop = margin;
-        if(startScreen || gameOverScreen){
-            var button = document.getElementById("overlay_button");
-            if(startScreen){
-                
-
-                button.style.height = winWidth * 0.2; 
-                button.style.width = winWidth * 0.2;
-                button.style.marginTop = (winHeight-winWidth * 0.2) / 2;
-                button.style.lineHeight = (winWidth * 0.2) + "px";
-             
-            
-            }
-            
-            else{
-                
-                var overlayWrap = document.getElementById("overlay_wrapper");
-                var textField = document.getElementById("overlay_textfield");
-                
-                button.style.height = winWidth * 0.15; 
-                button.style.width = winWidth * 0.15;
-                button.style.lineHeight = (winWidth * 0.15) + "px";
-            
-                textField.style.width = winWidth * 0.2;
-                textField.style.height = winWidth * 0.1;
-                
-                var length = getLengthOfText(textField.innerHTML);
-                length += 41;
-                
-                if(parseFloat(textField.style.width) < length){
-                    textField.style.width = length;
-                };
-                
-                textField.style.lineHeight = winWidth * 0.1 + "px";
-                
-                overlayWrap.style.marginTop = (winHeight-overlayWrap.clientHeight) / 2;
-            }
-            document.getElementById("overlay").style.marginTop = margin * -1;
-         }
+        makeSize(winWidth / 2, (winHeight - winWidth / 2) / 2, (winWidth - winWidth / 2) / 2, winWidth * 0.2, (winHeight-winWidth * 0.2) / 2, winHeight * 0.25);
     }
-
     if (winHeight < winWidth / 2) {
-        gameContainer.style.height = winHeight;
-        gameContainer.style.width = winHeight;
-
-        menu.style.height = winHeight;
-        control.style.height = winHeight;
-
-        margin = 0;
-        wrapper.style.marginTop = margin;
-        
-        if(startScreen || gameOverScreen){
-            var button = document.getElementById("overlay_button");
-            
-            if(startScreen){
-    
-                button.style.height = winHeight * 0.4; 
-                button.style.width = winHeight * 0.4;
-                button.style.marginTop = (winHeight - winHeight * 0.4) / 2;
-                button.style.lineHeight = (winHeight * 0.4) + "px";
-            
-            }
-            
-            else{
-            
-                var textField = document.getElementById("overlay_textfield");
-                var overlayWrap = document.getElementById("overlay_wrapper");
-                
-                button.style.height = winHeight * 0.3; 
-                button.style.width = winHeight * 0.3;
-                button.style.lineHeight = (winHeight * 0.3) + "px";
-            
-                textField.style.width = winHeight * 0.5;
-                textField.style.height = winHeight * 0.2;
-                
-                var length = getLengthOfText(textField.innerHTML);
-                length += 41;
-                
-                if(parseFloat(textField.style.width) < length){
-                    textField.style.width = length;
-                };
-                
-                textField.style.lineHeight = winHeight * 0.2 + "px";
-                
-                overlayWrap.style.marginTop = (winHeight - overlayWrap.clientHeight) / 2;
-                
-            }
-            
-            document.getElementById("overlay").style.marginTop = margin * -1;
-        
-        }
+        makeSize(winHeight - winHeight * 0.05, winHeight * 0.025, (winWidth - winHeight) / 2, winHeight * 0.4, (winHeight - winHeight * 0.4) / 2, winHeight * 0.25);
     }    
 }
+/*
+function initializePositionArray() {
+    positionArray = new Array(5);
+    for (var i = 0; i < 5; i++) {
+        positionArray[i] = new Array(5);
+    }
+    for (var y = 0; y < 5; y++) {
+        for (var x = 0; x < 5; x++) {
+            actualField = document.getElementById(x + "" + y);
+            //wird aktuell noch nicht benutzt
+            positionArray[x][y] = [actualField.offsetTop + actualField.clientHeight / 2, actualField.offsetLeft + actualField.clientWidth / 2];
+        }
+    }
+}
 
-
+function resetGameField() {
+    for (var i = 0; i < buttonArray.length; i++) {
+        buttonArray[i].style.backgroundImage = "url('Assets/Button.png')";
+        buttonArray[i].style.border = "none";
+    }
+}
+*/
 
 function initializeStartButton() {
     document.getElementById("startButton").addEventListener('click', function () {
@@ -340,6 +313,42 @@ function displayListener(listenerField) {
     document.getElementById(listenerField).style.backgroundImage = "url('Assets/Listener.png')";
     document.getElementById(listenerField).style.border = "none";
 }
+
+/*function runArroundField() {
+    chickenPositionEndField = "41";
+    var x = 3;
+    var xFinal = 1;
+    var y = 4;
+    for (let i = 0; i < 15; i++) {
+        setTimeout(function () {
+            if (i == 1 || i == 14) {
+                x++;
+            }
+            if (i > 1 && i < 6) {
+                y--;
+            }
+            if (i > 5 && i < 10) {
+                x--;
+            }
+            if (i > 9 && i < 14) {
+                y++;
+            }
+            chickenCurrentPosition = y + "" + x;
+            resetGameField();
+            displayChicken();
+        }, 200 * i + 2)
+
+    }
+}
+
+function switchChickenPositionNumberOfTimes(number) {
+    chickenCurrentPosition = ""
+    for (let i = 0; i < number; i++) {
+        setTimeout(function () {
+            
+            newGame.setRandomChickenPosition();
+
+        }, 400 * i)*/
 
 function displayPoints(chickenField, points) {
     resetGameField();
