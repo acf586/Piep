@@ -1,77 +1,66 @@
+//ToDo testen wie es wäre wenn das Küken sich in 
+
 var audioContext = new AudioContext();
-var sound = new Audio("Sounds/chirp.wav");
+var soundFileNames = ["chirp","failure","success","test"];
+var sounds = [];
 
-//var sound = new Audio();
-var mediaElementAudioSource = audioContext.createMediaElementSource(sound);
-sound.loop = false;
+var mediaElementAudioSource = [];
 
-var dimension = 16;
-var dimensions = {width: dimension , height: dimension, depth: dimension};
-
-//Materialenn für alle gleich setzen
-/* var materials = {
-  left: "brick-bare",
-  right: "curtain-heavy",
-  front: "marble",
-  back: "glass-thin",
-  down: "grass",
-  up: "transparent"
-}; */
-
-var materials = {
-    left: "transparent",
-    right: "transparent",
-    front: "transparent",
-    back: "transparent",
-    down: "transparent",
-    up: "transparent"
-};
-//TO DO -> Was bedeutet Ambisonic Order
 var resonanceAudioScene = new ResonanceAudio(audioContext, {
-    ambisonicOrder: 3,
-    dimensions: dimensions,
-    materials: materials,
-});
+   // ambisonicOrder: 3,
+  });
 
 var source = resonanceAudioScene.createSource();
-
-mediaElementAudioSource.connect(source.input);
-
 resonanceAudioScene.output.connect(audioContext.destination);
 
-source.setPosition(0, 0, 0);
-resonanceAudioScene.setListenerPosition(0 , 0, 0);
+//                      source.setOrientation(0, 0, 1, 0, 1, 0);
+// resonanceAudioScene.setListenerOrientation(0, 0, -1, 0, 1, 0);
 
-//TO Do -> Orientation initial setzen
-// source.setOrientation(x, y, z, up_x, up_y, up_z);
 
-// resonanceAudioScene.setListenerOrientation(x, y, z, x, y, z);
 
-function play3DSound(sourcePosition, listenerPosition){
+for (let i = 0; i < soundFileNames.length; i++) {
+    sounds[i] = new Audio("Sounds/" + soundFileNames[i] + ".wav");
+    mediaElementAudioSource[i] = audioContext.createMediaElementSource(sounds[i]);
+    sounds[i].loop = false;
+    mediaElementAudioSource[i].connect(source.input);
+    sounds[i].addEventListener("ended", function (e) {
+        newGame.actualState.soundPlayingStopped();
+    });
+}
+
+
+function play3DSound(theSoundtoBePlayed, sourcePosition, listenerPosition){
     
     sourceCoordinates = sourcePosition.split("");
     listenerCoordinates = listenerPosition.split("");
 
-    console.log("3D Audio: "+sourceCoordinates[0]+" "+sourceCoordinates[1]);
-    console.log("3D Audio: "+listenerCoordinates[0]+" "+listenerCoordinates[1]);
+    console.log("play3DSound");
+    console.log("   original: Source: "+sourceCoordinates+" Listener: "+listenerCoordinates);
 
-        sourceCoordinates[0] = sourceCoordinates[0] * dimension/4 -dimension/2;
-        sourceCoordinates[1] = -1 * (sourceCoordinates[1] * dimension/4 -dimension/2);
+        sourceCoordinates[0] = transformCoordinatesToAudioField( sourceCoordinates[0] );
+        sourceCoordinates[1] = transformCoordinatesToAudioField( sourceCoordinates[1] );
     
-        listenerCoordinates[0] = listenerCoordinates[0] * dimension/4 -dimension/2;
-        listenerCoordinates[1] = -1 * (listenerCoordinates[1] * dimension/4 -dimension/2);
-    
-        console.log("Source: "+sourceCoordinates+"Listner: "+listenerCoordinates);
+        listenerCoordinates[0] = transformCoordinatesToAudioField( listenerCoordinates[0] );
+        listenerCoordinates[1] = transformCoordinatesToAudioField( listenerCoordinates[1] );
 
+        
+    console.log("transformed: Source: "+sourceCoordinates+" Listner: "+listenerCoordinates);
+
+    //soundfield in der X,Z Ebene
     source.setPosition(sourceCoordinates[0] , 0.0, sourceCoordinates[1]);
+
     resonanceAudioScene.setListenerPosition(listenerCoordinates[0], 0.0, listenerCoordinates[1]);
 
-    sound.play();
+    // //soundField in der X,Y Ebene
 
+    // source.setPosition(sourceCoordinates[0] , sourceCoordinates[1] , 0.0);
+
+    // resonanceAudioScene.setListenerPosition(listenerCoordinates[0], listenerCoordinates[1], 0.0);
+
+    sounds[theSoundtoBePlayed].play();
 }
 
-
-sound.addEventListener("ended", function (e) {
- 
- newGame.actualState.soundPlayingStopped();
-});
+function transformCoordinatesToAudioField(coordinate){
+    let audioFieldCoordinate = (coordinate - (numberOfFieldsInXdirection-1) / 2) * audioDistanceBetweenFields;
+    return audioFieldCoordinate;
+}

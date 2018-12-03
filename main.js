@@ -1,19 +1,15 @@
-var numberOfXFields = 5;
+var numberOfFieldsInXdirection = 3;
+var numberOfFieldsInZdirection = 3;
+//2
+var audioDistanceBetweenFields = 2;
 
 var buttonArray = null;
-
-var gameFieldWidth;
-var gameFieldHeight;
-
-var xDelta;
-var yDelta;
-
-var positionArray;
 
 var gameContainer,
     menu,
     control;
 
+//reicht hier vielleicht ein bool Variable, da beide voneinander abhängig
 var startScreen = false;
 var gameOverScreen = false;
 
@@ -42,7 +38,28 @@ function initializeWebsite(){
 
     updateSize();
 
-    initializePositionArray();
+}
+
+function createGameField() {
+
+    for(let z = 0 ; z < numberOfFieldsInZdirection ; z++){
+        for(let x = 0; x < numberOfFieldsInXdirection; x++){
+        
+            fieldButton = document.createElement("div");
+        
+            fieldButton.className = "fieldButton";
+        
+            var fieldId = x +""+ z;
+        
+            fieldButton.setAttribute("id", fieldId);
+        
+            document.getElementById("game-grid").appendChild(fieldButton);
+            
+        }
+    }
+
+    buttonArray = document.getElementsByClassName("fieldButton");
+
 }
 
 function showScreen(){
@@ -56,6 +73,7 @@ function showScreen(){
     if(startScreen){
         gameContainer.style.display = "none";
     }
+
 
     button.style.backgroundImage = "url('Assets/Player.png')";
     button.style.border = "none";
@@ -201,13 +219,11 @@ function updateSize() {
     if (winHeight > winWidth / 2 || winHeight == winWidth / 2) {
         makeSize(winWidth / 2, (winHeight - winWidth / 2) / 2, (winWidth - winWidth / 2) / 2, winWidth * 0.2, (winHeight-winWidth * 0.2) / 2, winHeight * 0.25);
     }
-
     if (winHeight < winWidth / 2) {
         makeSize(winHeight - winHeight * 0.05, winHeight * 0.025, (winWidth - winHeight) / 2, winHeight * 0.4, (winHeight - winHeight * 0.4) / 2, winHeight * 0.25);
     }    
 }
-
-//benutzen wir noch gar nicht
+/*
 function initializePositionArray() {
     positionArray = new Array(5);
     for (var i = 0; i < 5; i++) {
@@ -228,6 +244,7 @@ function resetGameField() {
         buttonArray[i].style.border = "none";
     }
 }
+*/
 
 function initializeStartButton() {
     document.getElementById("startButton").addEventListener('click', function () {
@@ -240,7 +257,7 @@ function fieldButtonsAddEventListener() {
         buttonArray[i].id;
         buttonArray[i].addEventListener('click', function (e) {
                 var listenerPositionField = e.target.id;
-                console.log(listenerPositionField);
+                console.log("ActionListener listener listenerPositionField: "+listenerPositionField);
                 newGame.fieldPressed(listenerPositionField);
         });
 
@@ -265,28 +282,39 @@ function createTestButtons(){
 
 window.onresize = function () {
     updateSize();
-    initializePositionArray();
 }
+
+function resetGameField() {
+    for (var i = 0; i < buttonArray.length; i++) {
+        buttonArray[i].style.backgroundImage = "url('Assets/Button.png')";
+        buttonArray[i].style.border = "none";
+        buttonArray[i].innerHTML = "";
+    }
+}
+
 function displayGame(chickenField, listenerField){
     resetGameField();
-    displayChicken(chickenField);
-    displayListener(listenerField);
+
+    document.getElementById(chickenField).style.backgroundImage = "url('Assets/Player.png')";
+    document.getElementById(chickenField).style.border = "none";
+    
+    document.getElementById(listenerField).style.backgroundImage = "url('Assets/Listener.png')";
+    document.getElementById(listenerField).style.border = "none";
 }
 
 function displayChicken(chickenField) {
-    console.log(chickenField);
+    resetGameField();
     document.getElementById(chickenField).style.backgroundImage = "url('Assets/Player.png')";
     document.getElementById(chickenField).style.border = "none";
 }
 
 function displayListener(listenerField) {
+    resetGameField();
     document.getElementById(listenerField).style.backgroundImage = "url('Assets/Listener.png')";
     document.getElementById(listenerField).style.border = "none";
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-function runArroundField() {
+/*function runArroundField() {
     chickenPositionEndField = "41";
     var x = 3;
     var xFinal = 1;
@@ -320,16 +348,29 @@ function switchChickenPositionNumberOfTimes(number) {
             
             newGame.setRandomChickenPosition();
 
-        }, 400 * i)
+        }, 400 * i)*/
 
+function displayPoints(chickenField, points) {
+    resetGameField();
+    switch (points) {
+        case 1:
+            document.getElementById(chickenField).style.backgroundImage = "url('Assets/1.png')";
+            document.getElementById(chickenField).style.border = "none";
+            break;
+
+        case 2:
+            document.getElementById(chickenField).style.backgroundImage = "url('Assets/2.png')";
+            document.getElementById(chickenField).style.border = "none";
+            break;
+
+        case 3:
+            document.getElementById(chickenField).style.backgroundImage = "url('Assets/3.png')";
+            document.getElementById(chickenField).style.border = "none";
+            break;
+
+        default:
+            break;
     }
 
 }
 
-function moveChicken(startPosition, EndPosition) {
-    playSound(chickenCurrentPosition);
-}
-
-function playSound(position) {
-
-}
