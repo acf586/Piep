@@ -83,7 +83,7 @@ function showScreen(){
         
     if(!startScreen){
         button.addEventListener('click', function (e){
-            button.style.animationName = "buttonPuls, fadeOut";
+            button.style.animationName = "buttonPuls, chickenDance, fadeOut";
             overlay.style.animationName = "fadeOut";
             document.getElementById("gameContainer").style.animationName = "fadeIn";
             startScreen = true;
@@ -94,7 +94,7 @@ function showScreen(){
             setTimeout(function () {
                 overlay.style.display = "none";
                 overlay.style.animationName = "";
-                button.style.animationName = "buttonPuls";
+                button.style.animationName = "buttonPuls, chickenDance";
                 document.getElementById("gameContainer").style.animationName = "fadeIn";
                 document.getElementById("gameContainer").style.opacity = 1.0;
                 }, 1000);
@@ -104,15 +104,10 @@ function showScreen(){
     else{
         var pointField = document.getElementById("overlay_points");
         pointField.style.display = "block";
-        updateSize();
     }
 
     updateSize();
   
-}
-
-function getPercentage(){
-    return uebergabe;
 }
 
 /*
@@ -154,12 +149,12 @@ function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, p
     pointField.style.width = parseFloat(buttonSize / 3);
     pointField.style.lineHeight = parseFloat(buttonSize / 3) + "px";
     
-    showPercentage(buttonSize * 0.6);
-    console.log(buttonSize);
+    makeProgressbar();
+    
     document.getElementById("overlay").style.marginTop = 0;
 }
 
-function showPercentage(size){
+/*function showPercentage(size){
     
     
     var percentage = parseInt(getPercentage());  //TODO
@@ -191,17 +186,17 @@ function showPercentage(size){
     
     if(percentage < 50){
         
-        right.style.borderColor = "black";
-        left.style.borderColor = "black";
+        right.style.borderColor = "rgb(200,200,200)";
+        left.style.borderColor = "rgb(150,150,150)";
     }
     
     else{
         
-        right.style.borderColor = "lime";
-        left.style.borderColor = "black";
+        right.style.borderColor = "rgb(116,141,200)";
+        left.style.borderColor = "rgb(196,116,248)";
 
         if(percentage == 100){
-            left.style.borderColor = "lime";
+            left.style.borderColor = "rgb(116,141,200)";
 
         }
                 
@@ -212,6 +207,38 @@ function showPercentage(size){
         
     right.style.transform = "rotate(" + (180 + (percentage % 50) * 3.6) + "deg)";
     
+}*/
+
+function makeProgressbar(){
+    
+    var progressbar = document.getElementById("progressbar");
+    var bar = document.getElementById("bar");
+    var text = document.getElementById("text");
+    var percent = getUebergabe();
+    var size = window.innerWidth;
+    
+    progressbar.style.width = size * 0.8;
+    progressbar.style.height = size * 0.03;
+    progressbar.style.marginLeft = (size - size * 0.8) / 2;
+    progressbar.style.marginTop = size * 0.02;    
+    
+    text.style.width = size * 0.8;
+    text.style.height = size * 0.03;
+    text.style.lineHeight = (size * 0.03) + "px";
+    text.innerHTML = percent + "%";
+    
+    
+    bar.style.width = size * 0.8 * (uebergabe / 100);
+    bar.style.height = size * 0.03;
+    
+    if(progressbar.style.height < 50){
+        progressbar.style.height = 50;
+        
+        text.style.height = 50;
+        text.style.lineHeight = 50 + "px";
+        
+        bar.style.height = 50;
+    }
 }
 
 
@@ -339,7 +366,7 @@ function displayListener(listenerField) {
             chickenCurrentPosition = y + "" + x;
             resetGameField();
             displayChicken();
-        }, 200 * i + 2)
+        }, 200 * i + 2);
 
     }
 }
@@ -378,7 +405,6 @@ function displayPoints(chickenField, points) {
 }
 
 function getUebergabe(){
-    console.log(uebergabe);
     return uebergabe;
 }
 
@@ -391,6 +417,14 @@ function setRounds(number){
 }
 
 function setUebergabe(percent){
-    console.log(percent);
     uebergabe = percent;
+}
+
+function runProgressbar(){
+    for (let i = 0; i <= 100; i++) {
+        setTimeout(function () {
+            uebergabe = i;
+			makeProgressbar();
+        }, 100 * i + 2);
+    }
 }
