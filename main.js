@@ -1,7 +1,7 @@
 var numberOfFieldsInXdirection = 3;
 var numberOfFieldsInZdirection = 3;
 //2
-var audioDistanceBetweenFields = 2;
+var audioDistanceBetweenFields = 1;
 
 var buttonArray = null;
 

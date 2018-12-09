@@ -27,9 +27,11 @@ class Game {
         console.log("Game listener listenerPositionField: "+listenerPositionField);
         this.actualState.fieldPressed(listenerPositionField);
     }
+
     setActualState(state) {
         this.actualState = state;
     }
+
     nextState(){
         this.actualState.nextState();
     }
@@ -54,6 +56,61 @@ class Game {
             }
         }
     }
+
+    playMoving3DSound(targetPosition){
+        oldTime = Date.now();
+        isAtTargetPosition = false;
+        
+        speed = 1;
+        
+        sounds[i].loop = true; // kann ich auch beim initialisieren für den Sound definieren
+        
+        play3DSound(this.chickenCurrentPosition,this.listenerPositionField);
+        
+        //hier die nicht transformierten Koordinaten;
+        currentX = this.chickenCurrentPosition.split("")[0];
+        currentZ = this.chickenCurrentPosition.split("")[1];
+
+        targetX = targetPosition.split("")[0];
+        targetZ = targetPosition.split("")[1];
+
+        while(!isAtTargetPosition) {
+            deltaTime = Date.now() - oldTime;
+            oldTime = Date.now();
+
+            if (currentX < targetX) {
+                currentX += speed * deltaTime;
+            }
+            else {
+                currentX -= speed * deltaTime;
+            }
+            if (currentZ < targetZ) {
+                currentZ += speed * deltaTime;
+            }
+            else {
+                currentZ -= speed * deltaTime;
+            }
+            //Coordinaten transformieren
+            transformedCurrentX = transformCoordinatesToAudioField(currentX);
+            transformedcurrentZ = transformCoordinatesToAudioField(currentZ);
+
+            source.setPosition(transformedCurrentX, 0.0, transformedcurrentZ);
+
+            isAtTargetPosition = this.checkPosition(currentX, targetX, 0.1) && this.checkPosition(currentZ, targetZ, 0.1);
+        }
+        
+
+        this.setChickenPosition(targetPosition);
+        sounds[i].pause();
+        sounds[i].loop = false;
+    }
+
+    checkPosition(currentValue, targetValue, delta){
+        if(Math.abs(currentValue - targetValue)<= delta){
+            return false;
+        }
+        return true;
+    }
 }
 
 class StartState {
@@ -70,11 +127,12 @@ class StartState {
 
         this.howManySoundsHaveBeenPlayed = 0;
 
-        this.game.setListenerPosition("20");
-        this.game.setChickenPosition("21");
+        this.game.setListenerPosition("12");
+        this.game.setChickenPosition("11");
 
 
         displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        
         //waitSomeSeconds();
         this.game.setRandomChickenPosition();
         displayGame(this.game.chickenCurrentPosition,this.game.listenerPositionField);

@@ -1,7 +1,7 @@
 //ToDo testen wie es wäre wenn das Küken sich in 
 
 var audioContext = new AudioContext();
-var soundFileNames = ["chirp","failure","success","test"];
+var soundFileNames = ["chirp_neu_09","failure","success","test"];
 var sounds = [];
 
 var mediaElementAudioSource = [];
@@ -31,6 +31,12 @@ for (let i = 0; i < soundFileNames.length; i++) {
 
 function play3DSound(theSoundtoBePlayed, sourcePosition, listenerPosition){
     
+    setSourceAndListenerPosition(sourcePosition, listenerPosition)
+
+    sounds[theSoundtoBePlayed].play();
+}
+
+function setSourceAndListenerPosition(sourcePosition, listenerPosition){
     sourceCoordinates = sourcePosition.split("");
     listenerCoordinates = listenerPosition.split("");
 
@@ -51,13 +57,6 @@ function play3DSound(theSoundtoBePlayed, sourcePosition, listenerPosition){
 
     resonanceAudioScene.setListenerPosition(listenerCoordinates[0], 0.0, listenerCoordinates[1]);
 
-    // //soundField in der X,Y Ebene
-
-    // source.setPosition(sourceCoordinates[0] , sourceCoordinates[1] , 0.0);
-
-    // resonanceAudioScene.setListenerPosition(listenerCoordinates[0], listenerCoordinates[1], 0.0);
-
-    sounds[theSoundtoBePlayed].play();
 }
 
 function transformCoordinatesToAudioField(coordinate){
