@@ -14,6 +14,7 @@ var startScreen = false;
 
 var uebergabe = 0;
 var rounds = 0;
+
 window.onload = function () {
     newGame = new Game(5);
     rounds = 5;
@@ -110,22 +111,6 @@ function showScreen(){
   
 }
 
-/*
-function createGameField() {
-
-    for (var i = 0; i < numberOfXFields * numberOfXFields; i++) {
-        fieldButton = document.createElement("div");
-        fieldButton.className = "fieldButton";
-        var fieldId = i % numberOfXFields +""+ parseInt(i / numberOfXFields);
-        fieldButton.setAttribute("id", fieldId);
-        document.getElementById("game-grid").appendChild(fieldButton);
-
-    }
-    buttonArray = document.getElementsByClassName("fieldButton");
-
-}
-*/
-
 function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin){
     var gameContainer = document.getElementById("gameContainer");
     var button = document.getElementById("overlay_button");
@@ -217,25 +202,30 @@ function makeProgressbar(){
     var percent = getUebergabe();
     var size = window.innerWidth;
     
-    progressbar.style.width = size * 0.8;
-    progressbar.style.height = size * 0.03;
-    progressbar.style.marginLeft = (size - size * 0.8) / 2;
+    progressbar.style.width = size * 0.3;
+    progressbar.style.height = size * 0.02;
+    progressbar.style.marginLeft = (size - size * 0.3) / 2;
     progressbar.style.marginTop = size * 0.02;    
     
-    text.style.width = size * 0.8;
-    text.style.height = size * 0.03;
-    text.style.lineHeight = (size * 0.03) + "px";
-    text.innerHTML = percent + "%";
+    text.style.width = size * 0.3 * (uebergabe / 100);
+
+    if(text.style.width < 100){
+        text.style.width = 100;
+    }
+
+    text.style.height = size * 0.02;
+    text.style.lineHeight = (size * 0.02) + "px";
+    text.innerHTML = percent + "% &emsp;" ;
     
     
-    bar.style.width = size * 0.8 * (uebergabe / 100);
-    bar.style.height = size * 0.03;
+    bar.style.width = size * 0.3 * (uebergabe / 100);
+    bar.style.height = size * 0.02;
     
     if(progressbar.style.height < 50){
         progressbar.style.height = 50;
         
         text.style.height = 50;
-        text.style.lineHeight = 50 + "px";
+        text.style.lineHeight = 50 + "px" ;
         
         bar.style.height = 50;
     }

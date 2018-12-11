@@ -128,17 +128,20 @@ html,body{
 }
 
 #progressbar{
-    width: 80%;
+    width: 60vh;
     height: 3vh;
-    border: solid 2px black;
+    border: solid 2px rgb(116,141,200);
     background-color: none;
+    border-radius: 20px;
 }
 
 #bar{
-    width: 40%;
+    width: 30vh;
     height: 3vh;
     
     border-color: transparent;
+    border-radius: 20px;
+
     background-color: rgb(116,141,200);
 }
 
@@ -147,7 +150,8 @@ html,body{
     position: absolute;
     background-color: none;
     text-align: center;
-    color: black;
+    text-align: right;
+    color: #e0bdfc;
     
 }
 
