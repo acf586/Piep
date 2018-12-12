@@ -1,35 +1,26 @@
 var numberOfFieldsInXdirection = 3;
 var numberOfFieldsInZdirection = 3;
-//2
 var audioDistanceBetweenFields = 1;
 
 var buttonArray = null;
 
-var gameContainer,
-    menu,
-    control;
+var gameContainer;
 
-//reicht hier vielleicht ein bool Variable, da beide voneinander abhängig
 var startScreen = false;
 
 var uebergabe = 0;
 var rounds = 0;
 
-window.onload = function () {
+window.onload = function () {           //Erzeugen des Spiel Objekts und Aufruf der Initializierung der Webside wenn alle Daten geladen wurden
     newGame = new Game(5);
     rounds = 5;
 
     initializeWebsite();
 
-    //initializeStartButton();
-
     fieldButtonsAddEventListener();
-
-    //createTestButtons();
-    
 }
 
-function initializeWebsite(){
+function initializeWebsite(){           //Initializierung der Webside mit Aufruf zur Erzeugung des Spielfelds, zum Anzeigen des Startscreens und zur Anpassung an die Fenstergröße
 
     document.body.style.backgroundImage = "url('Assets/Background.png')";
 
@@ -41,7 +32,7 @@ function initializeWebsite(){
 
 }
 
-function createGameField() {
+function createGameField() {            //Erzeugung Spielfeld
 
     for(let z = 0 ; z < numberOfFieldsInZdirection ; z++){
         for(let x = 0; x < numberOfFieldsInXdirection; x++){
@@ -63,7 +54,7 @@ function createGameField() {
 
 }
 
-function showScreen(){
+function showScreen(){                  //Zeigen des Startscreens/Game Over Screens
     
     var gameContainer = document.getElementById("gameContainer");
     var overlay = document.getElementById("overlay");
@@ -111,7 +102,7 @@ function showScreen(){
   
 }
 
-function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin){
+function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin){        //Funktions zur Größenänderung der Divs
     var gameContainer = document.getElementById("gameContainer");
     var button = document.getElementById("overlay_button");
     var pointField = document.getElementById("overlay_points");
@@ -139,62 +130,7 @@ function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, p
     document.getElementById("overlay").style.marginTop = 0;
 }
 
-/*function showPercentage(size){
-    
-    
-    var percentage = parseInt(getPercentage());  //TODO
-    var left = document.getElementById("left");
-    var right = document.getElementById("right");
-    var circle = document.getElementById("percentage");
-    
-    var pointField = document.getElementById("overlay_points");
-    
-    if(pointField.offsetTop > window.innerHeight * 0.2){
-        
-        pointField.style.marginTop = -(window.innerHeight - pointField.offsetTop) * 0.8;
-        
-    }
-    
-    var offSetLeft = right.offsetLeft;
-    var offSetTop = right.offsetTop;
-    
-    circle.style.height = size;
-    circle.style.width = size;
-    circle.style.lineHeight = size + "px";
-    circle.innerHTML = getPercentage()  + "%";
-    
-    left.style.height = size;
-    left.style.width = size;
-    
-    right.style.height = size;
-    right.style.width = size;
-    
-    if(percentage < 50){
-        
-        right.style.borderColor = "rgb(200,200,200)";
-        left.style.borderColor = "rgb(150,150,150)";
-    }
-    
-    else{
-        
-        right.style.borderColor = "rgb(116,141,200)";
-        left.style.borderColor = "rgb(196,116,248)";
-
-        if(percentage == 100){
-            left.style.borderColor = "rgb(116,141,200)";
-
-        }
-                
-    }
-    right.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
-        
-    left.style.clip = "rect(" + 0 + "px " + (size/2+5) + "px " + (size+30) + "px " + 0 + "px)";
-        
-    right.style.transform = "rotate(" + (180 + (percentage % 50) * 3.6) + "deg)";
-    
-}*/
-
-function makeProgressbar(){
+function makeProgressbar(){         //Update der Größe und des angezeigten Prozentwertes im Prozentbalken
     
     var progressbar = document.getElementById("progressbar");
     var bar = document.getElementById("bar");
@@ -232,7 +168,7 @@ function makeProgressbar(){
 }
 
 
-function updateSize() {
+function updateSize() {                 //Berechnung zur Größenänderung der Divs und Aufruf der makeSize() Funktion
     var winHeight = window.innerHeight;
     var winWidth = window.innerWidth;
     
@@ -243,36 +179,14 @@ function updateSize() {
         makeSize(winHeight - winHeight * 0.05, winHeight * 0.025, (winWidth - winHeight) / 2, winHeight * 0.4, (winHeight - winHeight * 0.4) / 2, winHeight * 0.25);
     }    
 }
-/*
-function initializePositionArray() {
-    positionArray = new Array(5);
-    for (var i = 0; i < 5; i++) {
-        positionArray[i] = new Array(5);
-    }
-    for (var y = 0; y < 5; y++) {
-        for (var x = 0; x < 5; x++) {
-            actualField = document.getElementById(x + "" + y);
-            //wird aktuell noch nicht benutzt
-            positionArray[x][y] = [actualField.offsetTop + actualField.clientHeight / 2, actualField.offsetLeft + actualField.clientWidth / 2];
-        }
-    }
-}
 
-function resetGameField() {
-    for (var i = 0; i < buttonArray.length; i++) {
-        buttonArray[i].style.backgroundImage = "url('Assets/Button.png')";
-        buttonArray[i].style.border = "none";
-    }
-}
-*/
-
-function initializeStartButton() {
+function initializeStartButton() {      //Start Button Eventlistener geben
     document.getElementById("startButton").addEventListener('click', function () {
         newGame.startPressed();
     });
 }
 
-function fieldButtonsAddEventListener() {
+function fieldButtonsAddEventListener() {   //FieldButton Eventlistener geben
     for (var i = 0; i < buttonArray.length; i++) {
         buttonArray[i].id;
         buttonArray[i].addEventListener('click', function (e) {
@@ -284,27 +198,11 @@ function fieldButtonsAddEventListener() {
     }
 }
 
-function createTestButtons(){
-
-    document.getElementById("switchChickenPosition").addEventListener('click', function (e) {
-        switchChickenPositionNumberOfTimes(10);
-    });
-
-    document.getElementById("runAround").addEventListener('click', function (e) {
-        runArroundField();
-    });
-
-    document.getElementById("nextState").addEventListener('click', function (e) {
-        newGame.nextState();
-    });
-
-}
-
-window.onresize = function () {
+window.onresize = function () {         //Bei Fenstergrößenänderung Aufruf der updateSize() Funktion
     updateSize();
 }
 
-function resetGameField() {
+function resetGameField() {             //Zurücksetzen des Spielfelds
     for (var i = 0; i < buttonArray.length; i++) {
         buttonArray[i].style.backgroundImage = "url('Assets/Button.png')";
         buttonArray[i].style.border = "none";
@@ -312,7 +210,7 @@ function resetGameField() {
     }
 }
 
-function displayGame(chickenField, listenerField){
+function displayGame(chickenField, listenerField){      //Anzeigen des Spielers und des Hühnchens
     resetGameField();
 
     document.getElementById(chickenField).style.backgroundImage = "url('Assets/Player.png')";
@@ -322,7 +220,7 @@ function displayGame(chickenField, listenerField){
     document.getElementById(listenerField).style.border = "none";
 }
 
-function displayChicken(chickenField) {
+function displayChicken(chickenField) {         //Anzeigen des Hühnchens
     resetGameField();
     document.getElementById(chickenField).style.backgroundImage = "url('Assets/Player.png')";
     document.getElementById(chickenField).style.border = "none";
@@ -334,43 +232,7 @@ function displayListener(listenerField) {
     document.getElementById(listenerField).style.border = "none";
 }
 
-/*function runArroundField() {
-    chickenPositionEndField = "41";
-    var x = 3;
-    var xFinal = 1;
-    var y = 4;
-    for (let i = 0; i < 15; i++) {
-        setTimeout(function () {
-            if (i == 1 || i == 14) {
-                x++;
-            }
-            if (i > 1 && i < 6) {
-                y--;
-            }
-            if (i > 5 && i < 10) {
-                x--;
-            }
-            if (i > 9 && i < 14) {
-                y++;
-            }
-            chickenCurrentPosition = y + "" + x;
-            resetGameField();
-            displayChicken();
-        }, 200 * i + 2);
-
-    }
-}
-
-function switchChickenPositionNumberOfTimes(number) {
-    chickenCurrentPosition = ""
-    for (let i = 0; i < number; i++) {
-        setTimeout(function () {
-            
-            newGame.setRandomChickenPosition();
-
-        }, 400 * i)*/
-
-function displayPoints(chickenField, points) {
+function displayPoints(chickenField, points) {          //Anzeige der Punkte beim Finden des Hühnchens
     resetGameField();
     switch (points) {
         case 1:
@@ -410,7 +272,7 @@ function setUebergabe(percent){
     uebergabe = percent;
 }
 
-function runProgressbar(){
+function runProgressbar(){          //Hilfsfunktion zum einmaligen Durchlauf des Prozentbalkens von 0 - 100%
     for (let i = 0; i <= 100; i++) {
         setTimeout(function () {
             uebergabe = i;
