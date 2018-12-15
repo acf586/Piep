@@ -12,6 +12,7 @@ class Game {
         this.startState = new StartState(this);
         this.chickenMoveState = new ChickenMoveState(this);
         this.playerMoveState = new PlayerMoveState(this);
+        this.playHelpSound = new PlayHelpSound(this);
         this.failureState = new FailureState(this);
         this.succesState = new SuccessState(this);
         this.gameOverState = new GameOverState(this);
@@ -227,27 +228,35 @@ class PlayerMoveState {
     }
 
     fieldPressed(listenerPositionField) {
-        
-        this.game.moves--;
 
-        console.log("fieldPressed im Player Move mit "+this.game.moves+" moves");
-
-        console.log("PlayerMove listener listenerPositionField: "+listenerPositionField);
-        
-        this.game.setListenerPosition(listenerPositionField);
-
-        console.log("this.game.setListenerPosition: "+this.game.listenerPositionField);
-        
-        displayListener(this.game.listenerPositionField);
-
-        if(this.game.chickenCurrentPosition==this.game.listenerPositionField){
-            this.nextState();
-        }
-        else{
-            this.game.setActualState(this.game.failureState);
+        if (this.game.listenerPositionField === listenerPositionField) {
+            console.log("fieldPressed im Player Move mit " + this.game.moves + " moves");
+            console.log("PlayerMove listener listenerPositionField: " + listenerPositionField);
+            
+            this.game.setActualState(this.game.playHelpSound);
             this.game.actualState.run();
         }
-        
+        else {
+            this.game.moves--;
+            console.log("fieldPressed im Player Move mit " + this.game.moves + " moves");
+            console.log("PlayerMove listener listenerPositionField: " + listenerPositionField);
+           
+            this.game.setListenerPosition(listenerPositionField);
+
+            console.log("this.game.setListenerPosition: " + this.game.listenerPositionField);
+
+            displayListener(this.game.listenerPositionField);
+
+            if (this.game.chickenCurrentPosition == this.game.listenerPositionField) {
+                this.nextState();
+            }
+            else {
+                this.game.setActualState(this.game.failureState);
+                this.game.actualState.run();
+            }
+
+        }
+
     }
 
     soundPlayingStopped(){
@@ -261,16 +270,42 @@ class PlayerMoveState {
     }
 }
 
+class PlayHelpSound {
+    
+    constructor(game) {
+        this.game = game;
+    }
+    run(){
+        console.log("playHelpSound");
+        play3DSound(0,this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        
+    }
+
+    startPressed() {
+        console.log("startPressed im playHelpSound");
+    }
+    fieldPressed() {
+        console.log("fieldPressed im  playHelpSound");
+    }
+
+    soundPlayingStopped(){
+        console.log("soundPlayingStopped playHelpSound");
+        this.nextState(); 
+    }
+
+    nextState(){
+        console.log("nextState im playHelpSound -> gehe zu PlayerMove");
+        this.game.setActualState(this.game.playerMoveState);
+    }
+}
+
 class FailureState {
     
     constructor(game) {
         this.game = game;
-        this.secondSoundPlayed = false;
     }
     run(){
         console.log("run im Failure");
-        this.secondSoundPlayed = false;
-
         play3DSound(1,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
         
     }
@@ -284,23 +319,12 @@ class FailureState {
 
     soundPlayingStopped(){
         console.log("soundPlayingStopped Failure");
-        
-        if(!this.secondSoundPlayed){
-            setTimeout(() => {
-                play3DSound(0,this.game.chickenCurrentPosition, this.game.listenerPositionField);
-                this.secondSoundPlayed = true;
-            }, 200);
-            
-        }
-        else{
-            this.nextState();
-        }
-        
+        this.nextState(); 
     }
 
     nextState(){
-        console.log("nextState im Failure -> gehe zu PlayerMove");
-        this.game.setActualState(this.game.playerMoveState);
+        this.game.setActualState(this.game.playHelpSound);
+            this.game.actualState.run();
     }
 }
 
