@@ -75,7 +75,7 @@ html,body{
     display: block;
     
     animation-name: chickenDance;
-    animation-duration: 3s;
+    animation-duration: 1.5s;
     animation-iteration-count: infinite;
     animation-timing-function: step-end;
     background-position: center;
@@ -124,15 +124,15 @@ html,body{
     
     0%      {background-image: url('Assets/Animation/Player1.png');}
     
-    20%     {background-image: url('Assets/Animation/Player2.png');}
+    16%     {background-image: url('Assets/Animation/Player2.png');}
     
-    40%     {background-image: url('Assets/Animation/Player3.png');}
+    32%     {background-image: url('Assets/Animation/Player3.png');}
     
-    60%     {background-image: url('Assets/Animation/Player4.png');}
+    48%     {background-image: url('Assets/Animation/Player4.png');}
     
-    80%     {background-image: url('Assets/Animation/Player5.png');}
+    64%     {background-image: url('Assets/Animation/Player5.png');}
     
-    100%    {background-image: url('Assets/Animation/Player1.png');}
+    80%    {background-image: url('Assets/Animation/Player6.png');}
     
     
 }
