@@ -10,6 +10,12 @@ var resonanceAudioScene = new ResonanceAudio(audioContext, {
 var source = resonanceAudioScene.createSource();
 resonanceAudioScene.output.connect(audioContext.destination);
 
+                      source.setOrientation(0, 0, 1, 0, 1, 0);
+
+resonanceAudioScene.setListenerOrientation(0, 0, -1, 0, 1, 0);
+
+
+
 for (let i = 0; i < soundFileNames.length; i++) {
     sounds[i] = new Audio("Sounds/" + soundFileNames[i] + ".wav");
     mediaElementAudioSource[i] = audioContext.createMediaElementSource(sounds[i]);
