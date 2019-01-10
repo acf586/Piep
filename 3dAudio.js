@@ -21,8 +21,10 @@ for (let i = 0; i < soundFileNames.length; i++) {
     mediaElementAudioSource[i] = audioContext.createMediaElementSource(sounds[i]);
     sounds[i].loop = false;
     mediaElementAudioSource[i].connect(source.input);
+
     sounds[i].addEventListener("ended", function (e) {
-        newGame.actualState.soundPlayingStopped();
+        newGame.soundPlayingStopped();
+        //newGame.actualState.soundPlayingStopped();
     });
 }
 

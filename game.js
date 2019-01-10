@@ -4,15 +4,15 @@ class Game {
         this.rounds = rounds;
         this.points = 0;
         this.moves = 0;
+        this.percentage = 0;
 
         this.chickenCurrentPosition;
-        this.chickenEndPosition;
         this.listenerPositionField;
 
         this.startState = new StartState(this);
         this.chickenMoveState = new ChickenMoveState(this);
         this.playerMoveState = new PlayerMoveState(this);
-        this.playHelpSound = new PlayHelpSound(this);
+        this.playHelpSoundState = new PlayHelpSoundState(this);
         this.failureState = new FailureState(this);
         this.succesState = new SuccessState(this);
         this.gameOverState = new GameOverState(this);
@@ -29,12 +29,12 @@ class Game {
         this.actualState.fieldPressed(listenerPositionField);
     }
 
-    setActualState(state) {
-        this.actualState = state;
+    soundPlayingStopped(){
+        this.actualState.soundPlayingStopped();
     }
 
-    nextState(){
-        this.actualState.nextState();
+    setActualState(state) {
+        this.actualState = state;
     }
 
     setListenerPosition(newPosition) {
@@ -57,61 +57,7 @@ class Game {
             }
         }
     }
-
-    playMoving3DSound(targetPosition){
-        oldTime = Date.now();
-        isAtTargetPosition = false;
-        
-        speed = 1;
-        
-        sounds[i].loop = true; // kann ich auch beim initialisieren für den Sound definieren
-        
-        play3DSound(this.chickenCurrentPosition,this.listenerPositionField);
-        
-        //hier die nicht transformierten Koordinaten;
-        currentX = this.chickenCurrentPosition.split("")[0];
-        currentZ = this.chickenCurrentPosition.split("")[1];
-
-        targetX = targetPosition.split("")[0];
-        targetZ = targetPosition.split("")[1];
-
-        while(!isAtTargetPosition) {
-            deltaTime = Date.now() - oldTime;
-            oldTime = Date.now();
-
-            if (currentX < targetX) {
-                currentX += speed * deltaTime;
-            }
-            else {
-                currentX -= speed * deltaTime;
-            }
-            if (currentZ < targetZ) {
-                currentZ += speed * deltaTime;
-            }
-            else {
-                currentZ -= speed * deltaTime;
-            }
-            //Coordinaten transformieren
-            transformedCurrentX = transformCoordinatesToAudioField(currentX);
-            transformedcurrentZ = transformCoordinatesToAudioField(currentZ);
-
-            source.setPosition(transformedCurrentX, 0.0, transformedcurrentZ);
-
-            isAtTargetPosition = this.checkPosition(currentX, targetX, 0.1) && this.checkPosition(currentZ, targetZ, 0.1);
-        }
-        
-
-        this.setChickenPosition(targetPosition);
-        sounds[i].pause();
-        sounds[i].loop = false;
-    }
-
-    checkPosition(currentValue, targetValue, delta){
-        if(Math.abs(currentValue - targetValue)<= delta){
-            return false;
-        }
-        return true;
-    }
+    
 }
 
 class StartState {
@@ -123,29 +69,26 @@ class StartState {
     startPressed() {
         console.log("startPressed im Start");
         this.game.rounds = 5;
-        setRounds(5);
+
         this.game.points = 0;
         this.game.moves = 4;
-
-        this.howManySoundsHaveBeenPlayed = 0;
 
         this.game.setListenerPosition("12");
         this.game.setChickenPosition("11");
 
-
         displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
         
-        //waitSomeSeconds();
         this.game.setRandomChickenPosition();
         displayGame(this.game.chickenCurrentPosition,this.game.listenerPositionField);
 
+        this.howManySoundsHaveBeenPlayed = 0;
         play3DSound(0,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
         
         console.log("Spiele den Sound ab");
 
     }
     
-    fieldPressed() {
+    fieldPressed(listenerPositionField) {
         console.log("fieldPressed im Start");
     }
 
@@ -188,7 +131,7 @@ class ChickenMoveState {
         displayListener(this.game.listenerPositionField);
         this.game.setRandomChickenPosition();
         console.log("run im ChickenMove");
-        //timeout für verstecken
+
         play3DSound(0,this.game.chickenCurrentPosition, this.game.listenerPositionField);
     }
 
@@ -197,7 +140,7 @@ class ChickenMoveState {
         
     }
 
-    fieldPressed() {
+    fieldPressed(listenerPositionField) {
         console.log("fieldPressed() im ChickenMove");
     }
 
@@ -233,7 +176,7 @@ class PlayerMoveState {
             console.log("fieldPressed im Player Move mit " + this.game.moves + " moves");
             console.log("PlayerMove listener listenerPositionField: " + listenerPositionField);
             
-            this.game.setActualState(this.game.playHelpSound);
+            this.game.setActualState(this.game.playHelpSoundState);
             this.game.actualState.run();
         }
         else {
@@ -270,7 +213,7 @@ class PlayerMoveState {
     }
 }
 
-class PlayHelpSound {
+class PlayHelpSoundState {
     
     constructor(game) {
         this.game = game;
@@ -284,7 +227,7 @@ class PlayHelpSound {
     startPressed() {
         console.log("startPressed im playHelpSound");
     }
-    fieldPressed() {
+    fieldPressed(listenerPositionField) {
         console.log("fieldPressed im  playHelpSound");
     }
 
@@ -313,7 +256,7 @@ class FailureState {
     startPressed() {
         console.log("startPressed im Failure");
     }
-    fieldPressed() {
+    fieldPressed(listenerPositionField) {
         console.log("fieldPressed im  Failure");
     }
 
@@ -323,7 +266,7 @@ class FailureState {
     }
 
     nextState(){
-        this.game.setActualState(this.game.playHelpSound);
+        this.game.setActualState(this.game.playHelpSoundState);
             this.game.actualState.run();
     }
 }
@@ -363,7 +306,7 @@ class SuccessState {
         console.log("startPressed im Success");
         
     }
-    fieldPressed() {
+    fieldPressed(listenerPositionField) {
         console.log("fieldPressed im Success");
     }
 
@@ -397,9 +340,10 @@ class GameOverState {
     }
 
     run(){
-        
-        setUebergabe(parseInt((this.game.points / (getRounds() * 3))*100));
-        showScreen();
+
+        this.game.percentage = parseInt( (this.game.points / (15) )*100);
+
+        showGameOverOrStartScreen();
 
         console.log("run im GameOver");
 
@@ -410,7 +354,7 @@ class GameOverState {
         console.log("startPressed im GameOver");
     }
 
-    fieldPressed() {
+    fieldPressed(listenerPositionField) {
         console.log("fieldPressed im GameOver");
     }
     soundPlayingStopped(){

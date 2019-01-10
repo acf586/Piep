@@ -1,3 +1,5 @@
+//zum Schluss wenn alles funktioniert die Console.logs entfernen
+
 var numberOfFieldsInXdirection = 3;
 var numberOfFieldsInZdirection = 3;
 
@@ -5,16 +7,10 @@ var audioDistanceBetweenFields = 1;
 
 var buttonArray = null;
 
-var gameContainer;
-
 var startScreen = false;
-
-var uebergabe = 0;
-var rounds = 0;
 
 window.onload = function () {           //Erzeugen des Spiel Objekts und Aufruf der Initializierung der Webside wenn alle Daten geladen wurden
     newGame = new Game(5);
-    rounds = 5;
 
     initializeWebsite();
 
@@ -27,7 +23,7 @@ function initializeWebsite(){           //Initializierung der Webside mit Aufruf
 
     createGameField();
 
-    showScreen();
+    showGameOverOrStartScreen();
 
     updateSize();
 
@@ -55,13 +51,13 @@ function createGameField() {            //Erzeugung Spielfeld
 
 }
 
-function showScreen(){                  //Zeigen des Startscreens/Game Over Screens
+function showGameOverOrStartScreen(){
     
     var gameContainer = document.getElementById("gameContainer");
     var overlay = document.getElementById("overlay");
     overlay.style.display = "block";
     gameContainer.style = "none";
-    var button = document.getElementById("overlay_button");
+    var button = document.getElementById("overlayStartButton");
 
     if(startScreen){
         gameContainer.style.display = "none";
@@ -78,24 +74,24 @@ function showScreen(){                  //Zeigen des Startscreens/Game Over Scre
         button.addEventListener('click', function (e){
             button.style.animationName = "buttonPuls, chickenDance, fadeOut";
             overlay.style.animationName = "fadeOut";
-            document.getElementById("gameContainer").style.animationName = "fadeIn";
+            gameContainer.style.animationName = "fadeIn";
             startScreen = true;
 
             newGame.startPressed();
-            document.getElementById("gameContainer").style.display = "block";
+            gameContainer.style.display = "block";
 
             setTimeout(function () {
                 overlay.style.display = "none";
                 overlay.style.animationName = "";
                 button.style.animationName = "buttonPuls, chickenDance";
-                document.getElementById("gameContainer").style.animationName = "fadeIn";
-                document.getElementById("gameContainer").style.opacity = 1.0;
+                gameContainer.style.animationName = "fadeIn";
+                gameContainer.style.opacity = 1.0;
                 }, 1000);
         });
     }
     
     else{
-        var pointField = document.getElementById("overlay_points");
+        var pointField = document.getElementById("overlayProgressbar");
         pointField.style.display = "block";
     }
 
@@ -105,10 +101,8 @@ function showScreen(){                  //Zeigen des Startscreens/Game Over Scre
 
 function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin){        //Funktions zur Größenänderung der Divs
     var gameContainer = document.getElementById("gameContainer");
-    var button = document.getElementById("overlay_button");
-    var pointField = document.getElementById("overlay_points");
-    
-    console.log(buttonMargin);
+    var button = document.getElementById("overlayStartButton");
+    var pointField = document.getElementById("overlayProgressbar");
     
     gameContainer.style.height = gCSize;
     gameContainer.style.width = gCSize;
@@ -119,7 +113,6 @@ function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, p
     button.style.height = buttonSize; 
     button.style.width = buttonSize;
     button.style.marginTop = buttonMargin;
-    console.log(buttonSize / 2);
     
     pointField.marginTop = pointMargin;
     pointField.style.height = parseFloat(buttonSize / 3);
@@ -136,7 +129,9 @@ function makeProgressbar(){         //Update der Größe und des angezeigten Pro
     var progressbar = document.getElementById("progressbar");
     var bar = document.getElementById("bar");
     var text = document.getElementById("text");
-    var percent = getUebergabe();
+    
+    var percent = newGame.percentage;
+
     var size = window.innerWidth;
     
     progressbar.style.width = size * 0.3;
@@ -144,7 +139,7 @@ function makeProgressbar(){         //Update der Größe und des angezeigten Pro
     progressbar.style.marginLeft = (size - size * 0.3) / 2;
     progressbar.style.marginTop = size * 0.02;    
     
-    text.style.width = size * 0.3 * (uebergabe / 100);
+    text.style.width = size * 0.3 * (percent / 100);
 
     if(text.style.width < 100){
         text.style.width = 100;
@@ -155,7 +150,7 @@ function makeProgressbar(){         //Update der Größe und des angezeigten Pro
     text.innerHTML = percent + "% &emsp;" ;
     
     
-    bar.style.width = size * 0.3 * (uebergabe / 100);
+    bar.style.width = size * 0.3 * (percent / 100);
     bar.style.height = size * 0.02;
     
     if(progressbar.style.height < 50){
@@ -183,6 +178,7 @@ function updateSize() {                 //Berechnung zur Größenänderung der D
 
 function initializeStartButton() {      //Start Button Eventlistener geben
     document.getElementById("startButton").addEventListener('click', function () {
+
         newGame.startPressed();
     });
 }
@@ -192,7 +188,9 @@ function fieldButtonsAddEventListener() {   //FieldButton Eventlistener geben
         buttonArray[i].id;
         buttonArray[i].addEventListener('click', function (e) {
                 var listenerPositionField = e.target.id;
+
                 console.log("ActionListener listener listenerPositionField: "+listenerPositionField);
+
                 newGame.fieldPressed(listenerPositionField);
         });
 
@@ -206,8 +204,8 @@ window.onresize = function () {         //Bei Fenstergrößenänderung Aufruf de
 function resetGameField() {             //Zurücksetzen des Spielfelds
     for (var i = 0; i < buttonArray.length; i++) {
         buttonArray[i].style.backgroundImage = "url('Assets/Button.png')";
-        buttonArray[i].style.border = "none";
-        buttonArray[i].innerHTML = "";
+        //buttonArray[i].style.border = "none";
+        //buttonArray[i].innerHTML = "";
     }
 }
 
@@ -255,29 +253,4 @@ function displayPoints(chickenField, points) {          //Anzeige der Punkte bei
             break;
     }
 
-}
-
-function getUebergabe(){
-    return uebergabe;
-}
-
-function getRounds(){
-    return rounds;
-}
-
-function setRounds(number){
-    rounds = number;
-}
-
-function setUebergabe(percent){
-    uebergabe = percent;
-}
-
-function runProgressbar(){          //Hilfsfunktion zum einmaligen Durchlauf des Prozentbalkens von 0 - 100%
-    for (let i = 0; i <= 100; i++) {
-        setTimeout(function () {
-            uebergabe = i;
-			makeProgressbar();
-        }, 100 * i + 2);
-    }
 }
