@@ -55,24 +55,20 @@ function showGameOverOrStartScreen(){
     
     var gameContainer = document.getElementById("gameContainer");
     var overlay = document.getElementById("overlay");
-    overlay.style.display = "block";
-    gameContainer.style = "none";
     var button = document.getElementById("overlayStartButton");
 
+    overlay.style.display = "block";
+    gameContainer.style = "none";
+    
     if(startScreen){
         gameContainer.style.display = "none";
+        document.getElementById("overlayProgressbar").style.display = "block";
     }
 
-
-    button.style.backgroundImage = "url('Graphics/Player.png')";
-    button.style.border = "none";
-    
-    overlay.style.marginTop = 0;
     button.style.marginTop = (window.innerHeight - button.clientHeight) / 2;
         
     if(!startScreen){
         button.addEventListener('click', function (e){
-            button.style.animationName = "buttonPuls, chickenDance, fadeOut";
             overlay.style.animationName = "fadeOut";
             gameContainer.style.animationName = "fadeIn";
             startScreen = true;
@@ -83,20 +79,11 @@ function showGameOverOrStartScreen(){
             setTimeout(function () {
                 overlay.style.display = "none";
                 overlay.style.animationName = "";
-                button.style.animationName = "buttonPuls, chickenDance";
-                gameContainer.style.animationName = "fadeIn";
                 gameContainer.style.opacity = 1.0;
                 }, 1000);
         });
     }
-    
-    else{
-        var pointField = document.getElementById("overlayProgressbar");
-        pointField.style.display = "block";
-    }
-
     updateSize();
-  
 }
 
 function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin){        //Funktions zur Größenänderung der Divs
@@ -147,8 +134,7 @@ function makeProgressbar(){         //Update der Größe und des angezeigten Pro
 
     text.style.height = size * 0.02;
     text.style.lineHeight = (size * 0.02) + "px";
-    text.innerHTML = percent + "% &emsp;" ;
-    
+    text.innerHTML = percent + "% &emsp;";
     
     bar.style.width = size * 0.3 * (percent / 100);
     bar.style.height = size * 0.02;
@@ -178,7 +164,6 @@ function updateSize() {                 //Berechnung zur Größenänderung der D
 
 function initializeStartButton() {      //Start Button Eventlistener geben
     document.getElementById("startButton").addEventListener('click', function () {
-
         newGame.startPressed();
     });
 }
