@@ -38,6 +38,14 @@ class Game {
         this.actualState = state;
     }
 
+    resetGame(){
+        this.points = 0;
+        this.moves = 4;
+
+        this.setListenerPosition("12");
+        this.setChickenPosition("11");
+    }
+
     setListenerPosition(newPosition) {
         this.listenerPositionField = newPosition;
     }

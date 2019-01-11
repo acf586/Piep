@@ -7,11 +7,7 @@ class StartState {
     startPressed() {
         this.game.remainingRounds = this.game.howManyRounds;
 
-        this.game.points = 0;
-        this.game.moves = 4;
-
-        this.game.setListenerPosition("12");
-        this.game.setChickenPosition("11");
+        this.game.resetGame();
 
         displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
         
