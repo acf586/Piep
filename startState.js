@@ -25,7 +25,7 @@ class StartState {
     fieldPressed(listenerPositionField) {}
 
     soundPlayingStopped() {
-        if (this.howManySoundsHaveBeenPlayed < 5) {
+        if (this.howManySoundsHaveBeenPlayed < 2) {
 
             this.howManySoundsHaveBeenPlayed++;
 
@@ -36,8 +36,7 @@ class StartState {
             play3DSound(0, this.game.chickenCurrentPosition, this.game.listenerPositionField);
         }
         else {
-            setTimeout(() => {
-                
+            setTimeout(() => {       
                 this.nextState();
             }, 800);
         }

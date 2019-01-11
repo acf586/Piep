@@ -204,8 +204,7 @@ window.onresize = function () {         //Bei Fenstergrößenänderung Aufruf de
 function resetGameField() {             //Zurücksetzen des Spielfelds
     for (var i = 0; i < buttonArray.length; i++) {
         buttonArray[i].style.backgroundImage = "url('Graphics/Button.png')";
-        //buttonArray[i].style.border = "none";
-        //buttonArray[i].innerHTML = "";
+        
     }
 }
 
@@ -213,22 +212,18 @@ function displayGame(chickenField, listenerField){      //Anzeigen des Spielers 
     resetGameField();
 
     document.getElementById(chickenField).style.backgroundImage = "url('Graphics/Player.png')";
-    document.getElementById(chickenField).style.border = "none";
-    
+
     document.getElementById(listenerField).style.backgroundImage = "url('Graphics/Listener.png')";
-    document.getElementById(listenerField).style.border = "none";
 }
 
 function displayChicken(chickenField) {         //Anzeigen des Hühnchens
     resetGameField();
     document.getElementById(chickenField).style.backgroundImage = "url('Graphics/Player.png')";
-    document.getElementById(chickenField).style.border = "none";
 }
 
 function displayListener(listenerField) {
     resetGameField();
     document.getElementById(listenerField).style.backgroundImage = "url('Graphics/Listener.png')";
-    document.getElementById(listenerField).style.border = "none";
 }
 
 function displayPoints(chickenField, points) {          //Anzeige der Punkte beim Finden des Hühnchens
@@ -236,17 +231,14 @@ function displayPoints(chickenField, points) {          //Anzeige der Punkte bei
     switch (points) {
         case 1:
             document.getElementById(chickenField).style.backgroundImage = "url('Graphics/1.png')";
-            document.getElementById(chickenField).style.border = "none";
             break;
 
         case 2:
             document.getElementById(chickenField).style.backgroundImage = "url('Graphics/2.png')";
-            document.getElementById(chickenField).style.border = "none";
             break;
 
         case 3:
             document.getElementById(chickenField).style.backgroundImage = "url('Graphics/3.png')";
-            document.getElementById(chickenField).style.border = "none";
             break;
 
         default:
