@@ -10,7 +10,7 @@ var buttonArray = null;
 var startScreen = false;
 
 window.onload = function () {           //Erzeugen des Spiel Objekts und Aufruf der Initializierung der Webside wenn alle Daten geladen wurden
-    newGame = new Game(5);
+    newGame = new Game(1);
 
     initializeWebsite();
 

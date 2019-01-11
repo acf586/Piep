@@ -24,7 +24,6 @@ for (let i = 0; i < soundFileNames.length; i++) {
 
     sounds[i].addEventListener("ended", function (e) {
         newGame.soundPlayingStopped();
-        //newGame.actualState.soundPlayingStopped();
     });
 }
 
@@ -40,7 +39,6 @@ function setSourceAndListenerPosition(sourcePosition, listenerPosition){
     sourceCoordinates = sourcePosition.split("");
     listenerCoordinates = listenerPosition.split("");
 
-    console.log("play3DSound");
     console.log("   original: Source: "+sourceCoordinates+" Listener: "+listenerCoordinates);
 
         sourceCoordinates[0] = transformCoordinatesToAudioField( sourceCoordinates[0] );
