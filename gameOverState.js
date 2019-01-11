@@ -8,9 +8,9 @@ class GameOverState {
 
         this.game.percentage = parseInt( (this.game.points / (this.game.howManyRounds * 3) )*100);
 
-        showGameOverOrStartScreen();
+        showStartScreen();
 
-        this.nextState();
+        this.game.nextState();
     }
 
     startPressed() {}

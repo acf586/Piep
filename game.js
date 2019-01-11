@@ -22,6 +22,10 @@ class Game {
         this.actualState = this.startState;
     }
 
+    run(){
+        this.actualState.run();
+    }
+
     startPressed() {
         this.actualState.startPressed();
     }
@@ -34,11 +38,19 @@ class Game {
         this.actualState.soundPlayingStopped();
     }
 
+    nextState(){
+        this.actualState.nextState();
+        //this.run();
+    }
+
     setActualState(state) {
         this.actualState = state;
+        this.run();
     }
 
     resetGame(){
+
+        this.remainingRounds = this.howManyRounds;
         this.points = 0;
         this.moves = 4;
 

@@ -21,7 +21,6 @@ class SuccessState {
 
         play3DSound(2,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
 
-        
     }
 
     startPressed() {}
@@ -32,13 +31,12 @@ class SuccessState {
         displayChicken(this.game.chickenCurrentPosition);
         
         if( this.game.remainingRounds<=0 ){
-            this.nextState();
+            this.game.nextState();
         }
         
         else{
             setTimeout(() => {
                 this.game.setActualState(this.game.chickenMoveState);
-                this.game.actualState.run();
             }, 1600);
            
         }
@@ -46,6 +44,5 @@ class SuccessState {
 
     nextState(){
         this.game.setActualState(this.game.gameOverState);
-        this.game.actualState.run();
     }
 }

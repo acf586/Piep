@@ -17,7 +17,7 @@ class ChickenMoveState {
     fieldPressed(listenerPositionField) {}
 
     soundPlayingStopped(){
-        this.nextState();
+        this.game.nextState();
     }
 
     nextState(){

@@ -3,18 +3,20 @@ class StartState {
     constructor(game) {
         this.game = game;
     }
+    run(){}
 
     startPressed() {
-        this.game.remainingRounds = this.game.howManyRounds;
 
         this.game.resetGame();
 
         displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
         
         this.game.setRandomChickenPosition();
+
         displayGame(this.game.chickenCurrentPosition,this.game.listenerPositionField);
 
         this.howManySoundsHaveBeenPlayed = 0;
+
         play3DSound(0,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
     }
     
@@ -31,16 +33,16 @@ class StartState {
 
             play3DSound(0, this.game.chickenCurrentPosition, this.game.listenerPositionField);
         }
+
         else {
             setTimeout(() => {       
-                this.nextState();
+                this.game.nextState();
             }, 800);
         }
     }
 
     nextState(){
         this.game.setActualState(this.game.chickenMoveState);
-        this.game.actualState.run();
     }
 
 }

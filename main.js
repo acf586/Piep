@@ -23,7 +23,7 @@ function initializeWebsite(){           //Initializierung der Webside mit Aufruf
 
     createGameField();
 
-    showGameOverOrStartScreen();
+    showStartScreen();
 
     updateSize();
 
@@ -51,7 +51,7 @@ function createGameField() {            //Erzeugung Spielfeld
 
 }
 
-function showGameOverOrStartScreen(){
+function showStartScreen(){
     
     var gameContainer = document.getElementById("gameContainer");
     var overlay = document.getElementById("overlay");

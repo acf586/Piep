@@ -12,11 +12,10 @@ class FailureState {
     fieldPressed(listenerPositionField) {}
 
     soundPlayingStopped(){
-        this.nextState(); 
+        this.game.nextState(); 
     }
 
     nextState(){
         this.game.setActualState(this.game.playHelpSoundState);
-            this.game.actualState.run();
     }
 }

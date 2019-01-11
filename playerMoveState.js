@@ -12,7 +12,6 @@ class PlayerMoveState {
         if (this.game.listenerPositionField === listenerPositionField) {
 
             this.game.setActualState(this.game.playHelpSoundState);
-            this.game.actualState.run();
         }
 
         else {
@@ -23,11 +22,11 @@ class PlayerMoveState {
             displayListener(this.game.listenerPositionField);
 
             if (this.game.chickenCurrentPosition == this.game.listenerPositionField) {
-                this.nextState();
+                this.game.nextState();
             }
             else {
                 this.game.setActualState(this.game.failureState);
-                this.game.actualState.run();
+                //this.game.run();
             }
 
         }
@@ -38,6 +37,5 @@ class PlayerMoveState {
 
     nextState(){
         this.game.setActualState(this.game.succesState);
-        this.game.actualState.run();
     }
 }
