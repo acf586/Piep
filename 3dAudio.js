@@ -1,5 +1,5 @@
 var audioContext = new AudioContext();
-var soundFileNames = ["chirp_neu_09","failure","success","test"];
+var soundFileNames = ["chirp","failure","success","test"];
 var sounds = [];
 
 var mediaElementAudioSource = [];
