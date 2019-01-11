@@ -70,7 +70,7 @@ html,body{
     margin: 0 auto;
     position: relative;
     
-    background-image: url('Assets/Player.png');
+    background-image: url('Graphics/Player.png');
     
     display: block;
     
@@ -122,17 +122,17 @@ html,body{
 
 @keyframes chickenDance{
     
-    0%      {background-image: url('Assets/Animation/Player1.png');}
+    0%      {background-image: url('Graphics/Animation/Player1.png');}
     
-    16%     {background-image: url('Assets/Animation/Player2.png');}
+    16%     {background-image: url('Graphics/Animation/Player2.png');}
     
-    32%     {background-image: url('Assets/Animation/Player3.png');}
+    32%     {background-image: url('Graphics/Animation/Player3.png');}
     
-    48%     {background-image: url('Assets/Animation/Player4.png');}
+    48%     {background-image: url('Graphics/Animation/Player4.png');}
     
-    64%     {background-image: url('Assets/Animation/Player5.png');}
+    64%     {background-image: url('Graphics/Animation/Player5.png');}
     
-    80%    {background-image: url('Assets/Animation/Player6.png');}
+    80%    {background-image: url('Graphics/Animation/Player6.png');}
     
     
 }
