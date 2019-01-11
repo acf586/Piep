@@ -34,8 +34,7 @@ html,body{
 
 .fieldButton{
     box-sizing: border-box;
-    /*border: 1px solid black;*/
-   
+ 
     border-radius: 50%;
 
     background-position: center;
@@ -43,8 +42,6 @@ html,body{
 
     background-repeat: no-repeat;
 
-    /* text-align: center center; */
-    /* font-size: 2vh; */
 }
 
 #overlay{
@@ -55,9 +52,7 @@ html,body{
     width: 100%;
     
     position: absolute;
-
-    
-    
+   
     background-color: none;
     
     animation-duration: 2s;
