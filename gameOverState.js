@@ -6,16 +6,14 @@ class GameOverState {
 
     run(){
 
-        this.game.percentage = parseInt( (this.game.points / (this.game.howManyRounds * 3) )*100);
-
-        showStartScreen();
+        this.game.displayStartScreen();
 
         this.game.nextState();
     }
 
     startPressed() {}
 
-    fieldPressed(listenerPositionField) {}
+    fieldPressed(listenerPosition) {}
 
     soundPlayingStopped(){}
 

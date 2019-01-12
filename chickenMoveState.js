@@ -5,16 +5,16 @@ class ChickenMoveState {
     }
 
     run(){
-        displayListener(this.game.listenerPositionField);
+        this.game.displayListener();
         
         this.game.setRandomChickenPosition();
 
-        play3DSound(0,this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        play3DSound(0,this.game.chickenPosition, this.game.listenerPosition);
     }
 
     startPressed() {}
 
-    fieldPressed(listenerPositionField) {}
+    fieldPressed(listenerPosition) {}
 
     soundPlayingStopped(){
         this.game.nextState();

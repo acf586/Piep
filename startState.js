@@ -9,18 +9,18 @@ class StartState {
 
         this.game.resetGame();
 
-        displayGame(this.game.chickenCurrentPosition, this.game.listenerPositionField);
+        this.game.displayGame();
         
         this.game.setRandomChickenPosition();
 
-        displayGame(this.game.chickenCurrentPosition,this.game.listenerPositionField);
+        this.game.displayGame();
 
         this.howManySoundsHaveBeenPlayed = 0;
 
-        play3DSound(0,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
+        play3DSound(0,this.game.chickenPosition, this.game.chickenPosition);
     }
     
-    fieldPressed(listenerPositionField) {}
+    fieldPressed(listenerPosition) {}
 
     soundPlayingStopped() {
         if (this.howManySoundsHaveBeenPlayed < 2) {
@@ -29,9 +29,9 @@ class StartState {
 
             this.game.setRandomChickenPosition();
 
-            displayGame(this.game.chickenCurrentPosition,this.game.listenerPositionField);
+            this.game.displayGame();
 
-            play3DSound(0, this.game.chickenCurrentPosition, this.game.listenerPositionField);
+            play3DSound(0, this.game.chickenPosition, this.game.listenerPosition);
         }
 
         else {

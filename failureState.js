@@ -4,12 +4,12 @@ class FailureState {
         this.game = game;
     }
     run(){
-        play3DSound(1,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
+        play3DSound(1,this.game.chickenPosition, this.game.chickenPosition);
     }
 
     startPressed() {}
 
-    fieldPressed(listenerPositionField) {}
+    fieldPressed(listenerPosition) {}
 
     soundPlayingStopped(){
         this.game.nextState(); 

@@ -8,8 +8,8 @@ class Game {
         this.moves = 0;
         this.percentage = 0;
 
-        this.chickenCurrentPosition;
-        this.listenerPositionField;
+        this.chickenPosition;
+        this.listenerPosition;
 
         this.startState = new StartState(this);
         this.chickenMoveState = new ChickenMoveState(this);
@@ -30,8 +30,8 @@ class Game {
         this.actualState.startPressed();
     }
 
-    fieldPressed(listenerPositionField) {
-        this.actualState.fieldPressed(listenerPositionField);
+    fieldPressed(listenerPosition) {
+        this.actualState.fieldPressed(listenerPosition);
     }
 
     soundPlayingStopped(){
@@ -59,24 +59,49 @@ class Game {
     }
 
     setListenerPosition(newPosition) {
-        this.listenerPositionField = newPosition;
+        this.listenerPosition = newPosition;
     }
     
     setChickenPosition(newPosition) {
-        this.chickenCurrentPosition = newPosition;
+        this.chickenPosition = newPosition;
     }
 
     setRandomChickenPosition(){
-        var oldPosition = this.chickenCurrentPosition;
+        var oldPosition = this.chickenPosition;
         var finsihed = false;
         while(!finsihed){
             let xIndex = (Math.random() * (numberOfFieldsInXdirection - 1)).toFixed(0);
             let yIndex = (Math.random() * (numberOfFieldsInXdirection - 1)).toFixed(0);
-            this.chickenCurrentPosition = xIndex + yIndex;
-            if( this.chickenCurrentPosition != this.listenerPositionField && oldPosition != this.chickenCurrentPosition){
+            this.chickenPosition = xIndex + yIndex;
+            if( this.chickenPosition != this.listenerPosition && oldPosition != this.chickenPosition){
                 finsihed=true;
             }
         }
     }
+
+    displayGame(){
+        displayGame(this.chickenPosition, this.listenerPosition);
+    }
+
+    displayListener(){
+        displayListener(this.listenerPosition);
+    }
+
+    displayChicken(){
+        displayChicken(this.chickenPosition);
+    }
+
+    displayPoints( pointsForSuccess ){
+        displayPoints(this.chickenPosition, pointsForSuccess);
+    }
+
+    displayStartScreen(){
+        this.percentage = parseInt( (this.points / (this.howManyRounds * 3) )*100);
+
+        showStartScreen();
+    }
+    
+    
+    
     
 }

@@ -23,7 +23,7 @@ for (let i = 0; i < soundFileNames.length; i++) {
     mediaElementAudioSource[i].connect(source.input);
 
     sounds[i].addEventListener("ended", function (e) {
-        newGame.soundPlayingStopped();
+        game.soundPlayingStopped();
     });
 }
 

@@ -7,9 +7,9 @@ class PlayerMoveState {
 
     startPressed() {}
 
-    fieldPressed(listenerPositionField) {
+    fieldPressed(listenerPosition) {
 
-        if (this.game.listenerPositionField === listenerPositionField) {
+        if (this.game.listenerPosition === listenerPosition) {
 
             this.game.setActualState(this.game.playHelpSoundState);
         }
@@ -17,11 +17,11 @@ class PlayerMoveState {
         else {
             this.game.moves--;
  
-            this.game.setListenerPosition(listenerPositionField);
+            this.game.setListenerPosition(listenerPosition);
 
-            displayListener(this.game.listenerPositionField);
+            this.game.displayListener();
 
-            if (this.game.chickenCurrentPosition == this.game.listenerPositionField) {
+            if (this.game.chickenPosition == this.game.listenerPosition) {
                 this.game.nextState();
             }
             else {

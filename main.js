@@ -10,7 +10,7 @@ var buttonArray = null;
 var startScreen = false;
 
 window.onload = function () {           //Erzeugen des Spiel Objekts und Aufruf der Initializierung der Webside wenn alle Daten geladen wurden
-    newGame = new Game(1);
+    game = new Game(2);
 
     initializeWebsite();
 
@@ -67,13 +67,13 @@ function showStartScreen(){
 
     button.style.marginTop = (window.innerHeight - button.clientHeight) / 2;
         
-    if(!startScreen){
+    if(!startScreen){//dieses in eine Methode die auf den Startbutton einen EventListener erstellt.
         button.addEventListener('click', function (e){
             overlay.style.animationName = "fadeOut";
             gameContainer.style.animationName = "fadeIn";
             startScreen = true;
 
-            newGame.startPressed();
+            game.startPressed();
             gameContainer.style.display = "block";
 
             setTimeout(function () {
@@ -117,7 +117,7 @@ function makeProgressbar(){         //Update der Größe und des angezeigten Pro
     var bar = document.getElementById("bar");
     var text = document.getElementById("text");
     
-    var percent = newGame.percentage;
+    var percent = game.percentage;
 
     var size = window.innerWidth;
     
@@ -162,21 +162,21 @@ function updateSize() {                 //Berechnung zur Größenänderung der D
     }    
 }
 
-function initializeStartButton() {      //Start Button Eventlistener geben
-    document.getElementById("startButton").addEventListener('click', function () {
-        newGame.startPressed();
-    });
-}
+// function initializeStartButton() {      //Start Button Eventlistener geben
+//     document.getElementById("startButton").addEventListener('click', function () {
+//         game.startPressed();
+//     });
+// }
 
 function fieldButtonsAddEventListener() {   //FieldButton Eventlistener geben
-    for (var i = 0; i < buttonArray.length; i++) {
+    for (let i = 0; i < buttonArray.length; i++) {
         buttonArray[i].id;
         buttonArray[i].addEventListener('click', function (e) {
-                var listenerPositionField = e.target.id;
+                let listenerPositionField = e.target.id;
 
                 console.log("ActionListener listener listenerPositionField: "+listenerPositionField);
 
-                newGame.fieldPressed(listenerPositionField);
+                game.fieldPressed(listenerPositionField);
         });
 
     }
@@ -186,10 +186,12 @@ window.onresize = function () {         //Bei Fenstergrößenänderung Aufruf de
     updateSize();
 }
 
+
+
+
 function resetGameField() {             //Zurücksetzen des Spielfelds
-    for (var i = 0; i < buttonArray.length; i++) {
+    for (let i = 0; i < buttonArray.length; i++) {
         buttonArray[i].style.backgroundImage = "url('Graphics/Button.png')";
-        
     }
 }
 

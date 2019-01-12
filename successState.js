@@ -7,11 +7,11 @@ class SuccessState {
     run(){
 
         if(this.game.moves > 1){
-            displayPoints(this.game.chickenCurrentPosition, this.game.moves);
+            this.game.displayPoints( this.game.moves );
             this.game.points += this.game.moves;
         }
         else{
-            displayPoints(this.game.chickenCurrentPosition, 1);
+            this.game.displayPoints(1);
             this.game.points += 1;
         }
         
@@ -19,16 +19,16 @@ class SuccessState {
 
         this.game.remainingRounds--;
 
-        play3DSound(2,this.game.chickenCurrentPosition, this.game.chickenCurrentPosition);
+        play3DSound(2,this.game.chickenPosition, this.game.chickenPosition);
 
     }
 
     startPressed() {}
     
-    fieldPressed(listenerPositionField) {}
+    fieldPressed(listenerPosition) {}
 
     soundPlayingStopped(){
-        displayChicken(this.game.chickenCurrentPosition);
+        this.game.displayChicken();
         
         if( this.game.remainingRounds<=0 ){
             this.game.nextState();
