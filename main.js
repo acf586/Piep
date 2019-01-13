@@ -16,19 +16,19 @@ window.onload = function () {           //Erzeugen des Spiel Objekts und Aufruf 
 
 function createGameField() {
 
-    for(let z = 0 ; z < numberOfFieldsInZdirection ; z++){
-        for(let x = 0; x < numberOfFieldsInXdirection; x++){
-        
+    for (let z = 0; z < numberOfFieldsInZdirection; z++) {
+        for (let x = 0; x < numberOfFieldsInXdirection; x++) {
+
             fieldButton = document.createElement("div");
-        
+
             fieldButton.className = "fieldButton";
-        
-            var fieldId = x +""+ z;
-        
+
+            var fieldId = x + "" + z;
+
             fieldButton.setAttribute("id", fieldId);
-        
+
             document.getElementById("game-grid").appendChild(fieldButton);
-            
+
         }
     }
 
@@ -41,44 +41,43 @@ function startButtonAddAventListener() {
         let gameContainer = document.getElementById("gameContainer");
         let overlay = document.getElementById("overlay");
 
-            overlay.style.animationName = "fadeOut";
+        overlay.style.animationName = "fadeOut";
 
-            gameContainer.style.display = "block";
+        gameContainer.style.display = "block";
 
-            gameContainer.style.animationName = "fadeIn";
+        gameContainer.style.animationName = "fadeIn";
 
-            setTimeout(function () {
+        setTimeout(function () {
 
-                overlay.style.display = "none";
+            overlay.style.display = "none";
 
-                document.getElementById("overlayProgressbar").style.display = "block";
+            document.getElementById("overlayProgressbar").style.display = "block";
 
-                game.startPressed();
+            game.startPressed();
 
-                }, 1000);
-    
+        }, 1000);
     });
 }
 
 function fieldButtonsAddEventListener() {
 
     let fieldButtonArray = document.getElementsByClassName("fieldButton");
-    
+
     for (let i = 0; i < fieldButtonArray.length; i++) {
         fieldButtonArray[i].id;
         fieldButtonArray[i].addEventListener('click', function (e) {
-                let listenerPositionField = e.target.id;
+            let listenerPositionField = e.target.id;
 
-                console.log("ActionListener listener listenerPositionField: "+listenerPositionField);
+            console.log("ActionListener listener listenerPositionField: " + listenerPositionField);
 
-                game.fieldPressed(listenerPositionField);
+            game.fieldPressed(listenerPositionField);
         });
 
     }
 }
 
-function showStartScreen(){
-    
+function showStartScreen() {
+
     let gameContainer = document.getElementById("gameContainer");
     let overlay = document.getElementById("overlay");
     let button = document.getElementById("overlayStartButton");
@@ -96,66 +95,66 @@ function showStartScreen(){
     updateSize();
 }
 
-function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin){      //Funktions zur Größenänderung der Divs
+function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin) {      //Funktions zur Größenänderung der Divs
 
     var gameContainer = document.getElementById("gameContainer");
     var button = document.getElementById("overlayStartButton");
     var pointField = document.getElementById("overlayProgressbar");
-    
+
     gameContainer.style.height = gCSize;
     gameContainer.style.width = gCSize;
 
     gameContainer.style.marginTop = gCMarginTop;
     gameContainer.style.marginLeft = gCMarginLeft;
-    
-    button.style.height = buttonSize; 
+
+    button.style.height = buttonSize;
     button.style.width = buttonSize;
     button.style.marginTop = buttonMargin;
-    
+
     pointField.marginTop = pointMargin;
     pointField.style.height = parseFloat(buttonSize / 3);
     pointField.style.width = parseFloat(buttonSize / 3);
     pointField.style.lineHeight = parseFloat(buttonSize / 3) + "px";
-    
+
     makeProgressbar();
-    
+
     document.getElementById("overlay").style.marginTop = 0;
 }
 
-function makeProgressbar(){         //Update der Größe und des angezeigten Prozentwertes im Prozentbalken
-    
+function makeProgressbar() {         //Update der Größe und des angezeigten Prozentwertes im Prozentbalken
+
     var progressbar = document.getElementById("progressbar");
     var bar = document.getElementById("bar");
     var text = document.getElementById("text");
-    
+
     var percent = game.percentage;
 
     var size = window.innerWidth;
-    
+
     progressbar.style.width = size * 0.3;
     progressbar.style.height = size * 0.02;
     progressbar.style.marginLeft = (size - size * 0.3) / 2;
-    progressbar.style.marginTop = size * 0.02;    
-    
+    progressbar.style.marginTop = size * 0.02;
+
     text.style.width = size * 0.3 * (percent / 100);
 
-    if(text.style.width < 100){
+    if (text.style.width < 100) {
         text.style.width = 100;
     }
 
     text.style.height = size * 0.02;
     text.style.lineHeight = (size * 0.02) + "px";
     text.innerHTML = percent + "% &emsp;";
-    
+
     bar.style.width = size * 0.3 * (percent / 100);
     bar.style.height = size * 0.02;
-    
-    if(progressbar.style.height < 50){
+
+    if (progressbar.style.height < 50) {
         progressbar.style.height = 50;
-        
+
         text.style.height = 50;
-        text.style.lineHeight = 50 + "px" ;
-        
+        text.style.lineHeight = 50 + "px";
+
         bar.style.height = 50;
     }
 }
@@ -163,13 +162,13 @@ function makeProgressbar(){         //Update der Größe und des angezeigten Pro
 function updateSize() {                 //Berechnung zur Größenänderung der Divs und Aufruf der makeSize() Funktion
     var winHeight = window.innerHeight;
     var winWidth = window.innerWidth;
-    
+
     if (winHeight > winWidth / 2 || winHeight == winWidth / 2) {
-        makeSize(winWidth / 2, (winHeight - winWidth / 2) / 2, (winWidth - winWidth / 2) / 2, winWidth * 0.2, (winHeight-winWidth * 0.2) / 2, winHeight * 0.25);
+        makeSize(winWidth / 2, (winHeight - winWidth / 2) / 2, (winWidth - winWidth / 2) / 2, winWidth * 0.2, (winHeight - winWidth * 0.2) / 2, winHeight * 0.25);
     }
     if (winHeight < winWidth / 2) {
         makeSize(winHeight - winHeight * 0.05, winHeight * 0.025, (winWidth - winHeight) / 2, winHeight * 0.4, (winHeight - winHeight * 0.4) / 2, winHeight * 0.25);
-    }    
+    }
 }
 
 window.onresize = function () {         //Bei Fenstergrößenänderung Aufruf der updateSize() Funktion
