@@ -79,20 +79,59 @@ class Game {
         }
     }
 
+    resetGameField() {
+        let fieldButtonArray = document.getElementsByClassName("fieldButton");
+
+        for (let i = 0; i < fieldButtonArray.length; i++) {
+            fieldButtonArray[i].style.backgroundImage = "url('Graphics/Button.png')";
+        }
+    }
+
     displayGame(){
-        displayGame(this.chickenPosition, this.listenerPosition);
+        this.resetGameField();
+
+        document.getElementById(this.chickenPosition).style.backgroundImage = "url('Graphics/Player.png')";
+
+        document.getElementById(this.listenerPosition).style.backgroundImage = "url('Graphics/Listener.png')";
+
     }
 
     displayListener(){
-        displayListener(this.listenerPosition);
+        this.resetGameField();
+        
+        document.getElementById(this.listenerPosition).style.backgroundImage = "url('Graphics/Listener.png')";
+
+        //displayListener(this.listenerPosition);
     }
 
     displayChicken(){
-        displayChicken(this.chickenPosition);
+        this.resetGameField();
+        
+        document.getElementById(this.chickenPosition).style.backgroundImage = "url('Graphics/Player.png')";
+        //displayChicken(this.chickenPosition);
     }
 
-    displayPoints( pointsForSuccess ){
-        displayPoints(this.chickenPosition, pointsForSuccess);
+    displayPoints(pointsForSuccess) {
+        this.resetGameField();
+
+        switch (pointsForSuccess) {
+            case 1:
+                document.getElementById(this.chickenPosition).style.backgroundImage = "url('Graphics/1.png')";
+                break;
+
+            case 2:
+                document.getElementById(this.chickenPosition).style.backgroundImage = "url('Graphics/2.png')";
+                break;
+
+            case 3:
+                document.getElementById(this.chickenPosition).style.backgroundImage = "url('Graphics/3.png')";
+                break;
+
+            default:
+                break;
+        }
+
+        //displayPoints(this.chickenPosition, pointsForSuccess);
     }
 
     displayStartScreen(){

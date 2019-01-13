@@ -4,14 +4,21 @@ html,body{
     margin: 0 auto;
     padding: 0;
     font-family: sans-serif;
-
-    background-position: center;
-    background-size:100% 100%;
-    background-repeat: no-repeat;
     
     overflow-y: hidden;
     overflow-x: hidden;
+
 }
+
+body{
+
+    background-image: url('Graphics/Background.png');
+    background-position: center;
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+
+}
+
 
 #gameContainer{
     float: left;
@@ -19,8 +26,8 @@ html,body{
     width: 50%;
     margin: 0 auto;
     opacity: 0.0;
-    animation-duration: 2s;
     animation-iteration-count: 1;
+    animation: 1.0s forwards;
     
 }
 
@@ -54,8 +61,8 @@ html,body{
     position: absolute;
    
     background-color: none;
-    
-    animation-duration: 2s;
+
+    animation: 1.0s forwards;
 }
 
 #overlayStartButton{
@@ -64,8 +71,6 @@ html,body{
     
     margin: 0 auto;
     position: relative;
-    
-    background-image: url('Graphics/Player.png');
     
     display: block;
     

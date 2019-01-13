@@ -1,33 +1,20 @@
-//zum Schluss wenn alles funktioniert die Console.logs entfernen
-
 var numberOfFieldsInXdirection = 3;
 var numberOfFieldsInZdirection = 3;
 
-var buttonArray = null;
-
-var startScreen = false;
-
 window.onload = function () {           //Erzeugen des Spiel Objekts und Aufruf der Initializierung der Webside wenn alle Daten geladen wurden
-    game = new Game(2);
-
-    initializeWebsite();
-
-    fieldButtonsAddEventListener();
-}
-
-function initializeWebsite(){           //Initializierung der Webside mit Aufruf zur Erzeugung des Spielfelds, zum Anzeigen des Startscreens und zur Anpassung an die Fenstergröße
-
-    document.body.style.backgroundImage = "url('Graphics/Background.png')";
+    game = new Game(1);
 
     createGameField();
 
-    showStartScreen();
+    startButtonAddAventListener();
 
-    updateSize();
+    fieldButtonsAddEventListener();
+
+    showStartScreen();
 
 }
 
-function createGameField() {            //Erzeugung Spielfeld
+function createGameField() {
 
     for(let z = 0 ; z < numberOfFieldsInZdirection ; z++){
         for(let x = 0; x < numberOfFieldsInXdirection; x++){
@@ -45,48 +32,72 @@ function createGameField() {            //Erzeugung Spielfeld
         }
     }
 
-    buttonArray = document.getElementsByClassName("fieldButton");
+}
 
+function startButtonAddAventListener() {
+
+    document.getElementById("overlayStartButton").addEventListener('click', function () {
+
+        let gameContainer = document.getElementById("gameContainer");
+        let overlay = document.getElementById("overlay");
+
+            overlay.style.animationName = "fadeOut";
+
+            gameContainer.style.display = "block";
+
+            gameContainer.style.animationName = "fadeIn";
+
+            setTimeout(function () {
+
+                overlay.style.display = "none";
+
+                document.getElementById("overlayProgressbar").style.display = "block";
+
+                game.startPressed();
+
+                }, 1000);
+    
+    });
+}
+
+function fieldButtonsAddEventListener() {
+
+    let fieldButtonArray = document.getElementsByClassName("fieldButton");
+    
+    for (let i = 0; i < fieldButtonArray.length; i++) {
+        fieldButtonArray[i].id;
+        fieldButtonArray[i].addEventListener('click', function (e) {
+                let listenerPositionField = e.target.id;
+
+                console.log("ActionListener listener listenerPositionField: "+listenerPositionField);
+
+                game.fieldPressed(listenerPositionField);
+        });
+
+    }
 }
 
 function showStartScreen(){
     
-    var gameContainer = document.getElementById("gameContainer");
-    var overlay = document.getElementById("overlay");
-    var button = document.getElementById("overlayStartButton");
+    let gameContainer = document.getElementById("gameContainer");
+    let overlay = document.getElementById("overlay");
+    let button = document.getElementById("overlayStartButton");
 
+    overlay.style.animationName = "fadeIn";
+    gameContainer.style.animationName = "fadeOut";
     overlay.style.display = "block";
-    gameContainer.style = "none";
-    
-    if(startScreen){
+
+    setTimeout(() => {
         gameContainer.style.display = "none";
-        document.getElementById("overlayProgressbar").style.display = "block";
-    }
+    }, 1000);
 
     button.style.marginTop = (window.innerHeight - button.clientHeight) / 2;
-        
-    if(!startScreen){//dieses in eine Methode die auf den Startbutton einen EventListener erstellt.
-        button.addEventListener('click', function (e){
-            overlay.style.animationName = "fadeOut";
-            gameContainer.style.animationName = "fadeIn";
-            startScreen = true;
 
-            
-            gameContainer.style.display = "block";
-
-            setTimeout(function () {
-                overlay.style.display = "none";
-                overlay.style.animationName = "";
-                gameContainer.style.opacity = 1.0;
-
-                game.startPressed();
-                }, 1000);
-        });
-    }
     updateSize();
 }
 
-function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin){        //Funktions zur Größenänderung der Divs
+function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin){      //Funktions zur Größenänderung der Divs
+
     var gameContainer = document.getElementById("gameContainer");
     var button = document.getElementById("overlayStartButton");
     var pointField = document.getElementById("overlayProgressbar");
@@ -149,7 +160,6 @@ function makeProgressbar(){         //Update der Größe und des angezeigten Pro
     }
 }
 
-
 function updateSize() {                 //Berechnung zur Größenänderung der Divs und Aufruf der makeSize() Funktion
     var winHeight = window.innerHeight;
     var winWidth = window.innerWidth;
@@ -162,74 +172,6 @@ function updateSize() {                 //Berechnung zur Größenänderung der D
     }    
 }
 
-// function initializeStartButton() {      //Start Button Eventlistener geben
-//     document.getElementById("startButton").addEventListener('click', function () {
-//         game.startPressed();
-//     });
-// }
-
-function fieldButtonsAddEventListener() {   //FieldButton Eventlistener geben
-    for (let i = 0; i < buttonArray.length; i++) {
-        buttonArray[i].id;
-        buttonArray[i].addEventListener('click', function (e) {
-                let listenerPositionField = e.target.id;
-
-                console.log("ActionListener listener listenerPositionField: "+listenerPositionField);
-
-                game.fieldPressed(listenerPositionField);
-        });
-
-    }
-}
-
 window.onresize = function () {         //Bei Fenstergrößenänderung Aufruf der updateSize() Funktion
     updateSize();
-}
-
-
-
-
-function resetGameField() {             //Zurücksetzen des Spielfelds
-    for (let i = 0; i < buttonArray.length; i++) {
-        buttonArray[i].style.backgroundImage = "url('Graphics/Button.png')";
-    }
-}
-
-function displayGame(chickenField, listenerField){      //Anzeigen des Spielers und des Hühnchens
-    resetGameField();
-
-    document.getElementById(chickenField).style.backgroundImage = "url('Graphics/Player.png')";
-
-    document.getElementById(listenerField).style.backgroundImage = "url('Graphics/Listener.png')";
-}
-
-function displayChicken(chickenField) {         //Anzeigen des Hühnchens
-    resetGameField();
-    document.getElementById(chickenField).style.backgroundImage = "url('Graphics/Player.png')";
-}
-
-function displayListener(listenerField) {
-    resetGameField();
-    document.getElementById(listenerField).style.backgroundImage = "url('Graphics/Listener.png')";
-}
-
-function displayPoints(chickenField, points) {          //Anzeige der Punkte beim Finden des Hühnchens
-    resetGameField();
-    switch (points) {
-        case 1:
-            document.getElementById(chickenField).style.backgroundImage = "url('Graphics/1.png')";
-            break;
-
-        case 2:
-            document.getElementById(chickenField).style.backgroundImage = "url('Graphics/2.png')";
-            break;
-
-        case 3:
-            document.getElementById(chickenField).style.backgroundImage = "url('Graphics/3.png')";
-            break;
-
-        default:
-            break;
-    }
-
 }
