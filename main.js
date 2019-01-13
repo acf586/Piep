@@ -3,8 +3,6 @@
 var numberOfFieldsInXdirection = 3;
 var numberOfFieldsInZdirection = 3;
 
-var audioDistanceBetweenFields = 1;
-
 var buttonArray = null;
 
 var startScreen = false;
@@ -73,13 +71,15 @@ function showStartScreen(){
             gameContainer.style.animationName = "fadeIn";
             startScreen = true;
 
-            game.startPressed();
+            
             gameContainer.style.display = "block";
 
             setTimeout(function () {
                 overlay.style.display = "none";
                 overlay.style.animationName = "";
                 gameContainer.style.opacity = 1.0;
+
+                game.startPressed();
                 }, 1000);
         });
     }

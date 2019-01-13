@@ -1,3 +1,5 @@
+var audioDistanceBetweenFields = 1;
+
 var audioContext = new AudioContext();
 var soundFileNames = ["chirp","failure","success","test"];
 var sounds = [];
