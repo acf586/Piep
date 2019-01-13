@@ -102,8 +102,8 @@ window.onresize = function () {
 }
 
 function updateSize() {                 //Berechnung zur Größenänderung der Divs und Aufruf der makeSize() Funktion
-    var winHeight = window.innerHeight;
-    var winWidth = window.innerWidth;
+    let winHeight = window.innerHeight;
+    let winWidth = window.innerWidth;
 
     if (winHeight > winWidth / 2 || winHeight == winWidth / 2) {
         makeSize(winWidth / 2, (winHeight - winWidth / 2) / 2, (winWidth - winWidth / 2) / 2, winWidth * 0.2, (winHeight - winWidth * 0.2) / 2, winHeight * 0.25);
@@ -115,9 +115,9 @@ function updateSize() {                 //Berechnung zur Größenänderung der D
 
 function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin) {      //Funktions zur Größenänderung der Divs
 
-    var gameContainer = document.getElementById("gameContainer");
-    var button = document.getElementById("overlayStartButton");
-    var pointField = document.getElementById("overlayProgressbar");
+    let gameContainer = document.getElementById("gameContainer");
+    let button = document.getElementById("overlayStartButton");
+    let pointField = document.getElementById("overlayProgressbar");
 
     gameContainer.style.height = gCSize;
     gameContainer.style.width = gCSize;
@@ -141,13 +141,13 @@ function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, p
 
 function makeProgressbar() {         //Update der Größe und des angezeigten Prozentwertes im Prozentbalken
 
-    var progressbar = document.getElementById("progressbar");
-    var bar = document.getElementById("bar");
-    var text = document.getElementById("text");
+    let progressbar = document.getElementById("progressbar");
+    let bar = document.getElementById("bar");
+    let text = document.getElementById("text");
 
-    var percent = game.percentage;
+    let percent = game.percentage;
 
-    var size = window.innerWidth;
+    let size = window.innerWidth;
 
     progressbar.style.width = size * 0.3;
     progressbar.style.height = size * 0.02;
