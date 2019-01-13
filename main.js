@@ -6,7 +6,7 @@ window.onload = function () {           //Erzeugen des Spiel Objekts und Aufruf 
 
     createGameField();
 
-    startButtonAddAventListener();
+    startButtonAddEventListener();
 
     fieldButtonsAddEventListener();
 
@@ -34,7 +34,7 @@ function createGameField() {
 
 }
 
-function startButtonAddAventListener() {
+function startButtonAddEventListener() {
 
     document.getElementById("overlayStartButton").addEventListener('click', function () {
 
