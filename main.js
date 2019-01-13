@@ -95,7 +95,7 @@ function showStartScreen() {
     updateSize();
 }
 
-//Dieser Abschnitt dient dazu die Anwendung responsive darzustellen
+//Der folgende Abschnitt dient dazu die Anwendung responsive darzustellen
 
 window.onresize = function () {
     updateSize();
