@@ -55,7 +55,7 @@ function startButtonAddAventListener() {
 
             game.startPressed();
 
-        }, 1000);
+        }, 500);
     });
 }
 
@@ -88,7 +88,7 @@ function showStartScreen() {
 
     setTimeout(() => {
         gameContainer.style.display = "none";
-    }, 1000);
+    }, 500);
 
     button.style.marginTop = (window.innerHeight - button.clientHeight) / 2;
 

@@ -25,9 +25,9 @@ body{
     height: 100%;
     width: 50%;
     margin: 0 auto;
-    opacity: 0.0;
     animation-iteration-count: 1;
-    animation: 1.0s forwards;
+    animation: 0.5s forwards;
+    display: "none";
     
 }
 
@@ -62,7 +62,7 @@ body{
    
     background-color: none;
 
-    animation: 1.0s forwards;
+    animation: 0.5s forwards;
 }
 
 #overlayStartButton{
