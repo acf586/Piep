@@ -1,23 +1,23 @@
 class GameOverState {
-    
+
     constructor(game) {
         this.game = game;
     }
 
-    run(){
+    run() {
 
         this.game.displayStartScreen();
 
         this.game.nextState();
     }
 
-    startPressed() {}
+    startPressed() { }
 
-    fieldPressed(listenerPosition) {}
+    fieldPressed(listenerPosition) { }
 
-    soundPlayingStopped(){}
+    soundPlayingStopped() { }
 
-    nextState(){
+    nextState() {
         this.game.setActualState(this.game.startState);
     }
 }

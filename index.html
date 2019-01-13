@@ -3,7 +3,7 @@
 <head>
     <title>Sound Memory</title>
     <link rel="stylesheet" href="style.css" type="text/css">
-    
+
     <script src="main.js"></script>
 
     <script src="game.js"></script>
@@ -15,29 +15,29 @@
     <script src="failureState.js"></script>
     <script src="successState.js"></script>
     <script src="gameOverState.js"></script>
-    
+
 
     <script src="https://cdn.jsdelivr.net/npm/resonance-audio/build/resonance-audio.min.js"></script>
     <script src="3dAudio.js"></script>
-    
+
 </head>
 
 <body>
-        <div id="gameContainer">
-            <div id="game-grid">
+    <div id="gameContainer">
+        <div id="game-grid">
 
+        </div>
+    </div>
+
+    <div id="overlay">
+        <div id="overlayStartButton"></div>
+        <div id="overlayProgressbar" style="display: none">
+            <div id="progressbar">
+                <div id="text"></div>
+                <div id="bar"></div>
             </div>
         </div>
-
-        <div id="overlay">
-            <div id="overlayStartButton"></div>
-            <div id="overlayProgressbar"  style="display: none">
-                <div id="progressbar">
-                    <div id="text"></div>
-                    <div id="bar"></div>
-                </div>
-            </div>            
-        </div>
+    </div>
 </body>
 
 </html>

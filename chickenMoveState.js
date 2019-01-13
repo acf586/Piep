@@ -1,28 +1,28 @@
 class ChickenMoveState {
-    
+
     constructor(game) {
         this.game = game;
     }
 
-    run(){
+    run() {
         this.game.displayListener();
-        
+
         this.game.setRandomChickenPosition();
 
-        play3DSound(0,this.game.chickenPosition, this.game.listenerPosition);
+        play3DSound(0, this.game.chickenPosition, this.game.listenerPosition);
     }
 
-    startPressed() {}
+    startPressed() { }
 
-    fieldPressed(listenerPosition) {}
+    fieldPressed(listenerPosition) { }
 
-    soundPlayingStopped(){
+    soundPlayingStopped() {
         this.game.nextState();
     }
 
-    nextState(){
+    nextState() {
         this.game.setActualState(this.game.playerMoveState);
     }
-   
+
 
 }

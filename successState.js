@@ -1,48 +1,48 @@
 class SuccessState {
-    
+
     constructor(game) {
         this.game = game;
     }
 
-    run(){
+    run() {
 
-        if(this.game.moves > 1){
-            this.game.displayPoints( this.game.moves );
+        if (this.game.moves > 1) {
+            this.game.displayPoints(this.game.moves);
             this.game.points += this.game.moves;
         }
-        else{
+        else {
             this.game.displayPoints(1);
             this.game.points += 1;
         }
-        
+
         this.game.moves = 4;
 
         this.game.remainingRounds--;
 
-        play3DSound(2,this.game.chickenPosition, this.game.chickenPosition);
+        play3DSound(2, this.game.chickenPosition, this.game.chickenPosition);
 
     }
 
-    startPressed() {}
-    
-    fieldPressed(listenerPosition) {}
+    startPressed() { }
 
-    soundPlayingStopped(){
+    fieldPressed(listenerPosition) { }
+
+    soundPlayingStopped() {
         this.game.displayChicken();
-        
-        if( this.game.remainingRounds<=0 ){
+
+        if (this.game.remainingRounds <= 0) {
             this.game.nextState();
         }
-        
-        else{
+
+        else {
             setTimeout(() => {
                 this.game.setActualState(this.game.chickenMoveState);
             }, 1600);
-           
+
         }
     }
 
-    nextState(){
+    nextState() {
         this.game.setActualState(this.game.gameOverState);
     }
 }

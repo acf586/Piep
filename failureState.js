@@ -1,21 +1,21 @@
 class FailureState {
-    
+
     constructor(game) {
         this.game = game;
     }
-    run(){
-        play3DSound(1,this.game.chickenPosition, this.game.chickenPosition);
+    run() {
+        play3DSound(1, this.game.chickenPosition, this.game.chickenPosition);
     }
 
-    startPressed() {}
+    startPressed() { }
 
-    fieldPressed(listenerPosition) {}
+    fieldPressed(listenerPosition) { }
 
-    soundPlayingStopped(){
-        this.game.nextState(); 
+    soundPlayingStopped() {
+        this.game.nextState();
     }
 
-    nextState(){
+    nextState() {
         this.game.setActualState(this.game.playHelpSoundState);
     }
 }

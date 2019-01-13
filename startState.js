@@ -1,29 +1,29 @@
 class StartState {
-    
+
     constructor(game) {
         this.game = game;
     }
-    run(){}
+    run() { }
 
     startPressed() {
 
         this.game.resetGame();
 
         this.game.displayGame();
-        
+
         this.game.setRandomChickenPosition();
 
         this.game.displayGame();
 
         this.howManySoundsHaveBeenPlayed = 0;
 
-        play3DSound(0,this.game.chickenPosition, this.game.chickenPosition);
+        play3DSound(0, this.game.chickenPosition, this.game.chickenPosition);
     }
-    
-    fieldPressed(listenerPosition) {}
+
+    fieldPressed(listenerPosition) { }
 
     soundPlayingStopped() {
-        if (this.howManySoundsHaveBeenPlayed < 2) {
+        if (this.howManySoundsHaveBeenPlayed < 4) {
 
             this.howManySoundsHaveBeenPlayed++;
 
@@ -35,13 +35,13 @@ class StartState {
         }
 
         else {
-            setTimeout(() => {       
+            setTimeout(() => {
                 this.game.nextState();
             }, 800);
         }
     }
 
-    nextState(){
+    nextState() {
         this.game.setActualState(this.game.chickenMoveState);
     }
 

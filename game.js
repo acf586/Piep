@@ -22,7 +22,7 @@ class Game {
         this.actualState = this.startState;
     }
 
-    run(){
+    run() {
         this.actualState.run();
     }
 
@@ -34,13 +34,12 @@ class Game {
         this.actualState.fieldPressed(listenerPosition);
     }
 
-    soundPlayingStopped(){
+    soundPlayingStopped() {
         this.actualState.soundPlayingStopped();
     }
 
-    nextState(){
+    nextState() {
         this.actualState.nextState();
-        //this.run();
     }
 
     setActualState(state) {
@@ -48,7 +47,7 @@ class Game {
         this.run();
     }
 
-    resetGame(){
+    resetGame() {
 
         this.remainingRounds = this.howManyRounds;
         this.points = 0;
@@ -61,20 +60,20 @@ class Game {
     setListenerPosition(newPosition) {
         this.listenerPosition = newPosition;
     }
-    
+
     setChickenPosition(newPosition) {
         this.chickenPosition = newPosition;
     }
 
-    setRandomChickenPosition(){
+    setRandomChickenPosition() {
         var oldPosition = this.chickenPosition;
         var finsihed = false;
-        while(!finsihed){
+        while (!finsihed) {
             let xIndex = (Math.random() * (numberOfFieldsInXdirection - 1)).toFixed(0);
             let yIndex = (Math.random() * (numberOfFieldsInXdirection - 1)).toFixed(0);
             this.chickenPosition = xIndex + yIndex;
-            if( this.chickenPosition != this.listenerPosition && oldPosition != this.chickenPosition){
-                finsihed=true;
+            if (this.chickenPosition != this.listenerPosition && oldPosition != this.chickenPosition) {
+                finsihed = true;
             }
         }
     }
@@ -87,7 +86,7 @@ class Game {
         }
     }
 
-    displayGame(){
+    displayGame() {
         this.resetGameField();
 
         document.getElementById(this.chickenPosition).style.backgroundImage = "url('Graphics/Player.png')";
@@ -96,19 +95,17 @@ class Game {
 
     }
 
-    displayListener(){
+    displayListener() {
         this.resetGameField();
-        
+
         document.getElementById(this.listenerPosition).style.backgroundImage = "url('Graphics/Listener.png')";
 
-        //displayListener(this.listenerPosition);
     }
 
-    displayChicken(){
+    displayChicken() {
         this.resetGameField();
-        
+
         document.getElementById(this.chickenPosition).style.backgroundImage = "url('Graphics/Player.png')";
-        //displayChicken(this.chickenPosition);
     }
 
     displayPoints(pointsForSuccess) {
@@ -130,17 +127,12 @@ class Game {
             default:
                 break;
         }
-
-        //displayPoints(this.chickenPosition, pointsForSuccess);
     }
 
-    displayStartScreen(){
-        this.percentage = parseInt( (this.points / (this.howManyRounds * 3) )*100);
+    displayStartScreen() {
+        this.percentage = Math.round((this.points / (this.howManyRounds * 3)) * 100, 0);
 
         showStartScreen();
     }
-    
-    
-    
-    
+
 }

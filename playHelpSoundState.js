@@ -1,20 +1,20 @@
 class PlayHelpSoundState {
-    
+
     constructor(game) {
         this.game = game;
     }
-    run(){
+    run() {
         play3DSound(0, this.game.chickenPosition, this.game.listenerPosition);
     }
 
-    startPressed() {}
-    fieldPressed(listenerPosition) {}
+    startPressed() { }
+    fieldPressed(listenerPosition) { }
 
-    soundPlayingStopped(){
-        this.game.nextState(); 
+    soundPlayingStopped() {
+        this.game.nextState();
     }
 
-    nextState(){
+    nextState() {
         this.game.setActualState(this.game.playerMoveState);
     }
 }

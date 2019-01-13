@@ -2,7 +2,7 @@ var numberOfFieldsInXdirection = 3;
 var numberOfFieldsInZdirection = 3;
 
 window.onload = function () {           //Erzeugen des Spiel Objekts und Aufruf der Initializierung der Webside wenn alle Daten geladen wurden
-    game = new Game(1);
+    game = new Game(5);
 
     createGameField();
 
@@ -95,6 +95,24 @@ function showStartScreen() {
     updateSize();
 }
 
+//Dieser Abschnitt dient dazu die Anwendung responsive darzustellen
+
+window.onresize = function () {
+    updateSize();
+}
+
+function updateSize() {                 //Berechnung zur Größenänderung der Divs und Aufruf der makeSize() Funktion
+    var winHeight = window.innerHeight;
+    var winWidth = window.innerWidth;
+
+    if (winHeight > winWidth / 2 || winHeight == winWidth / 2) {
+        makeSize(winWidth / 2, (winHeight - winWidth / 2) / 2, (winWidth - winWidth / 2) / 2, winWidth * 0.2, (winHeight - winWidth * 0.2) / 2, winHeight * 0.25);
+    }
+    if (winHeight < winWidth / 2) {
+        makeSize(winHeight - winHeight * 0.05, winHeight * 0.025, (winWidth - winHeight) / 2, winHeight * 0.4, (winHeight - winHeight * 0.4) / 2, winHeight * 0.25);
+    }
+}
+
 function makeSize(gCSize, gCMarginTop, gCMarginLeft, buttonSize, buttonMargin, pointMargin) {      //Funktions zur Größenänderung der Divs
 
     var gameContainer = document.getElementById("gameContainer");
@@ -157,20 +175,4 @@ function makeProgressbar() {         //Update der Größe und des angezeigten Pr
 
         bar.style.height = 50;
     }
-}
-
-function updateSize() {                 //Berechnung zur Größenänderung der Divs und Aufruf der makeSize() Funktion
-    var winHeight = window.innerHeight;
-    var winWidth = window.innerWidth;
-
-    if (winHeight > winWidth / 2 || winHeight == winWidth / 2) {
-        makeSize(winWidth / 2, (winHeight - winWidth / 2) / 2, (winWidth - winWidth / 2) / 2, winWidth * 0.2, (winHeight - winWidth * 0.2) / 2, winHeight * 0.25);
-    }
-    if (winHeight < winWidth / 2) {
-        makeSize(winHeight - winHeight * 0.05, winHeight * 0.025, (winWidth - winHeight) / 2, winHeight * 0.4, (winHeight - winHeight * 0.4) / 2, winHeight * 0.25);
-    }
-}
-
-window.onresize = function () {         //Bei Fenstergrößenänderung Aufruf der updateSize() Funktion
-    updateSize();
 }

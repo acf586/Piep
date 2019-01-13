@@ -3,9 +3,9 @@ class PlayerMoveState {
         this.game = game;
     }
 
-    run(){}
+    run() { }
 
-    startPressed() {}
+    startPressed() { }
 
     fieldPressed(listenerPosition) {
 
@@ -16,7 +16,7 @@ class PlayerMoveState {
 
         else {
             this.game.moves--;
- 
+
             this.game.setListenerPosition(listenerPosition);
 
             this.game.displayListener();
@@ -26,16 +26,15 @@ class PlayerMoveState {
             }
             else {
                 this.game.setActualState(this.game.failureState);
-                //this.game.run();
             }
 
         }
 
     }
 
-    soundPlayingStopped(){}
+    soundPlayingStopped() { }
 
-    nextState(){
+    nextState() {
         this.game.setActualState(this.game.succesState);
     }
 }
